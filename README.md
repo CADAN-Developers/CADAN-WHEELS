@@ -1,7 +1,21 @@
 
 # CADAN WHEELS
 
-funcionalidad Login 
+
+## Preview
+
+Pagina Home
+
+![home](https://github.com/CADAN-Developers/CADAN-WHEELS/blob/master/resources/home.JPG)
+
+Pagina registro Usuario
+
+![rusuario](https://github.com/CADAN-Developers/CADAN-WHEELS/blob/master/resources/rusuario.JPG)
+
+Pagina registro vehiculo
+
+![rvehiculo](https://github.com/CADAN-Developers/CADAN-WHEELS/blob/master/resources/rvehiculo.JPG)
+
 
 ## Developer
 
