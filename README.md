@@ -13,6 +13,10 @@ Juan Manuel villate Isaza [villate13](https://github.com/villate13)
     
 ## BUILT IN
 Proyecto construido en [React](https://reactjs.org/)
+
+## SprintBackLog
+
+[este link lleva al backlog](https://tree.taiga.io/project/andresqd-cadan-developers/backlog)
    
 ## License
 ----
