@@ -6,15 +6,15 @@
 
 Pagina Home
 
-![home](https://github.com/CADAN-Developers/CADAN-WHEELS/blob/master/resources/home.JPG)
+![home](https://github.com/CADAN-Developers/CADAN-WHEELS/blob/master/resources/home.png)
 
 Pagina registro Usuario
 
-![rusuario](https://github.com/CADAN-Developers/CADAN-WHEELS/blob/master/resources/rusuario.JPG)
+![rusuario](https://github.com/CADAN-Developers/CADAN-WHEELS/blob/master/resources/rusuario.png)
 
 Pagina registro vehiculo
 
-![rvehiculo](https://github.com/CADAN-Developers/CADAN-WHEELS/blob/master/resources/rvehiculo.JPG)
+![rvehiculo](https://github.com/CADAN-Developers/CADAN-WHEELS/blob/master/resources/rvehiculo.png)
 
 
 ## Developer
