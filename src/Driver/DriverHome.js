@@ -112,9 +112,9 @@ class DriverHome extends Component {
                                         </Col>
                                     </Row>
                                 </Card.Body>
-                            </Card>
+                            </Card  >
                             <br></br>
-                            <Card>
+                            <Card className="text-left">
                                 <Card.Header as="h5">Latest Feedbacks</Card.Header>
                                 <Card.Body>
                                     <Row>
