@@ -1,11 +1,29 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+
+
 
 class FormUsuario extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            tipoUsuario: "Pasajero",
+        };
+        this.print=this.print.bind(this);
+    }
+    myChangeHandler = (event) => {
+        this.setState({tipoUsuario: event.target.value});
+
+    }
+    print(){
+        console.log(this.state.tipoUsuario);
+
+    }
+
     render() {
         return (
             <div>
-
                 <Form>
                     <Form.Group controlId="exampleForm.ControlInput1">
                         <Form.Label>Nombre</Form.Label>
@@ -27,32 +45,23 @@ class FormUsuario extends React.Component {
                         <Form.Label>Universidad</Form.Label>
                         <Form.Control as="select">
                             <option>Escuela Colombiana de Ingeniería Julio Garavito</option>
-                            
+
                         </Form.Control>
                         <Form.Label>Tipo de usuario</Form.Label>
-                        <Form.Control as="select">
-                            <option>Conductor</option>
+                        <Form.Control name="tipo" as="select" onChange={this.myChangeHandler}>
                             <option>Pasajero</option>
-                            
+                            <option>Conductor</option>
                         </Form.Control>
                         <Form.Label>Carné</Form.Label>
                         <Form.Control type="integer" placeholder="Carné" />
                     </Form.Group>
-            
-                    <Form.Group controlId="exampleForm.ControlSelect2">
-                        <Form.Label>Example multiple select</Form.Label>
-                        <Form.Control as="select" multiple>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Example textarea</Form.Label>
-                        <Form.Control as="textarea" rows="3" />
-                    </Form.Group>
+                    <Form.File id="carne" label="Adjuntar carné" />
+
+                    
+                    {this.state.tipoUsuario==="Pasajero" ? <Button className="btn btn-lg mt-5" variant="success" onClick={this.print}>Finalizar registro</Button> : 
+                    <Button className="btn btn-lg mt-5" variant="warning" onClick={this.print}>Registrar vehiculo</Button>}
+
+
                 </Form>
             </div>
         );

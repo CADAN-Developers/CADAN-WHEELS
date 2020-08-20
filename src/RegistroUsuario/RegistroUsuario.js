@@ -13,9 +13,9 @@ import logo from '../logo.svg';
 class RegistroUsuario extends React.Component {
     render() {
         return (
-            <div>
-                <Menu></Menu>
-                <Container>
+            <div >
+                <Menu/>
+                <Container className="container-fluid">
                     <Row className="justify-content-md-center">
                         <h1>Registro de usuario</h1>
                     </Row>
