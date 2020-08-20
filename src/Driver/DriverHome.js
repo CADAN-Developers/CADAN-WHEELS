@@ -4,6 +4,14 @@ import './DriverHome.css';
 
 import Navigation from '../components/Navigation'
 
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+
+
 
 class DriverHome extends Component {
 
@@ -15,121 +23,153 @@ class DriverHome extends Component {
 
                 {/* Body */}
                 <br></br>
-                <div id="div_content" class="row d-flex justify-content-center">
-                    <div class="col-lg-3 col-md-12 mb-4">
 
-                        <div class="card text-center">
-                            <div class="card-header">
-                                <b>PANEL</b>
-                            </div>
-                            <div class="card-body ">
+                <Container fluid>
+                    <Row>
+                        <Col sm={2}>
+                            <Card className="text-center">
+                                <Card.Header bg="dark" as="h5">PANEL</Card.Header>
+                                <Card.Body>
+                                    <Card.Text>
+                                        <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg" roundedCircle width="175" height="175" />
+                                    </Card.Text>
+                                    <Card.Title>JULIAN SANCHEZ</Card.Title>
 
-                                <p class="card-text">
-                                    <img class="rounded-circle z-depth-2" alt="100x100" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg"
-                                        data-holder-rendered="true" />
-                                </p>
-                                <p>
-                                    JULIAN SANCHEZ
-                                </p>
-                                <a class="card-link">Add Car</a>
-                                <a class="card-link">Withdraw</a>
-                            </div>
-                        </div>
+                                    <Button variant="primary">Add Car</Button>
+                                    &nbsp;
+                                    <Button variant="primary">Withdraw</Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                        <Col sm={10}>
+                            <Card>
+                                <Card.Header as="h5">Last Trips</Card.Header>
+                                <Card.Body>
 
+                                    <Row>
+                                        <Col>
+                                            {/* <!-- Card content --> */}
+                                            <Card className="text-center">
+                                                <Card.Header as="h5">
+                                                    <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg" roundedCircle width="200" height="200" />
+                                                </Card.Header>
+                                                <Card.Body>
+                                                    <Card.Title>MARIA GONZALEZ</Card.Title>
+                                                    <Card.Text>
+                                                        UNIVERSITARIO - 16 AGO 2020 - $3.000
+                                            </Card.Text>
+                                                    <Button variant="primary">Consult</Button>
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+
+                                        <Col>
+                                            {/* <!-- Card content --> */}
+                                            <Card className="text-center">
+                                                <Card.Header as="h5">
+                                                    <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" roundedCircle width="200" height="200" />
+                                                </Card.Header>
+                                                <Card.Body>
+                                                    <Card.Title> LAURA HERNANDEZ</Card.Title>
+                                                    <Card.Text>
+                                                        MAESTRO - 16 AGO 2020 - $4.000
+                                            </Card.Text>
+                                                    <Button variant="primary">Consult</Button>
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+
+                                        <Col>
+                                            {/* <!-- Card content --> */}
+                                            <Card className="text-center">
+                                                <Card.Header as="h5">
+                                                    <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(32).jpg" roundedCircle width="200" height="200" />
+                                                </Card.Header>
+                                                <Card.Body>
+                                                    <Card.Title>ALEJANDRO ALBA</Card.Title>
+                                                    <Card.Text>
+                                                        ESTUDIANTE - 15 AGO 2020 - $2.500
+                                            </Card.Text>
+                                                    <Button variant="primary">Consult</Button>
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+
+                                        <Col>
+                                            {/* <!-- Card content --> */}
+                                            <Card className="text-center">
+                                                <Card.Header as="h5">
+                                                    <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(13).jpg" roundedCircle width="200" height="200" />
+                                                </Card.Header>
+                                                <Card.Body>
+                                                    <Card.Title>JORGE PAEZ</Card.Title>
+                                                    <Card.Text>
+                                                        MAESTRO - 12 AGO 2020 - $4.500
+                                            </Card.Text>
+                                                    <Button variant="primary">Consult</Button>
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+                                    </Row>
+                                </Card.Body>
+                            </Card>
+                            <br></br>
+                            <Card>
+                                <Card.Header as="h5">Latest Feedbacks</Card.Header>
+                                <Card.Body>
+                                    <Row>
+                                        <Col sm={1}>
+                                            <Image src=" https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg" roundedCircle width="100" />
+                                        </Col>
+                                        <Col sm={10}>
+                                            <Card.Title>MARIA GONZALEZ:</Card.Title>
+                                            <Card.Text>
+                                                With supporting text below as a natural lead-in to additional content.
+                                            </Card.Text>
+                                            <Button variant="outline-secondary">Comment</Button>
+                                        </Col>
+                                    </Row>
+                                    <br></br>
+                                    <Row>
+                                        <Col sm={1}>
+                                            <Image src=" https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" roundedCircle width="100" />
+                                        </Col>
+                                        <Col sm={10}>
+                                            <Card.Title>LAURA HERNANDEZ said:</Card.Title>
+                                            <Card.Text>
+                                                With supporting text below as a natural lead-in to additional content.
+                                            </Card.Text>
+                                            <Button variant="outline-secondary">Comment</Button>
+                                        </Col>
+                                    </Row>
+
+                                    <br></br>
+                                    <Row>
+                                        <Col sm={1}>
+                                            <Image src=" https://mdbootstrap.com/img/Photos/Avatars/img%20(13).jpg" roundedCircle width="100" />
+                                        </Col>
+                                        <Col sm={10}>
+                                            <Card.Title>JORGE PAEZ said:</Card.Title>
+                                            <Card.Text>
+                                                With supporting text below as a natural lead-in to additional content.
+                                            </Card.Text>
+                                            <Button variant="outline-secondary">Comment</Button>
+                                        </Col>
+                                    </Row>
+
+                                </Card.Body>
+                            </Card>
+
+
+                        </Col>
+                    </Row>
+                </Container>
+                <br></br>
+                <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+                    <div class="container text-center">
+                        <small>Copyright &copy; CADAN WHEELS</small>
                     </div>
-                    <div class="col-lg-8 col-md-6 mb-4">
-
-                        <div class="card text-center">
-                            <div class="card-header">
-                                <b>Last Trips</b>
-                            </div>
-                            <div class="card-body">
-                                <div id="div_content" class="row d-flex justify-content-center">
-
-                                    {/* <!-- Card content --> */}
-                                    <div class=" col-lg-4 col-md-6 mb-4">
-
-                                        <div class="card ">
-                                            <div class="card-header">
-                                                <img class="rounded-circle z-depth-2" alt="100x100" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg"
-                                                    data-holder-rendered="true" />
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="card-title">MARIA GONZALEZ</h5>
-                                                <p class="card-text">UNIVERSITARIO - 16 AGO 2020 - $3.000</p>
-                                                <a href="#!" class="btn btn-primary">CONSULT</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* <!-- Card content --> */}
-                                    <div class=" col-lg-4 col-md-6 mb-4">
-
-                                        <div class="card ">
-                                            <div class="card-header">
-                                                <img class="rounded-circle z-depth-2" alt="100x100" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"
-                                                    data-holder-rendered="true" />
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="card-title">LAURA HERNANDEZ</h5>
-                                                <p class="card-text">MAESTRO - 16 AGO 2020 - $4.000</p>
-                                                <a href="#!" class="btn btn-primary">CONSULT</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* <!-- Card content --> */}
-                                    <div class=" col-lg-4 col-md-6 mb-4">
-
-                                        <div class="card ">
-                                            <div class="card-header">
-                                                <img class="rounded-circle z-depth-2" alt="100x100" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(32).jpg"
-                                                    data-holder-rendered="true" />
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="card-title">ALEJANDRO ALBA</h5>
-                                                <p class="card-text">ESTUDIANTE - 15 AGO 2020 - $2.500</p>
-                                                <a href="#!" class="btn btn-primary">CONSULT</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="card text-left">
-                            <div class="card-header">
-                                <b>Latest Feedbacks</b>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-
-                                    {/* <!-- Card content --> */}
-                                    <div class=" col-lg-4 col-md-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                            <img class="rounded-sm" alt="75x75" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(32).jpg"
-                                                    data-holder-rendered="true" />
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class=" col-lg-8 col-md-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">ALEJANDRO: </h5>
-                                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                                <a href="#!" class="btn btn-primary">Comment</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                </footer>
             </div>
         );
     }
