@@ -13,13 +13,11 @@ class PasajeroHome extends React.Component {
                 <Navbar bg="dark" variant="dark">
                     <Navbar.Brand href="#home">CADANWheels</Navbar.Brand>
                     <Nav className="ml-auto">
-                        <Nav.Link href="#home">Incio</Nav.Link>
-                        <Nav.Link href="#profile">Perfil</Nav.Link>
-                        <Nav.Link href="#history">Historial</Nav.Link>
+                        <Nav.Link href="#home">Home</Nav.Link>
+                        <Nav.Link href="#profile">Profile</Nav.Link>
+                        <Nav.Link href="#history">Record</Nav.Link>
+                        <Button variant="danger">Log Out</Button>
                     </Nav>
-                    <Form inline>
-                        <Button variant="outline-info">Cerrar Sesión</Button>
-                    </Form>
                 </Navbar>
         );
     }
