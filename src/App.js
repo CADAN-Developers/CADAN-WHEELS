@@ -1,22 +1,35 @@
-import React from 'react';
+import React, { Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Button from 'react-bootstrap/Button';
+
+
+import DriverHome from './Driver/DriverHome'
 import PasajeroHome from './Pasajero/PasajeroHome'
 
 import {Route, BrowserRouter as Router} from 'react-router-dom';
 
-function App() {
-  return (
-            <div className="App">
-                <Router>
-                    <div>
-                      {/* ENRUTAMIENTO */}
-                        <Route path="/pasajero" component={PasajeroHome}/>
+class App extends Component {
 
-                    </div>
-                </Router>
-            </div>
-        );
+  constructor(props) {
+      super(props);
+  }
+
+  render() {
+      return (
+          <div className="App">
+              <Router>
+                  <div>
+                    {/* ENRUTAMIENTO */}
+                      <Route exact path="/" component={DriverHome}/>
+                      <Route path="/driver" component={DriverHome}/>
+                      <Route path="/pasajero" component={PasajeroHome}/>
+                      
+                  </div>
+              </Router>
+          </div>
+      );
+  }
 }
 
 export default App;
