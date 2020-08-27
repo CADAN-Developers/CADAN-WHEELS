@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import RegistroUsuario from './RegistroUsuario/RegistroUsuario';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {RegistroVehiculo} from './RegistroVehiculo';
 
 ReactDOM.render(
   <React.StrictMode>
-    <RegistroUsuario/>
+    <RegistroVehiculo />
   </React.StrictMode>,
   document.getElementById('root')
 );
