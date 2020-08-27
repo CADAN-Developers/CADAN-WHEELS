@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {RegistroVehiculo} from './RegistroVehiculo';
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <RegistroVehiculo />
+    <App></App>
   </React.StrictMode>,
   document.getElementById('root')
 );
