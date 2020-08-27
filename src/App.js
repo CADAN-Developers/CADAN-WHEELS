@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import './App.css';
+import Button from 'react-bootstrap/Button';
 import DriverHome from './Driver/DriverHome'
 import {RegistroVehiculo} from './RegistroVehiculo';
 
@@ -26,6 +27,7 @@ class App extends Component {
           </div>
       );
   }
+
 }
 
 export default App;
