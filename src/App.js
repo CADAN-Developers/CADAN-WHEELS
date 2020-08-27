@@ -4,6 +4,7 @@ import './App.css';
 
 
 import DriverHome from './Driver/DriverHome'
+import Login from './components/Login'
 
 import {Route, BrowserRouter as Router} from 'react-router-dom';
 
@@ -20,7 +21,8 @@ class App extends Component {
                   <div>
                     {/* ENRUTAMIENTO */}
                       <Route exact path="/" component={DriverHome}/>
-                      <Route path="/driver" component={DriverHome}/>
+                      <Route path="/driver" component={DriverHome} />
+                      <Route path="/login" > <Login/>  </Route>
                       
                   </div>
               </Router>
