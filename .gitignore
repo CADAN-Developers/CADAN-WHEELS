@@ -4,6 +4,8 @@
 # testing
 /coverage
 
+## Java
+
 # production
 /build
 
@@ -18,7 +20,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-##############################
 
 ## Java
 
@@ -183,5 +184,6 @@ nb-configuration.xml
 ## OS X
 
 ##############################
+
 
 .DS_Store
