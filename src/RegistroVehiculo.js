@@ -79,3 +79,4 @@ export class RegistroVehiculo extends React.Component {
     }
 
 }
+export default RegistroVehiculo;
