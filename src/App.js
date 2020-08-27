@@ -1,10 +1,8 @@
 import React, { Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Button from 'react-bootstrap/Button';
-
-
 import DriverHome from './Driver/DriverHome'
+import {RegistroVehiculo} from './RegistroVehiculo';
 
 import {Route, BrowserRouter as Router} from 'react-router-dom';
 
@@ -22,6 +20,7 @@ class App extends Component {
                     {/* ENRUTAMIENTO */}
                       <Route exact path="/" component={DriverHome}/>
                       <Route path="/driver" component={DriverHome}/>
+                      <Route path="/registerVehic" component={RegistroVehiculo}/>
                       
                   </div>
               </Router>
