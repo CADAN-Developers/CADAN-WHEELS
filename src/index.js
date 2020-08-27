@@ -4,10 +4,11 @@ import './index.css';
 import RegistroUsuario from './RegistroUsuario/RegistroUsuario';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <RegistroUsuario/>
+    <App></App>
   </React.StrictMode>,
   document.getElementById('root')
 );
