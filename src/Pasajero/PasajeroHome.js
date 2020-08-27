@@ -12,14 +12,13 @@ class PasajeroHome extends React.Component {
         return (
                 <Navbar bg="dark" variant="dark">
                     <Navbar.Brand href="#home">CADANWheels</Navbar.Brand>
-                    <Nav className="mr-auto">
-                        <Nav.Link href="#home">Conductores</Nav.Link>
-                        <Nav.Link href="#features">Pasajeros</Nav.Link>
-                        <Nav.Link href="#pricing">Acerca de</Nav.Link>
+                    <Nav className="ml-auto">
+                        <Nav.Link href="#home">Incio</Nav.Link>
+                        <Nav.Link href="#profile">Perfil</Nav.Link>
+                        <Nav.Link href="#history">Historial</Nav.Link>
                     </Nav>
                     <Form inline>
-                        <Button variant="outline-info">Iniciar Sesión</Button>
-                        <Button variant="outline-info">Registrarse</Button>
+                        <Button variant="outline-info">Cerrar Sesión</Button>
                     </Form>
                 </Navbar>
         );
