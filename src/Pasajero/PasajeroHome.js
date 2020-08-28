@@ -65,7 +65,7 @@ class PasajeroHome extends React.Component {
                                             <ListGroup.Item action onClick={this.alertClicked}>Cra 53 #32-33 a U. ECCI $6.000</ListGroup.Item>
                                             <ListGroup.Item action onClick={this.alertClicked}>Cra 12 #69-20 a U. ECI $7.000</ListGroup.Item>
                                             <ListGroup.Item action onClick={this.alertClicked}>Cra 20 #65-14 a U. Sergio Arboleda $8.000</ListGroup.Item>
-
+                                            <ListGroup.Item action onClick={this.alertClicked}>See more</ListGroup.Item>
                                         </ListGroup>
                                     </Card.Body>
                                 </Card>
@@ -78,7 +78,7 @@ class PasajeroHome extends React.Component {
     }
 
     alertClicked() {
-      alert('You clicked the third ListGroupItem');
+      alert('Operation in maintenance');
     }
 }
 
