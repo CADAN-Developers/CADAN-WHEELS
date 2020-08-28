@@ -27,6 +27,7 @@ class App extends Component {
                       <Route path="/registerVehic" component={RegistroVehiculo}/>
                       <Route path="/registerUsuario" component={RegistroUsuario} />
 
+
                   </div>
               </Router>
           </div>
