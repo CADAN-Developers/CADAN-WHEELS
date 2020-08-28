@@ -2,8 +2,9 @@ import React, { Component} from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import DriverHome from './Driver/DriverHome'
+import PasajeroHome from './Pasajero/PasajeroHome'
 import Login from './components/Login'
-import { RegistroVehiculo } from './RegistroVehiculo';
+import RegistroVehiculo from './RegistroVehiculo';
 import RegistroUsuario from "./RegistroUsuario/RegistroUsuario";
 import {Route, BrowserRouter as Router} from 'react-router-dom';
 
@@ -19,18 +20,18 @@ class App extends Component {
               <Router>
                   <div>
                     {/* ENRUTAMIENTO */}
-                      <Route exact path="/" component={DriverHome}/>
+                      <Route exact path="/" component={Login} />
                       <Route path="/driver" component={DriverHome} />
-                      <Route path="/login" > <Login/>  </Route>
-                      <Route path="/driver" component={DriverHome}/>
-                      <Route path="/registerVehic" component={RegistroVehiculo} />
+                      <Route path="/login" component={Login} />
+                      <Route path="/pasajero" component={PasajeroHome}/>
+                      <Route path="/registerVehic" component={RegistroVehiculo}/>
                       <Route path="/registerUsuario" component={RegistroUsuario} />  
+
                   </div>
               </Router>
           </div>
       );
   }
-
 }
 
 export default App;
