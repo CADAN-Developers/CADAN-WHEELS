@@ -25,7 +25,8 @@ class App extends Component {
                       <Route path="/login" component={Login} />
                       <Route path="/pasajero" component={PasajeroHome}/>
                       <Route path="/registerVehic" component={RegistroVehiculo}/>
-                      <Route path="/registerUsuario" component={RegistroUsuario} />  
+                      <Route path="/registerUsuario" component={RegistroUsuario} />
+
 
                   </div>
               </Router>
