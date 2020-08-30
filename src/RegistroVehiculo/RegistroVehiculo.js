@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import logo from '../logo.svg';
 
-export class RegistroVehiculo extends React.Component {
+export default class RegistroVehiculo extends React.Component {
     render() {
         return (
             <div >
