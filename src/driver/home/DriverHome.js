@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import './DriverHome.css';
 
 
-import Navigation from '../components/Navigation'
+import Navigation from '../../components/Navigation'
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -19,7 +19,7 @@ class DriverHome extends Component {
         return (
             <div>
                 {/* Navegation */}
-                < Navigation title="Driver" />
+                < Navigation tipoUsuario="Driver" />
 
                 {/* Body */}
                 <br></br>

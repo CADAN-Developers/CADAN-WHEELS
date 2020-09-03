@@ -1,11 +1,11 @@
 import React, { Component} from 'react';
 import './App.css';
-import Button from 'react-bootstrap/Button';
-import DriverHome from './Driver/DriverHome'
-import RegistroVehiculo from './RegistroVehiculo/RegistroVehiculo';
-import PasajeroHome from './Pasajero/PasajeroHome'
+import DriverHome from './driver/home/DriverHome';
+import RegistroVehiculo from './driver/registroVehiculo/RegistroVehiculo';
+import PasajeroHome from './pasajero/home/PasajeroHome'
 import Login from './components/Login'
-import RegistroUsuario from "./RegistroUsuario/RegistroUsuario";
+import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
+
 import {Route, BrowserRouter as Router} from 'react-router-dom';
 
 class App extends Component {
@@ -17,6 +17,7 @@ class App extends Component {
   render() {
       return (
           <div className="App">
+
               <Router>
                   <div>
                     {/* ENRUTAMIENTO */}

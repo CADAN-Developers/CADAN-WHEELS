@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import moment from "moment";
 
 
-export default class formVehiculo extends React.Component {
+export default class FormVehiculo extends React.Component {
     constructor(props) {
         super(props)
         this.state = {vehiculos:[],marca:'',año:'',placa:'',capacidad:'',soat:moment()};
