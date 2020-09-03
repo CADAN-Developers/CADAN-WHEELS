@@ -229,9 +229,9 @@ export default function TemporaryDrawer({ tipoUsuario }) {
 
     // Verificar que usuario es y guardando su menu 
     let selectMenu;
-    if (tipoUsuario == "Driver") {
+    if (tipoUsuario === "Driver") {
         selectMenu = navDriver;
-    } else if (tipoUsuario == "Passenger") {
+    } else if (tipoUsuario === "Passenger") {
         selectMenu = navPassenger;
     } else {
         selectMenu = navNone;

@@ -1,7 +1,8 @@
 import React from "react";
-import MenuL from './MenuL'
+// import MenuL from './MenuL'
 import Navigation from "./Navigation"
-import { Button, Form, FormControl, ControlLabel } from "react-bootstrap/";
+// import { Button, Form, FormControl, ControlLabel } from "react-bootstrap/";
+import { Button, Form } from "react-bootstrap/";
 import "./Login.css";
 
 class Login extends React.Component {
