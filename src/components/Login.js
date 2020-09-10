@@ -1,6 +1,8 @@
 import React from "react";
-import MenuL from "./MenuL"
-import { Button, Form, FormControl, ControlLabel } from "react-bootstrap/";
+// import MenuL from './MenuL'
+import Navigation from "./Navigation"
+// import { Button, Form, FormControl, ControlLabel } from "react-bootstrap/";
+import { Button, Form } from "react-bootstrap/";
 import "./Login.css";
 
 class Login extends React.Component {
@@ -30,7 +32,8 @@ class Login extends React.Component {
     render() {
         return (
         <div>
-        <MenuL />
+        <Navigation tipoUsuario="None" />
+        {/* <MenuL /> */}
         <container className="justify-content-md-center">
                     <div className="Login" >
                      <Form>
