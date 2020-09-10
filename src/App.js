@@ -3,8 +3,10 @@ import './App.css';
 import DriverHome from './driver/home/DriverHome';
 import RegistroVehiculo from './driver/registroVehiculo/RegistroVehiculo';
 import PasajeroHome from './pasajero/home/PasajeroHome'
+import UpdatePasajero from './pasajero/home/UpdatePasajero'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
+
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
@@ -29,6 +31,7 @@ class App extends Component {
                             <Route path="/pasajero" component={PasajeroHome} />
                             <Route path="/registerVehic" component={RegistroVehiculo} />
                             <Route path="/registerUsuario" component={RegistroUsuario} />
+                            <Route path="/UpdatePasajero" component={UpdatePasajero} />
                         </Switch>
                     </div>
                 </Router>
