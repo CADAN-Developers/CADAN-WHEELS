@@ -44,7 +44,7 @@ Usuarios ya registrados podrán consultar sus vehiculos o motos, consultar estad
 
 #### Diagrama de Componentes
 
-![diagramaComponentes]()
+![diagramaComponentes](https://github.com/CADAN-Developers/CADAN-WHEELS/blob/master/resources/diagramaComponentes.png)
 
 ## Preview
 
