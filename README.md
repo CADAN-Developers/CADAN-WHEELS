@@ -3,17 +3,25 @@
 
 ## Introducción
 
--  CADAN Wheels, es un sitio web que ofrece la facilidad de encontrar transporte a los usuarios de instituciones educativas desde sus hogares hasta el lugar de su institucion o viceversa de manera segura.
+Durante el desarrolló normal de las actividades el transporte suele ser uno de los factores mas relevantes, teniendo en cuenta el contexto de la ciudad, comúnmente en las grandes ciudades suelen haber grandes congestiones por la gran cantidad de automóviles, dificultando la movilidad en momentos críticos o en las horas comúnmente conocidas como horas pico. En estos periodos de tiempo el transporte publico es más congestionado, lo que dificulta el desplazamiento a los lugares de trabajo o estudio. 
 
 Esta aplicacion busca la facilidad para que un usuario encuentre transporte con otro usuario de forma segura, donde pueda programar sus viajes con anterioridad o programar todo el mes y estar seguro de que siempre va a tener transporte desde su hogar hasta su institucion.
 
-La idea de esta aplicacion es que los usuarios (como estudiantes, profesore, directivos, etc) que deseen regitrar sus vehiculos o motos puedan crear o registrar sus propias rutas de viaje para que cualquier otro usuario particular pueda inscribirse y tener un cupo seguro diario o semanal o mensual.
+La idea de esta aplicacion es que los usuarios (como estudiantes, profesores, directivos, etc) que deseen regitrar sus vehiculos o motos puedan crear o registrar sus propias rutas de viaje para que cualquier otro usuario particular pueda inscribirse y tener un cupo seguro diario o semanal o mensual.
+
+CADAN WHEELS es una aplicación con ánimos de favorecer a los estudiantes de las universidades los cuales, al llevar su automóvil a la universidad, deben asumir gastos de , gasolina, parqueadero, seguro ...etc,  para reducir estos gastos, proponemos que estas personas favorezcan a otros estudiantes de instituciones cercanas o de la misma a la que pertenece el conductor prestando el servicio de transporte de acuerdo al cupo al que esta sujeto el carro.
+
+Limitamos a este sector estudiantil, para garantizar la seguridad de los usuarios, mediante su inscripción como usuario debe ingresar la institución a la que pertenece, identificación personal e institucional, esta información ser verificada mediante evidencia fotográfica de sus documentos.  Esta iniciativa quiere garantizar un ambiente seguro para quienes prestan y toman este servicio.
+
+En una vista general como usuario ingresa su destino, la aplicación proveerá los servicios que puede tomar, o posteriormente será asignado a un conductor, la tarifa será estimada por el conductor  desde el origen hasta el destino como tarifa máxima, dependiendo de esta tarifa, si durante el transcurso del trayecto hay un servicio se le asignara una tarifa  llamada tarifa estimada para así evitar abuso en los cobros de las tarifas por parte de los conductores.
 
 ## Conceptos generales
 
 - JSON: Formato de texto, donde nos permite el intercambio y el trato de datos entre la aplicación y nuestra API 
 
 - Bootstrap: Framework para el desarrollo del front end de las aplicaciones web, nos permite usar las librerías (libres, es decir, open sources)  para la facilidad de crear el sitio web de forma dinámica, sencilla y moderna. Para que la experiencia del usuario sea agradable con nuestra aplicación
+
+- Material UI: Framework popular para desarrollo web más rápido y sencillo.
 
 - React js: es una librería JavaScript de código abierto enfocada a la visualización. Esta tecnología nos permite el desarrollo de interfaces de usuario de forma sencilla.
 
@@ -30,7 +38,13 @@ Usuarios ya registrados podrán consultar sus vehiculos o motos, consultar estad
 
 ### Extensibilidad
 
-TODO
+- Se diseñó y organizo el codigo para facilitar la extensibilidad mediante la utilizacion de diferentes componentes. 
+
+### Diagramas
+
+#### Diagrama de Componentes
+
+![diagramaComponentes](https://github.com/CADAN-Developers/CADAN-WHEELS/blob/master/resources/diagramaComponentes.png)
 
 ## Preview
 
