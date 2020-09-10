@@ -173,7 +173,7 @@ export default function TemporaryDrawer({ tipoUsuario }) {
 
                         <br></br>
                         <ButtonGroup size="small" aria-label="small outlined button group">
-                            <Button component={Link} to="/pprofile">Profile</Button>
+                            <Button component={Link} to="/UpdatePasajero">Profile</Button>
                         </ButtonGroup>
 
                     </React.Fragment>
