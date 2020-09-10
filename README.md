@@ -40,6 +40,12 @@ Usuarios ya registrados podrán consultar sus vehiculos o motos, consultar estad
 
 - Se diseñó y organizo el codigo para facilitar la extensibilidad mediante la utilizacion de diferentes componentes. 
 
+### Diagramas
+
+#### Diagrama de Componentes
+
+![diagramaComponentes]()
+
 ## Preview
 
 Pagina Home
