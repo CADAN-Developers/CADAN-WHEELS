@@ -4,6 +4,7 @@ import DriverHome from './driver/home/DriverHome';
 import RegistroVehiculo from './driver/registroVehiculo/RegistroVehiculo';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
+import RecordsPasajero from './pasajero/home/RecordsPasajero'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
 
@@ -32,6 +33,7 @@ class App extends Component {
                             <Route path="/registerVehic" component={RegistroVehiculo} />
                             <Route path="/registerUsuario" component={RegistroUsuario} />
                             <Route path="/UpdatePasajero" component={UpdatePasajero} />
+                            <Route path="/RecordsPasajero" component={RecordsPasajero}/>
                         </Switch>
                     </div>
                 </Router>

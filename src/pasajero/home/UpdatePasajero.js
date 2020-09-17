@@ -1,6 +1,6 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Button from '@material-ui/core/Button';
 import Container from 'react-bootstrap/Container'
 import Navigation from '../../components/Navigation';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -8,22 +8,12 @@ import { Row, Col } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import Image from 'react-bootstrap/Image';
 import { Link } from 'react-router-dom';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 class UpdatePasajero extends React.Component {
     constructor() {
         super();
-        this.state = {
-            tipoUsuario: "Pasajero",
-        };
-        this.print=this.print.bind(this);
-    }
-    myChangeHandler = (event) => {
-        this.setState({tipoUsuario: event.target.value});
-
-    }
-    print(){
-        console.log(this.state.tipoUsuario);
+        this.state ={si:"/UpdatePasajero"};
+        this.onHandleClick = this.onHandleClick.bind(this);
 
     }
 
@@ -32,7 +22,6 @@ class UpdatePasajero extends React.Component {
             <div>
                 {/* llamando navegacion de usuario (conductor) */}
                 <Navigation tipoUsuario="Passenger" />
-
                 <Container className="container-fluid">
                     <Row className="justify-content-md-center">
                         <AccountCircleIcon color = "primary" style={{ fontSize: 80 }}/>
@@ -72,12 +61,26 @@ class UpdatePasajero extends React.Component {
                         </Col>
                     </Row>
                     <br/>
-                    <Row className="justify-content-md-center"> 
-                        <Button component={Link} to="/pasajero" >Actualizar</Button>
-                    </Row>
-                </Container>    
+                        <Row className="justify-content-md-center"> 
+                            <Button variant="contained" size="medium" color="primary" onClick={this.onHandleClick} component={Link} to={this.state.si}>Actualizar</Button>
+                        </Row>
+                </Container>  
             </div>
         );
+    }
+
+    onHandleClick(e){
+        if (this.state.si === "/UpdatePasajero"){
+            this.state.si = "/pasajero"
+            this.setState({si:"/pasajero"})
+
+        }
+        else{
+            alert("La cagas puto")
+            this.state.si = "/UpdatePasajero"
+
+        }
+
     }
 }
 
