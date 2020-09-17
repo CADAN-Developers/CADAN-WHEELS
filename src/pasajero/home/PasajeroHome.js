@@ -1,12 +1,12 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import Navigation from '../../components/Navigation'
 
 // import Navbar from 'react-bootstrap/Navbar'
 // import Nav from 'react-bootstrap/Nav';
 // import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import Button from '@material-ui/core/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -53,7 +53,7 @@ class PasajeroHome extends React.Component {
                                         <ListGroup.Item>929847382</ListGroup.Item>
                                         <ListGroup.Item>c.paramo@gmail.com</ListGroup.Item>
                                     </ListGroup>
-                                    <Button variant="primary">Edit</Button>
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/UpdatePasajero" >Edit</Button>
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -64,13 +64,13 @@ class PasajeroHome extends React.Component {
                                 <Card.Body>
                                     <ListGroup>
                                         <ListGroup.Item action onClick={this.alertClicked}>Cra 15 #45-12 a U. Andes $10.000</ListGroup.Item>
-                                        <ListGroup.Item action onClick={this.alertClicked}>Cra 100 #64-15 a U. Piloto $6.000</ListGroup.Item>
-                                        <ListGroup.Item action onClick={this.alertClicked}>Cra 87 #54-02 a U. Javeriana $8.000</ListGroup.Item>
+                                        <ListGroup.Item action onClick={this.alertClicked}>Cra 100 #64-15 a U. Javeriana $8.000</ListGroup.Item>
+                                        <ListGroup.Item action onClick={this.alertClicked}>Cra 87 #54-02 a U. Piloto $6.000</ListGroup.Item>
                                         <ListGroup.Item action onClick={this.alertClicked}>Cra 78 #15-80 a U. Tadeo $5.000</ListGroup.Item>
                                         <ListGroup.Item action onClick={this.alertClicked}>Cra 53 #32-33 a U. ECCI $6.000</ListGroup.Item>
                                         <ListGroup.Item action onClick={this.alertClicked}>Cra 12 #69-20 a U. ECI $7.000</ListGroup.Item>
                                         <ListGroup.Item action onClick={this.alertClicked}>Cra 20 #65-14 a U. Sergio Arboleda $8.000</ListGroup.Item>
-                                        <ListGroup.Item action onClick={this.alertClicked}>See more</ListGroup.Item>
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/RecordsPasajero" >See more</Button>
                                     </ListGroup>
                                 </Card.Body>
                             </Card>

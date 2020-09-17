@@ -188,7 +188,7 @@ export default function TemporaryDrawer({ tipoUsuario }) {
                 <ListItemIcon><DashboardIcon /></ListItemIcon>
                 <ListItemText primary="Dashboard" />
             </ListItem>
-            <ListItem button component={Link} to="/record">
+            <ListItem button component={Link} to="/RecordsPasajero">
                 <ListItemIcon><DriveEtaIcon /></ListItemIcon>
                 <ListItemText primary="Record" />
             </ListItem>
