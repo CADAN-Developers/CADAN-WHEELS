@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import './DriverHome.css';
 
 
-import Navigation from '../components/Navigation'
+import Navigation from '../../components/Navigation'
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -19,7 +19,7 @@ class DriverHome extends Component {
         return (
             <div>
                 {/* Navegation */}
-                < Navigation title="Driver" />
+                < Navigation tipoUsuario="Driver" />
 
                 {/* Body */}
                 <br></br>
@@ -165,8 +165,8 @@ class DriverHome extends Component {
                     </Row>
                 </Container>
                 <br></br>
-                <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
-                    <div class="container text-center">
+                <footer id="sticky-footer" className="py-4 bg-dark text-white-50">
+                    <div className="container text-center">
                         <small>Copyright &copy; CADAN WHEELS</small>
                     </div>
                 </footer>

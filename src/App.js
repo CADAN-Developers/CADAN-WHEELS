@@ -1,39 +1,45 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import Button from 'react-bootstrap/Button';
-import DriverHome from './Driver/DriverHome'
-import RegistroVehiculo from './RegistroVehiculo/RegistroVehiculo';
-import PasajeroHome from './Pasajero/PasajeroHome'
+import DriverHome from './driver/home/DriverHome';
+import RegistroVehiculo from './driver/registroVehiculo/RegistroVehiculo';
+import PasajeroHome from './pasajero/home/PasajeroHome'
+import UpdatePasajero from './pasajero/home/UpdatePasajero'
+import RecordsPasajero from './pasajero/home/RecordsPasajero'
 import Login from './components/Login'
-import RegistroUsuario from "./RegistroUsuario/RegistroUsuario";
-import {Route, BrowserRouter as Router} from 'react-router-dom';
+import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
+
+
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 class App extends Component {
 
-  constructor(props) {
-      super(props);
-  }
+    // constructor(props) {
+    //     super(props);
+    // }
 
-  render() {
-      return (
-          <div className="App">
-              <Router>
-                  <div>
-                    {/* ENRUTAMIENTO */}
+    render() {
+        return (
+            <div className="App">
 
-                      <Route exact path="/" component={Login} />
-                      <Route path="/driver" component={DriverHome} />
-                      <Route path="/login" component={Login} />
-                      <Route path="/pasajero" component={PasajeroHome}/>
-                      <Route path="/registerVehic" component={RegistroVehiculo}/>
-                      <Route path="/registerUsuario" component={RegistroUsuario} />
+                <Router>
+                    <div>
+                        {/* ENRUTAMIENTO */}
 
-
-                  </div>
-              </Router>
-          </div>
-      );
-  }
+                        <Switch>
+                            <Route exact path="/" component={Login} />
+                            <Route path="/driver" component={DriverHome} />
+                            <Route path="/login" component={Login} />
+                            <Route path="/pasajero" component={PasajeroHome} />
+                            <Route path="/registerVehic" component={RegistroVehiculo} />
+                            <Route path="/registerUsuario" component={RegistroUsuario} />
+                            <Route path="/UpdatePasajero" component={UpdatePasajero} />
+                            <Route path="/RecordsPasajero" component={RecordsPasajero}/>
+                        </Switch>
+                    </div>
+                </Router>
+            </div>
+        );
+    }
 }
 
 export default App;
