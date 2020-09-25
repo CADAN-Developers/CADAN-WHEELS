@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from "moment";
-import NavBar from './NavBar';
+import Navigation from '../../components/Navigation'
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
@@ -31,7 +31,7 @@ export default class FormVehiculo extends React.Component {
         return (
             <div >
 
-                <NavBar/>
+                < Navigation tipoUsuario="Driver" />
                 <h1>Tus Vehículos</h1>
                 
                 <Fab onClick={this.handleOpen} color="primary" style={{ position: "absolute", right: "0px", bottom: "0", margin: "10px" }}>
