@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import moment from "moment";
 import './App.css';
-import DriverHome from './driver/home/DriverHome';
+import DriverHome from './Driver/home/DriverHome';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
 import RecordsPasajero from './pasajero/home/RecordsPasajero'
-import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
+import FormVehiculo from './Driver/registroVehiculo/FormVehiculo'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
 
@@ -14,9 +14,16 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 class App extends Component {
 
-    // constructor(props) {
-    //     super(props);
-    // }
+    constructor(props) {
+
+        super(props);
+        this.state = {
+            isLog : false
+
+        }
+        this.handleClick = this.handleClick.bind(this)
+        
+     }
 
     render() {
         const items = [{
@@ -31,8 +38,26 @@ class App extends Component {
             <div>
               <FormVehiculo vehicList={items} /> 
             </div>
-          );
+        );
+
+        const loginView = () => (
+            <div>
+                <Login handleClick={this.handleClick} />
+            </div>
+        );
+
+        const pasView = () => (
+            <div>
+                <PasajeroHome />
+            </div>
+        );
+
+        const vistaprevia = this.state.isLog ? pasView : loginView
+
         return (
+
+            
+
             <div className="App">
 
                 <Router>
@@ -40,7 +65,7 @@ class App extends Component {
                         {/* ENRUTAMIENTO */}
 
                         <Switch>
-                            <Route exact path="/" component={Login} />
+                            <Route exact path="/" component={vistaprevia} />
                             <Route path="/driver" component={DriverHome} />
                             <Route path="/login" component={Login} />
                             <Route path="/pasajero" component={PasajeroHome} />
@@ -53,6 +78,12 @@ class App extends Component {
                 </Router>
             </div>
         );
+    }
+
+
+    handleClick(e) {
+        console.log("regresa a APP ")
+        this.setState({ isLog : true})
     }
 }
 
