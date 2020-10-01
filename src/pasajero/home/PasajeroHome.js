@@ -42,7 +42,7 @@ class PasajeroHome extends React.Component {
                     <Row>
                         <Col sm={4}>
                             <Card className="text-center">
-                                <Card.Header bg="dark" as="h5">PANEL</Card.Header>
+                                <Card.Header bg="dark" as="h5">Usuario</Card.Header>
                                 <Card.Body>
                                     <Card.Text>
                                         <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg" roundedCircle width="175" height="175" />
@@ -59,8 +59,9 @@ class PasajeroHome extends React.Component {
                         </Col>
 
                         <Col sm={8}>
+                            
                             <Card className="text-center">
-                                <Card.Header as="h5">Records</Card.Header>
+                                <Card.Header as="h5">Historial</Card.Header>
                                 <Card.Body>
                                     <ListGroup>
                                         <ListGroup.Item action onClick={this.alertClicked}>Cra 15 #45-12 a U. Andes $10.000</ListGroup.Item>
