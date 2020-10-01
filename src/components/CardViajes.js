@@ -18,77 +18,69 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-}));
 
-export default function CardViajes(props) {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(props.rating);
+export class CardViajes extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {value:3}
+    this.handleRateChange = this.handleRateChange.bind(this);
+  }
 
-  return (
-      <div>
-            <Card className={classes.root}>
-            <CardHeader
-                avatar={
-                <Avatar aria-label="recipe" src={props.driver}>
-                </Avatar>
-                }
-                title= {props.name}
-                subheader= {props.date}
-            />
-            <CardMedia
-                className={classes.media}
-                image={props.map}
-                title="Mapa"
-            />
-            <CardContent>
-                <Typography variant="h6" gutterBottom>
-                    Description
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom>
-                    {props.description}
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                    Cost
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom>
-                    {props.cost}
-                </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-                <Box component="fieldset" mb={3} borderColor="transparent">
-                    <Typography component="legend">Qualify your Trip</Typography>
-                    <Rating
-                    name="simple-controlled"
-                    value={value}
-                    onChange={(event, newValue) => {
-                        setValue(newValue);
-                    }}
-                    />
-                </Box>
-            </CardActions>
-            </Card>
-        </div>
-  );
+  render(){
+      return (
+          <div>
+                <Card style={{maxWidth: 345}}>
+                <CardHeader
+                    avatar={
+                    <Avatar aria-label="recipe" src={this.props.driver}>
+                    </Avatar>
+                    }
+                    title= {this.props.name}
+                    subheader= {this.props.date}
+                />
+                <CardMedia
+                    style={{height: 200}}
+                    image={this.props.map}
+                    title="Mapa"
+                />
+                <CardContent>
+                    <Typography variant="h6" gutterBottom>
+                        Description
+                    </Typography>
+                    <Typography variant="subtitle1" gutterBottom>
+                        {this.props.description}
+                    </Typography>
+                    <Typography variant="h6" gutterBottom>
+                        Cost
+                    </Typography>
+                    <Typography variant="subtitle1" gutterBottom>
+                        {this.props.cost}
+                    </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                    <Box component="fieldset" mb={3} borderColor="transparent">
+                        <Typography component="legend">Qualify your Trip</Typography>
+                        <Rating
+                        name="read-only"
+                        defaultValue={this.props.rating}
+                        precision={0.5}
+                        readOnly 
+                        onChange={this.handleRateChange}
+                        />
+                    </Box>
+                </CardActions>
+                </Card>
+            </div>
+      );
+  }
+
+  handleRateChange(e) {
+    console.log(e.target.value);
+    this.setState({
+        value: e.target.value
+    });
+  }
 }
+
+export default CardViajes;
