@@ -109,8 +109,8 @@ export default function TemporaryDrawer({ tipoUsuario }) {
 
                         <br></br>
                         <ButtonGroup size="small" aria-label="small outlined button group">
-                            <Button component={Link} to="/dprofile">Profile</Button>
-                            <Button component={Link} to="/dwithdraw">Withdraw</Button>
+                            <Button component={Link} to="/c/perfil">Perfil</Button>
+                            <Button component={Link} to="/c/retirar">Retirar</Button>
                         </ButtonGroup>
 
                     </React.Fragment>
@@ -121,24 +121,24 @@ export default function TemporaryDrawer({ tipoUsuario }) {
         </List>
         <Divider />
         <List>
-            <ListItem button component={Link} to="/driver">
+            <ListItem button component={Link} to="/conductor">
                 <ListItemIcon><DashboardIcon /></ListItemIcon>
-                <ListItemText primary="Dashboard" />
+                <ListItemText primary="Tablero" />
             </ListItem>
-            <ListItem button component={Link} to="/registerVehic">
+            <ListItem button component={Link} to="/c/vehiculos">
                 <ListItemIcon><DriveEtaIcon /></ListItemIcon>
-                <ListItemText primary="Add Car" />
+                <ListItemText primary="Vehiculos" />
             </ListItem>
-            <ListItem button component={Link} to="/statistics">
+            <ListItem button component={Link} to="/c/estadisticas">
                 <ListItemIcon><EqualizerIcon /></ListItemIcon>
-                <ListItemText primary="Statistics" />
+                <ListItemText primary="Estadisticas" />
             </ListItem>
         </List>
         <Divider />
         <List>
             <ListItem button onClick={handleLogout.bind(this)}>
                 <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                <ListItemText primary="Logout" />
+                <ListItemText primary="Cerrar Sesión" />
             </ListItem>
         </List>
     </div>
@@ -173,7 +173,7 @@ export default function TemporaryDrawer({ tipoUsuario }) {
 
                         <br></br>
                         <ButtonGroup size="small" aria-label="small outlined button group">
-                            <Button component={Link} to="/UpdatePasajero">Profile</Button>
+                            <Button component={Link} to="/p/actualizar">Perfil</Button>
                         </ButtonGroup>
 
                     </React.Fragment>
@@ -186,18 +186,18 @@ export default function TemporaryDrawer({ tipoUsuario }) {
         <List>
             <ListItem button component={Link} to="/pasajero">
                 <ListItemIcon><DashboardIcon /></ListItemIcon>
-                <ListItemText primary="Dashboard" />
+                <ListItemText primary="Tablero" />
             </ListItem>
-            <ListItem button component={Link} to="/RecordsPasajero">
+            <ListItem button component={Link} to="/p/registros">
                 <ListItemIcon><DriveEtaIcon /></ListItemIcon>
-                <ListItemText primary="Record" />
+                <ListItemText primary="Registros" />
             </ListItem>
         </List>
         <Divider />
         <List>
             <ListItem button onClick={handleLogout.bind(this)}>
                 <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                <ListItemText primary="Logout" />
+                <ListItemText primary="Cerrar Sesión" />
             </ListItem>
         </List>
     </div>
@@ -207,22 +207,22 @@ export default function TemporaryDrawer({ tipoUsuario }) {
         <List>
             <ListItem button component={Link} to="/">
                 <ListItemIcon><HomeIcon /></ListItemIcon>
-                <ListItemText primary="Home" />
+                <ListItemText primary="Inicio" />
             </ListItem>
-            <ListItem button component={Link} to="/registerUsuario">
+            <ListItem button component={Link} to="/registrar">
                 <ListItemIcon><PermIdentityIcon /></ListItemIcon>
-                <ListItemText primary="Passenger" />
+                <ListItemText primary="Pasajero" />
             </ListItem>
-            <ListItem button component={Link} to="/login">
+            <ListItem button component={Link} to="/iniciar">
                 <ListItemIcon><PersonIcon /></ListItemIcon>
-                <ListItemText primary="Driver" />
+                <ListItemText primary="Conductor" />
             </ListItem>
         </List>
         <Divider />
         <List>
-            <ListItem button component={Link} to="/aboutus">
+            <ListItem button component={Link} to="/nosotros">
                 <ListItemIcon><InfoIcon /></ListItemIcon>
-                <ListItemText primary="About Us" />
+                <ListItemText primary="Nosotros" />
             </ListItem>
         </List>
     </div>;
