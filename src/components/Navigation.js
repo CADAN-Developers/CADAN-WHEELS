@@ -29,7 +29,18 @@ import InfoIcon from '@material-ui/icons/Info';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import PersonIcon from '@material-ui/icons/Person';
 
+// Dialogo depositar
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Paypal from './agregarSaldo/PayPal';
+
+
 import "./Navigation.css"
+
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -61,8 +72,33 @@ function handleLogout() {
 
 };
 
-
 export default function TemporaryDrawer({ tipoUsuario }) {
+    const [values, setValues] = React.useState({
+        cantidad: '',
+        aprobado: false
+    });
+
+    const handleCambiarCantidad = cantidad => event => {
+
+        values.cantidad = document.getElementById('cantidad').value;
+        setValues({ ...values, [cantidad]: event.target.value });
+    };
+
+
+
+    // ------- Dialogo Depositar --------
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    // ------- fin dialog depositar --------
+
     const classes = useStyles();
     const [state, setState] = React.useState({
         top: false,
@@ -174,6 +210,7 @@ export default function TemporaryDrawer({ tipoUsuario }) {
                         <br></br>
                         <ButtonGroup size="small" aria-label="small outlined button group">
                             <Button component={Link} to="/p/actualizar">Perfil</Button>
+                            <Button variant="outlined" color="primary" onClick={handleClickOpen}>Depositar</Button>
                         </ButtonGroup>
 
                     </React.Fragment>
@@ -200,6 +237,43 @@ export default function TemporaryDrawer({ tipoUsuario }) {
                 <ListItemText primary="Cerrar Sesión" />
             </ListItem>
         </List>
+    </div>
+
+    // ------ DEPOSITAR ---------
+    const divDepositar = <div>
+
+        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">Depositar Saldo</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    Vas a hacer un deposito a tu cuenta, por favor escoge el metodo de pago y el valor que deseas depositar
+                </DialogContentText>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="cantidad"
+                    label="Cantidad"
+                    type="number"
+                    onChange={handleCambiarCantidad()}
+                    value={values.cantidad}
+                    fullWidth
+                />
+
+                {values.cantidad >= 20 ? (<Paypal data={values} />) : (<div><h6>El deposito minimo es <b>20 USD</b></h6></div>)}
+
+                {values.aprobado ? (handleClose) : ("")}
+
+
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                    Cancelar
+                </Button>
+                {/* <Button onClick={handleClose} color="primary">
+                    depositar
+                </Button> */}
+            </DialogActions>
+        </Dialog>
     </div>
 
     // CUANDO NO EXISTE USUARIO
@@ -273,6 +347,8 @@ export default function TemporaryDrawer({ tipoUsuario }) {
     // }
 
     return (
+
+
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
@@ -284,11 +360,15 @@ export default function TemporaryDrawer({ tipoUsuario }) {
                     <div className={classes.title}></div>
 
                     {buttons}
+                    {/* dialogo (modal) depositar */}
+                    {divDepositar}
                 </Toolbar>
             </AppBar>
 
         </div>
     );
+
+
 
 
 }

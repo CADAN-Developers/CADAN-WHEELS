@@ -10,63 +10,68 @@ import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
 import AgregarSaldo from './components/agregarSaldo/AgregarSaldo';
 
+import Toastr from './components/Toastr'
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 
 class App extends Component {
 
-    // constructor(props) {
-    //     super(props);
-    // }
+  // constructor(props) {
+  //     super(props);
+  // }
 
-    render() {
-        const items = [{
-            marca: "Renault ",
-            matricula: moment(new Date(156464645646)),
-            placa: "HIX578",
-            capacidad: "5",
-            soat: moment(new Date(156464645646))
-          }]
-          
-          const VehiculosView = () => (
-            <div>
-              <FormVehiculo vehicList={items} /> 
-            </div>
-          );
+  render() {
+    const items = [{
+      marca: "Renault ",
+      matricula: moment(new Date(156464645646)),
+      placa: "HIX578",
+      capacidad: "5",
+      soat: moment(new Date(156464645646))
+    }]
 
-          const AgregarView = () => (
-            <div>
-              <AgregarSaldo /> 
-            </div>
-          );
-        return (
-            <div className="App">
+    const VehiculosView = () => (
+      <div>
+        <FormVehiculo vehicList={items} />
+      </div>
+    );
 
-                <Router>
-                    <div>
-                        {/* ENRUTAMIENTO */}
+    const AgregarView = () => (
+      <div>
+        <AgregarSaldo />
+      </div>
+    );
+    return (
+      <div className="App">
 
-                        <Switch>
-                            <Route exact path="/" component={Login} />
-                            <Route path="/iniciar" component={Login} />
-                            <Route path="/registrar" component={RegistroUsuario} />
+        <Router>
+          <div>
+            {/* ENRUTAMIENTO */}
 
-                            {/* conductor (si es conductor poner antes /c/ y la pagina que se desee)*/}
-                            <Route path="/conductor" component={DriverHome} />
-                            <Route path="/c/vehiculos" component={VehiculosView} />
-                            
-                            {/* pasajero (si es pasajero poner antes /p/ y la pagina que se desee)*/}
-                            <Route path="/pasajero" component={PasajeroHome} />
-                            <Route path="/p/actualizar" component={UpdatePasajero} />
-                            <Route path="/p/registros" component={RecordsPasajero}/>
-                            <Route path="/p/depositar" component={AgregarView}/>
-                        </Switch>
-                    </div>
-                </Router>
-            </div>
-        );
-    }
+            <Switch>
+
+              <Route exact path="/noti" component={Toastr} />
+
+
+              <Route exact path="/" component={Login} />
+              <Route path="/iniciar" component={Login} />
+              <Route path="/registrar" component={RegistroUsuario} />
+
+              {/* conductor (si es conductor poner antes /c/ y la pagina que se desee)*/}
+              <Route path="/conductor" component={DriverHome} />
+              <Route path="/c/vehiculos" component={VehiculosView} />
+
+              {/* pasajero (si es pasajero poner antes /p/ y la pagina que se desee)*/}
+              <Route path="/pasajero" component={PasajeroHome} />
+              <Route path="/p/actualizar" component={UpdatePasajero} />
+              <Route path="/p/registros" component={RecordsPasajero} />
+              <Route path="/p/depositar" component={AgregarView} />
+            </Switch>
+          </div>
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default App;
