@@ -8,7 +8,7 @@ import RecordsPasajero from './pasajero/home/RecordsPasajero'
 import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
-import AgregarSaldo from './components/agregarSaldo/AgregarSaldo';
+import EjemploDialog from './components/EjemploDialog';
 
 import Toastr from './components/Toastr'
 
@@ -36,11 +36,7 @@ class App extends Component {
       </div>
     );
 
-    const AgregarView = () => (
-      <div>
-        <AgregarSaldo />
-      </div>
-    );
+    
     return (
       <div className="App">
 
@@ -51,6 +47,7 @@ class App extends Component {
             <Switch>
 
               <Route exact path="/noti" component={Toastr} />
+              <Route path="/dialog" component={EjemploDialog} />
 
 
               <Route exact path="/" component={Login} />
@@ -65,7 +62,7 @@ class App extends Component {
               <Route path="/pasajero" component={PasajeroHome} />
               <Route path="/p/actualizar" component={UpdatePasajero} />
               <Route path="/p/registros" component={RecordsPasajero} />
-              <Route path="/p/depositar" component={AgregarView} />
+              
             </Switch>
           </div>
         </Router>
