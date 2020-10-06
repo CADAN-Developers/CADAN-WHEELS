@@ -8,52 +8,67 @@ import RecordsPasajero from './pasajero/home/RecordsPasajero'
 import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
+import EjemploDialog from './components/EjemploDialog';
 
+import Toastr from './components/Toastr'
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
+
 class App extends Component {
 
-    // constructor(props) {
-    //     super(props);
-    // }
+  // constructor(props) {
+  //     super(props);
+  // }
 
-    render() {
-        const items = [{
-            marca: "Renault ",
-            matricula: moment(new Date(156464645646)),
-            placa: "HIX578",
-            capacidad: "5",
-            soat: moment(new Date(156464645646))
-          }]
-          
-          const VehiculosView = () => (
-            <div>
-              <FormVehiculo vehicList={items} /> 
-            </div>
-          );
-        return (
-            <div className="App">
+  render() {
+    const items = [{
+      marca: "Renault ",
+      matricula: moment(new Date(156464645646)),
+      placa: "HIX578",
+      capacidad: "5",
+      soat: moment(new Date(156464645646))
+    }]
 
-                <Router>
-                    <div>
-                        {/* ENRUTAMIENTO */}
+    const VehiculosView = () => (
+      <div>
+        <FormVehiculo vehicList={items} />
+      </div>
+    );
 
-                        <Switch>
-                            <Route exact path="/" component={Login} />
-                            <Route path="/driver" component={DriverHome} />
-                            <Route path="/login" component={Login} />
-                            <Route path="/pasajero" component={PasajeroHome} />
-                            <Route path="/registerVehic" component={VehiculosView} />
-                            <Route path="/registerUsuario" component={RegistroUsuario} />
-                            <Route path="/UpdatePasajero" component={UpdatePasajero} />
-                            <Route path="/RecordsPasajero" component={RecordsPasajero}/>
-                        </Switch>
-                    </div>
-                </Router>
-            </div>
-        );
-    }
+    
+    return (
+      <div className="App">
+
+        <Router>
+          <div>
+            {/* ENRUTAMIENTO */}
+
+            <Switch>
+
+              <Route exact path="/noti" component={Toastr} />
+              <Route path="/dialog" component={EjemploDialog} />
+
+
+              <Route exact path="/" component={Login} />
+              <Route path="/iniciar" component={Login} />
+              <Route path="/registrar" component={RegistroUsuario} />
+
+              {/* conductor (si es conductor poner antes /c/ y la pagina que se desee)*/}
+              <Route path="/conductor" component={DriverHome} />
+              <Route path="/c/vehiculos" component={VehiculosView} />
+
+              {/* pasajero (si es pasajero poner antes /p/ y la pagina que se desee)*/}
+              <Route path="/pasajero" component={PasajeroHome} />
+              <Route path="/p/actualizar" component={UpdatePasajero} />
+              <Route path="/p/registros" component={RecordsPasajero} />
+              
+            </Switch>
+          </div>
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default App;
