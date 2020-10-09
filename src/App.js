@@ -13,6 +13,8 @@ import EjemploDialog from './components/EjemploDialog';
 import Toastr from './components/Toastr'
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import Mapa  from './components/Maps/Mapa';
+import MapView  from './components/Maps/MapView';
 
 
 class App extends Component {
@@ -53,6 +55,7 @@ class App extends Component {
               <Route exact path="/" component={Login} />
               <Route path="/iniciar" component={Login} />
               <Route path="/registrar" component={RegistroUsuario} />
+              <Route path="/map" component={MapView} />
 
               {/* conductor (si es conductor poner antes /c/ y la pagina que se desee)*/}
               <Route path="/conductor" component={DriverHome} />
