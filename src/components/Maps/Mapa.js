@@ -1,81 +1,76 @@
-import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow } from 'react-google-maps';
+import React from 'react';
+import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
 import Geocode from "react-geocode";
 import Autocomplete from 'react-google-autocomplete';
+import Navigation from '../../components/Navigation'
+
+//const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
+
 
 Geocode.setApiKey("AIzaSyDCq7iV7bIAnjv0MHr3nCxP5JTcphcnPlA");
 Geocode.enableDebug();
-export class Mapa extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      address: '',
-      city: '',
-      area: '',
-      state: '',
-      mapPosition: {
-        lat: this.props.center.lat,
-        lng: this.props.center.lng
-      },
-      markerPosition: {
-        lat: this.props.center.lat,
-        lng: this.props.center.lng
-      }
+
+class Mapa extends React.Component {
+
+  state = {
+    address: '',
+    city: '',
+    area: '',
+    state: '',
+    zoom: 15,
+    height: 400,
+    mapPosition: {
+      lat: 0,
+      lng: 0,
+    },
+    markerPosition: {
+      lat: 4.7827,
+      lng: -74.0426,
     }
   }
-  /**
-    * Get the current address from the default map position and set those values in the state
-    */
+
   componentDidMount() {
-    Geocode.fromLatLng(this.state.mapPosition.lat, this.state.mapPosition.lng).then(
-      response => {
-        const address = response.results[0].formatted_address,
-          addressArray = response.results[0].address_components,
-          city = this.getCity(addressArray),
-          area = this.getArea(addressArray),
-          state = this.getState(addressArray);
-
-        console.log('city', city, area, state);
-
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
         this.setState({
-          address: (address) ? address : '',
-          area: (area) ? area : '',
-          city: (city) ? city : '',
-          state: (state) ? state : '',
-        })
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  };
-  /**
-    * Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
-    *
-    * @param nextProps
-    * @param nextState
-    * @return {boolean}
-    */
-  shouldComponentUpdate(nextProps, nextState) {
-    if (
-      this.state.markerPosition.lat !== this.props.center.lat ||
-      this.state.address !== nextState.address ||
-      this.state.city !== nextState.city ||
-      this.state.area !== nextState.area ||
-      this.state.state !== nextState.state
-    ) {
-      return true
-    } else if (this.props.center.lat === nextProps.center.lat) {
-      return false
+          mapPosition: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          },
+          markerPosition: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          }
+        },
+          () => {
+            Geocode.fromLatLng(position.coords.latitude, position.coords.longitude).then(
+              response => {
+                console.log(response)
+                const address = response.results[0].formatted_address,
+                  addressArray = response.results[0].address_components,
+                  city = this.getCity(addressArray),
+                  area = this.getArea(addressArray),
+                  state = this.getState(addressArray);
+                console.log('city', city, area, state);
+                this.setState({
+                  address: (address) ? address : '',
+                  area: (area) ? area : '',
+                  city: (city) ? city : '',
+                  state: (state) ? state : '',
+                })
+              },
+              error => {
+                console.error(error);
+              }
+            );
+
+          })
+      });
+    } else {
+      console.error("El navegador no tiene geolocalización!");
     }
-  }
-  /**
-    * Get the city and set the city input value to the one selected
-    *
-    * @param addressArray
-    * @return {string}
-    */
+  };
+
   getCity = (addressArray) => {
     let city = '';
     for (let i = 0; i < addressArray.length; i++) {
@@ -85,12 +80,7 @@ export class Mapa extends Component {
       }
     }
   };
-  /**
-    * Get the area and set the area input value to the one selected
-    *
-    * @param addressArray
-    * @return {string}
-    */
+
   getArea = (addressArray) => {
     let area = '';
     for (let i = 0; i < addressArray.length; i++) {
@@ -104,12 +94,7 @@ export class Mapa extends Component {
       }
     }
   };
-  /**
-    * Get the address and set the address input value to the one selected
-    *
-    * @param addressArray
-    * @return {string}
-    */
+
   getState = (addressArray) => {
     let state = '';
     for (let i = 0; i < addressArray.length; i++) {
@@ -121,22 +106,46 @@ export class Mapa extends Component {
       }
     }
   };
-  /**
-    * And function for city,state and address input
-    * @param event
-    */
+
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
-  /**
-    * This Event triggers when the marker window is closed
-    *
-    * @param event
-    */
-  onInfoWindowClose = (event) => {
+
+
+  onMarkerDragEnd = (event) => {
+    let newLat = event.latLng.lat(),
+      newLng = event.latLng.lng();
+
+    Geocode.fromLatLng(newLat, newLng).then(
+      response => {
+        const address = response.results[0].formatted_address,
+          addressArray = response.results[0].address_components,
+          city = this.getCity(addressArray),
+          area = this.getArea(addressArray),
+          state = this.getState(addressArray);
+        this.setState({
+          address: (address) ? address : '',
+          area: (area) ? area : '',
+          city: (city) ? city : '',
+          state: (state) ? state : '',
+          markerPosition: {
+            lat: newLat,
+            lng: newLng
+          },
+          mapPosition: {
+            lat: newLat,
+            lng: newLng
+          },
+        })
+      },
+      error => {
+        console.error(error);
+      }
+    );
   };
 
   onPlaceSelected = (place) => {
+    console.log('plc', place);
     const address = place.formatted_address,
       addressArray = place.address_components,
       city = this.getCity(addressArray),
@@ -144,7 +153,11 @@ export class Mapa extends Component {
       state = this.getState(addressArray),
       latValue = place.geometry.location.lat(),
       lngValue = place.geometry.location.lng();
-    // Set these values in the state.
+
+    console.log('latvalue', latValue)
+    console.log('lngValue', lngValue)
+
+
     this.setState({
       address: (address) ? address : '',
       area: (area) ? area : '',
@@ -160,60 +173,51 @@ export class Mapa extends Component {
       },
     })
   };
+
+
   render() {
     const AsyncMap = withScriptjs(
       withGoogleMap(
         props => (
-          <div>
+          <GoogleMap defaultZoom={this.state.zoom} defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}>
+
+            <Marker
+              google={this.props.google}
+              name={'Dolores park'}
+              draggable={true}
+              onDragEnd={this.onMarkerDragEnd}
+              position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
+            />
+            <InfoWindow onClose={this.onInfoWindowClose} position={{ lat: (this.state.markerPosition.lat + 0.0018), lng: this.state.markerPosition.lng }}>
+              <div>
+                <span style={{ padding: 0, margin: 0 }}>{this.state.address}</span>
+              </div>
+            </InfoWindow>
+            <Marker />
+
             <Autocomplete
               style={{
                 width: '100%',
                 height: '40px',
                 paddingLeft: '16px',
                 marginTop: '2px',
-                marginBottom: '100px'
-              }}
-              onPlaceSelected={(place) => {
-                console.log(place);
+                marginBottom: '2rem'
               }}
               onPlaceSelected={this.onPlaceSelected}
               types={['establishment']}
               componentRestrictions={{ country: "co" }}
             />
-            <Map
-              style={{
-                //marginBottom: "80px",
-                //marginTop:"80px",
-                marginLeft: "80px",
-                marginRight: "80px",
-                width: "auto",
-                height: "700px",
-                marginBottom: "200px",
-                position: "relative"
-              }}
-              google={this.props.google}
-              defaultZoom={this.props.zoom}
-              initialCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
-            >
-            <Marker google={this.props.google}
-              name={'Dolores park'}
-              draggable={true}
-              onDragEnd={this.onMarkerDragEnd}
-              onClick={this.onClick}
-              position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
-            />
-            </Map>
-
-          </div >
+          </GoogleMap>
         )
       )
     );
-    let map;
-    if (this.props.center.lat !== undefined) {
-      map = <div>
-        <div>
+
+    return (
+      <div>
+        < Navigation tipoUsuario="Passenger" />
+        <div style={{padding: '1rem', margin: '0 auto', maxWidth: 1000}} >
           <div className="form-group">
-            <label htmlFor="">City</label>
+            <label htmlFor="">Ciudad</label>
             <input type="text" name="city" className="form-control" onChange={this.onChange} readOnly="readOnly" value={this.state.city} />
           </div>
           <div className="form-group">
@@ -221,35 +225,32 @@ export class Mapa extends Component {
             <input type="text" name="area" className="form-control" onChange={this.onChange} readOnly="readOnly" value={this.state.area} />
           </div>
           <div className="form-group">
-            <label htmlFor="">State</label>
+            <label htmlFor="">Estado</label>
             <input type="text" name="state" className="form-control" onChange={this.onChange} readOnly="readOnly" value={this.state.state} />
           </div>
           <div className="form-group">
-            <label htmlFor="">Address</label>
+            <label htmlFor="">Dirección</label>
             <input type="text" name="address" className="form-control" onChange={this.onChange} readOnly="readOnly" value={this.state.address} />
           </div>
         </div>
+        <div style={{padding: '1rem', margin: '0 auto', maxWidth: 1000}}> 
         <AsyncMap
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCq7iV7bIAnjv0MHr3nCxP5JTcphcnPlA&libraries=places"
           loadingElement={
             <div style={{ height: `100%` }} />
           }
           containerElement={
-            <div style={{ height: `100%` }} />
+            <div style={{ height: this.state.height }} />
           }
           mapElement={
             <div style={{ height: `100%` }} />
           }
         />
+        </div>
       </div>
-    } else {
-      map = <div style={{ height: this.props.height }} />
-    }
-    return (map)
+    )
   }
-}
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyDCq7iV7bIAnjv0MHr3nCxP5JTcphcnPlA'
-})(Mapa);
-//export default Map
 
+}
+
+export default Mapa;

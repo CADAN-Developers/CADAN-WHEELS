@@ -13,7 +13,6 @@ import EjemploDialog from './components/EjemploDialog';
 import Toastr from './components/Toastr'
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import Mapa  from './components/Maps/Mapa';
 import MapView  from './components/Maps/MapView';
 
 
