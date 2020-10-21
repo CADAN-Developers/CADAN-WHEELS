@@ -46,6 +46,11 @@ Usuarios ya registrados podrán consultar sus vehiculos o motos, consultar estad
 
 ![diagramaComponentes](https://github.com/CADAN-Developers/CADAN-WHEELS/blob/master/resources/diagramaComponentes.png)
 
+### Modelo de negocio
+
+![Screenshot_1](https://user-images.githubusercontent.com/48091585/92807242-51164980-f380-11ea-8145-7f1e36e3045e.png)
+
+
 ## Preview
 
 Pagina Home
