@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import moment from "moment";
 import './App.css';
-import DriverHome from './Driver/home/DriverHome';
+import DriverHome from './driver/home/DriverHome';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
 import RecordsPasajero from './pasajero/home/RecordsPasajero'
-import FormVehiculo from './Driver/registroVehiculo/FormVehiculo'
+import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
+import EjemploDialog from './components/EjemploDialog';
 
+import Toastr from './components/Toastr'
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import MapView from './components/Maps/MapView';
 
 class App extends Component {
 
@@ -18,12 +21,12 @@ class App extends Component {
 
         super(props);
         this.state = {
-            isLog : false
+            isLog: false
 
         }
         this.handleClick = this.handleClick.bind(this)
-        
-     }
+
+    }
 
     render() {
         const items = [{
@@ -32,11 +35,11 @@ class App extends Component {
             placa: "HIX578",
             capacidad: "5",
             soat: moment(new Date(156464645646))
-          }]
-          
-          const VehiculosView = () => (
+        }]
+
+        const VehiculosView = () => (
             <div>
-              <FormVehiculo vehicList={items} /> 
+                <FormVehiculo vehicList={items} />
             </div>
         );
 
@@ -56,7 +59,7 @@ class App extends Component {
 
         return (
 
-            
+
 
             <div className="App">
 
@@ -65,14 +68,20 @@ class App extends Component {
                         {/* ENRUTAMIENTO */}
 
                         <Switch>
+                            <Route exact path="/noti" component={Toastr} />
+                            <Route path="/dialog" component={EjemploDialog} />
+
                             <Route exact path="/" component={vistaprevia} />
                             <Route path="/driver" component={DriverHome} />
                             <Route path="/login" component={Login} />
+                            {/* conductor (si es conductor poner antes /c/ y la pagina que se desee)*/}
+                            <Route path="/conductor" component={DriverHome} />
+                            <Route path="/c/vehiculos" component={VehiculosView} />
+
+                            {/* pasajero (si es pasajero poner antes /p/ y la pagina que se desee)*/}
                             <Route path="/pasajero" component={PasajeroHome} />
-                            <Route path="/registerVehic" component={VehiculosView} />
-                            <Route path="/registerUsuario" component={RegistroUsuario} />
-                            <Route path="/UpdatePasajero" component={UpdatePasajero} />
-                            <Route path="/RecordsPasajero" component={RecordsPasajero}/>
+                            <Route path="/p/actualizar" component={UpdatePasajero} />
+                            <Route path="/p/registros" component={RecordsPasajero} />
                         </Switch>
                     </div>
                 </Router>
@@ -83,7 +92,7 @@ class App extends Component {
 
     handleClick(e) {
         console.log("regresa a APP ")
-        this.setState({ isLog : true})
+        this.setState({ isLog: true })
     }
 }
 
