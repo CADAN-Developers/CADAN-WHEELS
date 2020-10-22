@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import moment from "moment";
 import './App.css';
-import DriverHome from './driver/home/DriverHome';
+import DriverHome from './Driver/home/DriverHome';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
 import RecordsPasajero from './pasajero/home/RecordsPasajero'
-import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
+import FormVehiculo from './Driver/registroVehiculo/FormVehiculo'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
 import EjemploDialog from './components/EjemploDialog';
@@ -27,6 +27,8 @@ class App extends Component {
         this.handleClick = this.handleClick.bind(this)
 
     }
+
+
 
     render() {
         const items = [{
@@ -70,6 +72,10 @@ class App extends Component {
                         <Switch>
                             <Route exact path="/noti" component={Toastr} />
                             <Route path="/dialog" component={EjemploDialog} />
+
+                            {/* Componente del Mapa */}
+
+                            <Route path="/map" component={MapView} />
 
                             <Route exact path="/" component={vistaprevia} />
                             <Route path="/driver" component={DriverHome} />
