@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from "moment";
 import './App.css';
+
 import DriverHome from './driver/home/DriverHome';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
@@ -18,25 +19,45 @@ import MapView  from './components/Maps/MapView';
 
 class App extends Component {
 
-  // constructor(props) {
-  //     super(props);
-  // }
+constructor(props) {
 
-  render() {
-    const items = [{
-      marca: "Renault ",
-      matricula: moment(new Date(156464645646)),
-      placa: "HIX578",
-      capacidad: "5",
-      soat: moment(new Date(156464645646))
-    }]
+        super(props);
+        this.state = {
+            isLog : false
 
-    const VehiculosView = () => (
-      <div>
-        <FormVehiculo vehicList={items} />
-      </div>
-    );
+        }
+        this.handleClick = this.handleClick.bind(this)
+        
+     }
 
+ render() {
+        const items = [{
+            marca: "Renault ",
+            matricula: moment(new Date(156464645646)),
+            placa: "HIX578",
+            capacidad: "5",
+            soat: moment(new Date(156464645646))
+          }]
+          
+          const VehiculosView = () => (
+            <div>
+              <FormVehiculo vehicList={items} /> 
+            </div>
+        );
+
+        const loginView = () => (
+            <div>
+                <Login handleClick={this.handleClick} />
+            </div>
+        );
+
+        const pasView = () => (
+            <div>
+                <PasajeroHome />
+            </div>
+        );
+
+        const vistaprevia = this.state.isLog ? pasView : loginView
     
     return (
       <div className="App">
@@ -51,7 +72,7 @@ class App extends Component {
               <Route path="/dialog" component={EjemploDialog} />
 
 
-              <Route exact path="/" component={Login} />
+              <Route exact path="/" component={vistaprevia} />
               <Route path="/iniciar" component={Login} />
               <Route path="/registrar" component={RegistroUsuario} />
               <Route path="/map" component={MapView} />
@@ -70,6 +91,11 @@ class App extends Component {
         </Router>
       </div>
     );
+    
+    handleClick(e) {
+        console.log("regresa a APP ")
+        this.setState({ isLog : true})
+    }
   }
 }
 
