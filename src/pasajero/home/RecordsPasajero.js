@@ -3,46 +3,36 @@ import CardViajes from '../../components/CardViajes';
 import Navigation from '../../components/Navigation';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import moment from "moment";
 
 export class RecordsPasajero extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {items:[
-            {"driver" : "https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg", 
-            "name" : "JULIAN SANCHEZ", 
-            "date" : "12-03-2020", 
-            "map" : "https://github.com/CADAN-Developers/CADAN-WHEELS/blob/principalPasajeroMockup/resources/primera.PNG", 
-            "description" : "The trip was made in Cra 15 #45-12 to U. Andes", 
-            "cost" : "10.000",
-            "rating" : "2",
-            "id" : "Viaje1"},
-            {"driver" : "https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg", 
-            "name" : "MARIA GONZALES", 
-            "date" : "15-02-2020", 
-            "map" : "/resources/segunda.PNG", 
-            "description" : "The trip was made in Cra 100 #64-15 to U. Javeriana", 
-            "cost" : "8.000",
-            "rating" : "4.5",
-            "id" : "Viaje2"},
-            {"driver" : "https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg", 
-            "name" : "LAURA HERNANDEZ", 
-            "date" : "17-01-2020", 
-            "map" : "../images/tercera.PNG", 
-            "description" : "The trip was made in Cra 87 #54-02 to U. Piloto", 
-            "cost" : "6.000",
-            "rating" : "3",
-            "id" : "Viaje3"}
-        ]
+        this.state = {map:"https://github.com/CADAN-Developers/CADAN-WHEELS/blob/principalPasajeroMockup/resources/primera.PNG",
+        foto:"https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg",
+        completados:[]
         }
     }
 
     render() {
-        const Viajes = this.state.items.map((todo, i) => {
-            return (
-                <CardViajes key={i} driver={todo.driver} name={todo.name} date={todo.date} map={todo.map} description={todo.description} cost={todo.cost} rating={todo.rating}/>
-            );
-        });
+
+        fetch('http://localhost:8080/Realizados/' + sessionStorage.getItem("usuario"))
+                .then(response => response.json())
+                .then(data => {
+                    let completadosP = [];
+                    data.forEach(function (viaje) {
+                        completadosP.push({
+                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        })
+                    });
+                    this.setState({completados:completadosP});
+                });
+            const completadosList = this.state.completados.map((viaje) => {
+                return (
+                <CardViajes key={viaje.idViaje} driver={this.state.foto} name={viaje.conductor} date={viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')} map={this.state.map} description={viaje.ruta} cost={viaje.costo} rating={viaje.calificacion} />
+                );
+            });
 
         return (
             <div>
@@ -50,7 +40,7 @@ export class RecordsPasajero extends React.Component {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Grid container justify="center" spacing={3}>
-                            {Viajes.map((value) => (
+                            {completadosList.map((value) => (
                                 <Grid key={value} item>
                                     {value}
                                 </Grid>

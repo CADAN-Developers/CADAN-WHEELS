@@ -20,15 +20,12 @@ import MapView  from './components/Maps/MapView';
 class App extends Component {
 
 constructor(props) {
-
-        super(props);
-        this.state = {
-            isLog : false
-
-        }
-        this.handleClick = this.handleClick.bind(this)
-        
-     }
+  super(props);
+  this.state = {
+    isLog : false
+  }
+  this.handleClick = this.handleClick.bind(this)
+}
 
  render() {
         const items = [{
@@ -91,12 +88,12 @@ constructor(props) {
         </Router>
       </div>
     );
-    
-    handleClick(e) {
-        console.log("regresa a APP ")
-        this.setState({ isLog : true})
     }
-  }
+    s
+    handleClick(e) {
+      console.log("regresa a APP ")
+      this.setState({ isLog : true})
+    }
 }
 
 export default App;

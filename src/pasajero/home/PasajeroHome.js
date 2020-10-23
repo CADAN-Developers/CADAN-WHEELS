@@ -12,7 +12,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import ListGroup from 'react-bootstrap/ListGroup'
+import TextField from '@material-ui/core/TextField';
 // import InputGroup from 'react-bootstrap/InputGroup'
+import moment from "moment";
 
 
 class PasajeroHome extends React.Component {
@@ -20,9 +22,43 @@ class PasajeroHome extends React.Component {
     constructor(props) {
         super(props);
         this.alertClicked = this.alertClicked.bind(this);
+        this.state = {ofrecidos:[], completados:[]};
     }
 
     render() {
+        fetch('http://localhost:8080/ViajesOfrecidos')
+            .then(response => response.json())
+            .then(data => {
+                let ofrecidosC = [];
+                data.forEach(function (viaje) {
+                    ofrecidosC.push({
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                    })
+                });
+                this.setState({ofrecidos:ofrecidosC});
+            });
+        const ofrecidosList = this.state.ofrecidos.map((viaje) => {
+            return (
+            <ListGroup.Item id={viaje.idViaje}>{viaje.ruta} ${viaje.costo}  cupos: {viaje.cupos}  fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+            );
+        });
+        fetch('http://localhost:8080/Realizados/' + sessionStorage.getItem("usuario"))
+                .then(response => response.json())
+                .then(data => {
+                    let completadosP = [];
+                    data.forEach(function (viaje) {
+                        completadosP.push({
+                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        })
+                    });
+                    this.setState({completados:completadosP});
+                });
+            const completadosList = this.state.completados.map((viaje) => {
+                return (
+                <ListGroup.Item id={viaje.idViaje}>{viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+                );
+            });
+
         return (
 
             <div>
@@ -37,7 +73,14 @@ class PasajeroHome extends React.Component {
                             <Nav.Link href="#history">Record</Nav.Link>
                             <Button variant="danger">Log Out</Button>
                         </Nav>
-                    </Navbar> */}
+                    </Navbar> 
+                     <ListGroup.Item >Cra 15 #45-12 a U. Andes $10.000</ListGroup.Item>
+                                        <ListGroup.Item >Cra 100 #64-15 a U. Javeriana $8.000</ListGroup.Item>
+                                        <ListGroup.Item >Cra 87 #54-02 a U. Piloto $6.000</ListGroup.Item>
+                                        <ListGroup.Item >Cra 78 #15-80 a U. Tadeo $5.000</ListGroup.Item>
+                                        <ListGroup.Item >Cra 53 #32-33 a U. ECCI $6.000</ListGroup.Item>
+                                        <ListGroup.Item >Cra 12 #69-20 a U. ECI $7.000</ListGroup.Item>
+                                        <ListGroup.Item >Cra 20 #65-14 a U. Sergio Arboleda $8.000</ListGroup.Item>*/}
                 <Container fluid>
                     <Row>
                         <Col sm={4}>
@@ -47,31 +90,36 @@ class PasajeroHome extends React.Component {
                                     <Card.Text>
                                         <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg" roundedCircle width="175" height="175" />
                                     </Card.Text>
-                                    <Card.Title>CARLOS PARAMO</Card.Title>
+                                    <Card.Title>sessionStorage.getItem</Card.Title>
                                     <ListGroup variant="flush">
                                         <ListGroup.Item>Universidad Javeriana</ListGroup.Item>
                                         <ListGroup.Item>929847382</ListGroup.Item>
                                         <ListGroup.Item>c.paramo@gmail.com</ListGroup.Item>
                                     </ListGroup>
-                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/UpdatePasajero" >Edit</Button>
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/p/actualizar" >Edit</Button>
                                 </Card.Body>
                             </Card>
                         </Col>
 
                         <Col sm={8}>
+
+                        <Card className="text-center">
+                                <Card.Header as="h5">Viajes Disponibles</Card.Header>
+                                <Card.Body>
+                                    <ListGroup>
+                                        <TextField id="outlined-basic" label="¿A donde quieres ir?" variant="outlined"/>
+                                        {ofrecidosList}
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/p/registros" >See more</Button>
+                                    </ListGroup>
+                                </Card.Body>
+                            </Card>
                             
                             <Card className="text-center">
                                 <Card.Header as="h5">Historial</Card.Header>
                                 <Card.Body>
                                     <ListGroup>
-                                        <ListGroup.Item action onClick={this.alertClicked}>Cra 15 #45-12 a U. Andes $10.000</ListGroup.Item>
-                                        <ListGroup.Item action onClick={this.alertClicked}>Cra 100 #64-15 a U. Javeriana $8.000</ListGroup.Item>
-                                        <ListGroup.Item action onClick={this.alertClicked}>Cra 87 #54-02 a U. Piloto $6.000</ListGroup.Item>
-                                        <ListGroup.Item action onClick={this.alertClicked}>Cra 78 #15-80 a U. Tadeo $5.000</ListGroup.Item>
-                                        <ListGroup.Item action onClick={this.alertClicked}>Cra 53 #32-33 a U. ECCI $6.000</ListGroup.Item>
-                                        <ListGroup.Item action onClick={this.alertClicked}>Cra 12 #69-20 a U. ECI $7.000</ListGroup.Item>
-                                        <ListGroup.Item action onClick={this.alertClicked}>Cra 20 #65-14 a U. Sergio Arboleda $8.000</ListGroup.Item>
-                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/RecordsPasajero" >See more</Button>
+                                        {completadosList}
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/p/registros" >See more</Button>
                                     </ListGroup>
                                 </Card.Body>
                             </Card>
