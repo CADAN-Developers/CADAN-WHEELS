@@ -14,6 +14,7 @@ import Toastr from './components/Toastr'
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import MapView  from './components/Maps/MapView';
+import UploadImagenes from './components/imagenesDocumentos/UploadImagenes';
 
 
 class App extends Component {
@@ -55,6 +56,7 @@ class App extends Component {
               <Route path="/iniciar" component={Login} />
               <Route path="/registrar" component={RegistroUsuario} />
               <Route path="/map" component={MapView} />
+              <Route path="/subirImagenes" component={UploadImagenes} />
 
               {/* conductor (si es conductor poner antes /c/ y la pagina que se desee)*/}
               <Route path="/conductor" component={DriverHome} />
