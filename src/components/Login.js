@@ -11,10 +11,12 @@ class Login extends React.Component {
         super(props);
         this.state = {
             mail: "",
-            password: ""
+            password: "",
+            isLogged: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getUser = this.getUser.bind(this);
     }
 
     handleChange(e) {
@@ -23,9 +25,10 @@ class Login extends React.Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        console.log("entra al boton");       
-        alert("Datos incorrectos, favor verifique")
-        console.log(this.state);
+        console.log("entra al boton");
+        this.getUser(this.state.mail, this.state.password)
+     //   alert("Datos incorrectos, favor verifique")
+     //   console.log(this.state);
         this.setState({ mail: '', password: '' });
 
     }
@@ -84,6 +87,43 @@ class Login extends React.Component {
                 </div>
             </container>
          </div>
-    )};
+        )
+    };
+
+    getUser = ((mail, password) => {
+
+        const data = new FormData();
+        data.append('correo', mail);
+        data.append('password', password);
+        let url = "https://cadanback.herokuapp.com/logUser";
+        const properties = this.props;
+        console.log(properties)
+        console.log("entra a la funcion");
+        fetch(url, {
+            method: 'POST',
+            body: data
+        }).then(function (response) {
+            console.log(response);
+            if (response.ok) {
+                //window.location.href = "/options.html";
+                return response.json();
+            } else {
+                alert("Ha ocurrido un error en el servidor");
+                throw "Error en la llamada Ajax";
+            }
+        }).then(function (connect) {
+            console.log(connect);
+            console.log(connect.usuario);
+            if ((connect.isLog)) {
+                alert("Inicio de sesion Exitoso");
+                sessionStorage.setItem("usuario", mail);
+                sessionStorage.setItem("usuarioCompleto", connect.usuario)
+                properties.handleClick(connect)
+            } else {
+                window.alert("verifique su correo/clave");
+            }
+        });
+    })
+    
 }
 export default Login

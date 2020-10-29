@@ -1,33 +1,26 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 
 
-export class CardViajes extends React.Component {
+
+export class CardViajesAgendados extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {value:3}
-    this.handleRateChange = this.handleRateChange.bind(this);
+    this.state = {key:this.props.idViaje}
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   render(){
+    console.log("init key "+ this.props.key);
+    console.log("init state "+ this.state.key);
       return (
           <div>
                 <Card style={{width: 345, height: 600 }}>
@@ -58,29 +51,17 @@ export class CardViajes extends React.Component {
                         {this.props.cost}
                     </Typography>
                 </CardContent>
-                <CardActions disableSpacing>
-                    <Box component="fieldset" mb={3} borderColor="transparent">
-                        <Typography component="legend">Calificacion del viaje</Typography>
-                        <Rating
-                        name="read-only"
-                        defaultValue={this.props.rating}
-                        precision={0.5}
-                        readOnly 
-                        onChange={this.handleRateChange}
-                        />
-                    </Box>
+                <CardActions disableSpacing style={{justifyContent: 'center'}}>
+                        <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmit}>Cancelar</Button>
                 </CardActions>
                 </Card>
             </div>
       );
   }
 
-  handleRateChange(e) {
-    console.log(e.target.value);
-    this.setState({
-        value: e.target.value
-    });
+  handleSubmit(e) {
+    console.log(this.props.key);
   }
 }
 
-export default CardViajes;
+export default CardViajesAgendados;
