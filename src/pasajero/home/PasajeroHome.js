@@ -70,7 +70,11 @@ class PasajeroHome extends React.Component {
                             "idViaje": data.idViaje, "pasajero": data.pasajero, "conductor": data.conductor, "ruta": data.ruta, "costo": data.costo, "calificacion": data.calificacion, "tipoViaje": data.tipoViaje, "fecha": moment(data.fecha), "cupos": data.cupos
                         })
                     this.setState({enCurso:enCursoP});
+                })
+                .catch(function(error) {
                 });
+
+                
             
     }
 
