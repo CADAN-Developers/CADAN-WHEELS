@@ -22,11 +22,12 @@ class PasajeroHome extends React.Component {
     constructor(props) {
         super(props);
         this.alertClicked = this.alertClicked.bind(this);
-        this.state = {ofrecidos:[], completados:[]};
+        this.realizadoClick = this.realizadoClick.bind(this);
+        this.state = {ofrecidos:[], completados:[], agendados:[], enCurso:[]};
     }
 
-    render() {
-        fetch('http://localhost:8080/ViajesOfrecidos')
+    componentDidMount(){
+        fetch('https://cadanback.herokuapp.com/ViajesOfrecidos')
             .then(response => response.json())
             .then(data => {
                 let ofrecidosC = [];
@@ -37,12 +38,7 @@ class PasajeroHome extends React.Component {
                 });
                 this.setState({ofrecidos:ofrecidosC});
             });
-        const ofrecidosList = this.state.ofrecidos.map((viaje) => {
-            return (
-            <ListGroup.Item id={viaje.idViaje}>{viaje.ruta} ${viaje.costo}  cupos: {viaje.cupos}  fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
-            );
-        });
-        fetch('http://localhost:8080/Realizados/' + sessionStorage.getItem("usuario"))
+        fetch('https://cadanback.herokuapp.com/Realizados/' + sessionStorage.getItem("usuario"))
                 .then(response => response.json())
                 .then(data => {
                     let completadosP = [];
@@ -53,11 +49,55 @@ class PasajeroHome extends React.Component {
                     });
                     this.setState({completados:completadosP});
                 });
-            const completadosList = this.state.completados.map((viaje) => {
-                return (
-                <ListGroup.Item id={viaje.idViaje}>{viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
-                );
-            });
+
+        fetch('https://cadanback.herokuapp.com/AgenadosPas/' + sessionStorage.getItem("usuario"))
+                .then(response => response.json())
+                .then(data => {
+                    let AgendadosP = [];
+                    data.forEach(function (viaje) {
+                        AgendadosP.push({
+                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        })
+                    });
+                    this.setState({agendados:AgendadosP});
+                });
+        
+        fetch('https://cadanback.herokuapp.com/EnCursoPas/' + sessionStorage.getItem("usuario"))
+                .then(response => response.json())
+                .then(data => {
+                    let enCursoP = [];
+                    enCursoP.push({
+                            "idViaje": data.idViaje, "pasajero": data.pasajero, "conductor": data.conductor, "ruta": data.ruta, "costo": data.costo, "calificacion": data.calificacion, "tipoViaje": data.tipoViaje, "fecha": moment(data.fecha), "cupos": data.cupos
+                        })
+                    this.setState({enCurso:enCursoP});
+                });
+            
+    }
+
+    render() {
+        const completadosList = this.state.completados.map((viaje) => {
+            return (
+            <ListGroup.Item key={viaje.idViaje}> {viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+            );
+        });
+        const ofrecidosList = this.state.ofrecidos.map((viaje) => {
+            return (
+            <ListGroup.Item key={viaje.idViaje}>{viaje.ruta} ${viaje.costo}  cupos: {viaje.cupos}  fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+            );
+            
+        });
+        const agendadosList = this.state.agendados.map((viaje) => {
+            return (
+            <ListGroup.Item key={viaje.idViaje}> {viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+            );
+        });
+        const enCursoList = this.state.enCurso.map((viaje) => {
+            return (
+            <ListGroup.Item key={viaje.idViaje}>{viaje.ruta} ${viaje.costo} conductor: {viaje.conductor}</ListGroup.Item>
+            );
+            
+        });
+
 
         return (
 
@@ -90,13 +130,13 @@ class PasajeroHome extends React.Component {
                                     <Card.Text>
                                         <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg" roundedCircle width="175" height="175" />
                                     </Card.Text>
-                                    <Card.Title>sessionStorage.getItem</Card.Title>
+                                    <Card.Title>Carlos Paramo</Card.Title>
                                     <ListGroup variant="flush">
                                         <ListGroup.Item>Universidad Javeriana</ListGroup.Item>
                                         <ListGroup.Item>929847382</ListGroup.Item>
-                                        <ListGroup.Item>c.paramo@gmail.com</ListGroup.Item>
+                                        <ListGroup.Item>{sessionStorage.getItem("usuario")}</ListGroup.Item>
                                     </ListGroup>
-                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/p/actualizar" >Edit</Button>
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/p/actualizar" >Editar perfil</Button>
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -104,12 +144,30 @@ class PasajeroHome extends React.Component {
                         <Col sm={8}>
 
                         <Card className="text-center">
+                                <Card.Header as="h5">Viaje En Curso</Card.Header>
+                                <Card.Body>
+                                    <ListGroup>
+                                        {enCursoList}
+                                    </ListGroup>
+                                </Card.Body>
+                            </Card>    
+
+                        <Card className="text-center">
                                 <Card.Header as="h5">Viajes Disponibles</Card.Header>
                                 <Card.Body>
                                     <ListGroup>
                                         <TextField id="outlined-basic" label="¿A donde quieres ir?" variant="outlined"/>
                                         {ofrecidosList}
-                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/p/registros" >See more</Button>
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/p/ofrecidos" >Ver Todos</Button>
+                                    </ListGroup>
+                                </Card.Body>
+                            </Card>
+                            <Card className="text-center">
+                                <Card.Header as="h5">Viajes Agendados</Card.Header>
+                                <Card.Body>
+                                    <ListGroup>
+                                        {agendadosList}
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/p/agendados" >Ver Todos</Button>
                                     </ListGroup>
                                 </Card.Body>
                             </Card>
@@ -119,7 +177,7 @@ class PasajeroHome extends React.Component {
                                 <Card.Body>
                                     <ListGroup>
                                         {completadosList}
-                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/p/registros" >See more</Button>
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/p/registros" >Ver Todos</Button>
                                     </ListGroup>
                                 </Card.Body>
                             </Card>
@@ -133,6 +191,10 @@ class PasajeroHome extends React.Component {
 
     alertClicked() {
         alert('Operation in maintenance');
+    }
+
+    realizadoClick(e){
+        console.log("click" + Object.getOwnPropertyNames(e));
     }
 }
 

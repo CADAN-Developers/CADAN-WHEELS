@@ -6,6 +6,8 @@ import DriverHome from './driver/home/DriverHome';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
 import RecordsPasajero from './pasajero/home/RecordsPasajero'
+import OfrecidosPasajero from './pasajero/home/OfrecidosPasajero'
+import AgendadosPasajero from './pasajero/home/AgendadosPasajero'
 import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
@@ -82,6 +84,8 @@ constructor(props) {
               <Route path="/pasajero" component={PasajeroHome} />
               <Route path="/p/actualizar" component={UpdatePasajero} />
               <Route path="/p/registros" component={RecordsPasajero} />
+              <Route path="/p/ofrecidos" component={OfrecidosPasajero} />
+              <Route path="/p/agendados" component={AgendadosPasajero} />
               
             </Switch>
           </div>
