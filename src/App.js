@@ -17,6 +17,7 @@ import AgendadosPasajero from './pasajero/home/AgendadosPasajero'
 import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
+
 import EjemploDialog from './components/EjemploDialog';
 
 
@@ -24,6 +25,11 @@ import Toastr from './components/Toastr'
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import MapView  from './components/Maps/MapView';
+import UploadImagenes from './components/imagenesDocumentos/UploadImagenes';
+
+// version 2 
+import Login2 from './components/login/Login';
+import Registrar2 from "./components/registrar/Registrar";
 
 
 class App extends Component {
@@ -68,12 +74,17 @@ super(props);
 
               <Route exact path="/noti" component={Toastr} />
               <Route path="/dialog" component={EjemploDialog} />
+              
+              {/* version 2 */}
+              <Route path="/loginv2" component={Login2} />
+              <Route path="/registrarv2" component={Registrar2} />
 
 
               <Route exact path="/" component={vistaprevia} />
               <Route path="/iniciar" component={Login} />
               <Route path="/registrar" component={RegistroUsuario} />
               <Route path="/map" component={MapView} />
+              <Route path="/subirImagenes" component={UploadImagenes} />
 
               {/* conductor (si es conductor poner antes /c/ y la pagina que se desee)*/}
               <Route path="/conductor" component={DriverHome} />

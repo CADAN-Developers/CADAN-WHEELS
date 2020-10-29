@@ -1,0 +1,13 @@
+#container-full {
+    height: 100vh;
+    margin: 10px;
+    padding: 20px;
+}
+
+#tabContent {
+    background-color: #536f821c;
+    -webkit-box-shadow: 2px 2px 5px #999;
+    -moz-box-shadow: 2px 2px 5px #999;
+    filter: shadow(color=#999999, direction=135, strength=2);
+    padding: 10px;
+}
