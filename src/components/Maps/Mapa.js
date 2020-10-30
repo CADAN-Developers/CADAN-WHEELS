@@ -15,7 +15,8 @@ Geocode.setApiKey("AIzaSyDCq7iV7bIAnjv0MHr3nCxP5JTcphcnPlA");
 Geocode.enableDebug();
 let originI = new google.maps.LatLng(4.7827, -74.0426);
 let destinationI = new google.maps.LatLng(4.740983, -74.035435)
-
+/*let originI = { lat: 4.7827, lng: -74.0426 };
+let destinationI = { lat: 4.740983, lng: -74.035435};*/
 
 class Mapa extends React.Component {
 
@@ -39,14 +40,15 @@ class Mapa extends React.Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
         const directionsService = new window.google.maps.DirectionsService();
 
-        const originP = new google.maps.LatLng(4.7827, -74.0426);
-        const destinationP = new google.maps.LatLng(4.740983, -74.035435)
-   
-        directionsService.route(
+      /*const originP = new google.maps.LatLng(4.7827, -74.0426);
+        const destinationP = new google.maps.LatLng(4.740983, -74.035435)*/
+        const originP = { lat: 4.7827, lng: -74.0426 };
+        const destinationP = { lat: 4.740983, lng: -74.035435 };
+       await directionsService.route(
             {
                 origin: originP,
                 destination: destinationP,
@@ -58,9 +60,9 @@ class Mapa extends React.Component {
                 if (status === window.google.maps.DirectionsStatus.OK) {
                     console.log(result)
                     this.setState({
-                        directions: result.routes[0].overview_polyline
+                        directions: result.routes[0].overview_path,
+                        zoom:this.state.zoom - 2
                     });
-                    console.log(Polyline.decodePolyline(this.state.directions));
                 } else {
                     console.log("llega hasta el hpta ERRRRROOR")
                     console.error(`error fetching directions ${result}`);
@@ -217,6 +219,8 @@ class Mapa extends React.Component {
     
     render() {
         const listItems = []
+        var destino = {
+            "lat":this.state.directions[1].lat, "lng" :this.state.directions[1].lng}
       //  this.state.directions.map((point, index) => {
       //      console.log(point)
       //      listItems.push(point.lat.toString)
@@ -226,12 +230,20 @@ class Mapa extends React.Component {
             withGoogleMap(
                 props => (
                     <GoogleMap defaultZoom={this.state.zoom} defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}>
-                        {console.log(this.state.directions)}
+                        {this.state.directions.map((point, i) => {
+                            console.log("latiutde: " + point.lat() + "longitud " + point.lng())
+                            listItems.push({ "lat": point.lat(), "lng": point.lng() }) 
+                            if (i === this.state.directions.length-1){
+                                destino = { "lat": point.lat(), "lng": point.lng() };
+                            }
+                            
+                       })
+                        }
                         {console.log(listItems)}
                         
                         <Polyline
                             path={listItems}
-                            strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
+                            strokeColor="#7F0000" // fallback for when `strokeColors` is not supported by the map-provider
                             strokeColors={[
                                 '#7F0000',
                                 '#00000000', // no color, creates a "long" gradient between the previous and next coordinate
@@ -242,7 +254,19 @@ class Mapa extends React.Component {
                             ]}
                             strokeWidth={6}
                         />
-      
+
+                        {/* init marker point*/}
+                        <Marker
+                            position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
+                            icon={"http://maps.google.com/mapfiles/ms/micons/yellow-dot.png"}
+                        />
+
+                        {/* end marker point*/}
+
+                        <Marker
+                            position={{ lat: destino.lat, lng: destino.lng }}
+                            icon={"http://maps.google.com/mapfiles/ms/micons/rangerstation.png"} 
+                       />
 
                         {/*  <DirectionsRenderer directions={this.state.directions} /> */}
 
