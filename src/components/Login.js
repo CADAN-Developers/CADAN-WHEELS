@@ -113,9 +113,11 @@ class Login extends React.Component {
             }
         }).then(function (connect) {
             console.log(connect);
+            console.log(connect.usuario);
             if ((connect.isLog)) {
                 alert("Inicio de sesion Exitoso");
                 sessionStorage.setItem("usuario", mail);
+                sessionStorage.setItem("usuarioCompleto", connect.usuario)
                 properties.handleClick(connect)
             } else {
                 window.alert("verifique su correo/clave");

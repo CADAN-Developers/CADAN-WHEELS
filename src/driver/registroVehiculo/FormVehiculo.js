@@ -10,6 +10,7 @@ import { Fab } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import axios from 'axios';
 
 
 export default class FormVehiculo extends React.Component {
@@ -154,7 +155,7 @@ export default class FormVehiculo extends React.Component {
         });
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
 
         e.preventDefault();
         console.log(this.state);
@@ -163,11 +164,14 @@ export default class FormVehiculo extends React.Component {
             return;
 
         const newVehic = {
-            marca: this.state.marca,
-            matricula: this.state.matricula,
+            correoDueño: "daniel@mail.com",
             placa: this.state.placa,
+            marca: this.state.marca,
+            color: "Negro",
+            matricula: this.state.matricula,
             capacidad: this.state.capacidad,
-            soat: this.state.soat
+            fechaSoat: this.state.matricula,
+            soat: "soat"
         };
         this.setState(prevState => ({
             vehiculos: prevState.vehiculos.concat(newVehic),
@@ -178,6 +182,23 @@ export default class FormVehiculo extends React.Component {
             soat: moment(),
             open: false
         }));
+
+        await axios.post('https://cadanback.herokuapp.com/AddVehiculo', {
+            correoDueño: "daniel@mail.com",
+            placa: this.state.placa,
+            marca: this.state.marca,
+            color: "Negro",
+            matricula: this.state.matricula,
+            capacidad: this.state.capacidad,
+            fechaSoat: this.state.matricula,
+            soat: "soat"
+        })
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
 
     }
