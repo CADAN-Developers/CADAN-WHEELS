@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import moment from "moment";
 import './App.css';
-
-import DriverHome from './driver/home/DriverHome';
+import DriverHome from './Driver/home/DriverHome';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
 import RecordsPasajero from './pasajero/home/RecordsPasajero'
-
-import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
+import FormVehiculo from './Driver/registroVehiculo/FormVehiculo'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
 import axios from 'axios';
@@ -24,6 +22,7 @@ import EjemploDialog from './components/EjemploDialog';
 import Toastr from './components/Toastr'
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+
 import MapView  from './components/Maps/MapView';
 import UploadImagenes from './components/imagenesDocumentos/UploadImagenes';
 
@@ -62,7 +61,7 @@ super(props);
         );
 
         const vistaprevia = this.state.isLog ? pasView : loginView
-    
+        
     return (
       <div className="App">
 
@@ -79,7 +78,7 @@ super(props);
               <Route path="/loginv2" component={Login2} />
               <Route path="/registrarv2" component={Registrar2} />
 
-
+              
               <Route exact path="/" component={vistaprevia} />
               <Route path="/iniciar" component={Login} />
               <Route path="/registrar" component={RegistroUsuario} />
