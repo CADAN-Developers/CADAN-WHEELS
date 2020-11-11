@@ -12,9 +12,6 @@ import axios from 'axios';
 
 import OfrecidosPasajero from './pasajero/home/OfrecidosPasajero'
 import AgendadosPasajero from './pasajero/home/AgendadosPasajero'
-import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
-import Login from './components/Login'
-import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
 
 import EjemploDialog from './components/EjemploDialog';
 
@@ -32,14 +29,14 @@ import Registrar2 from "./components/registrar/Registrar";
 
 
 class App extends Component {
-
-super(props);
-        this.state = {
-            isLog : false,
-            items : []
-            }
-  this.handleClick = this.handleClick.bind(this)
-}
+    constructor(props) {
+    super(props)
+    this.state = {
+                isLog : false,
+                items : []
+    }
+      this.handleClick = this.handleClick.bind(this)
+    }
 
  render() {  
           const VehiculosView = () => (
