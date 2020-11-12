@@ -11,15 +11,17 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import axios from 'axios';
+import { API_ROOT } from '../../config/api-config';
 
 
 export default class FormVehiculo extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { vehiculos: [], marca: '', matricula: moment(), placa: '', capacidad: '', soat: moment(), open: false };
+        this.state = { vehiculos: [], marca: '', matricula: moment(), placa: '', capacidad: '', soat: moment(), open: false, color: '' };
         this.handleMarcaChange = this.handleMarcaChange.bind(this);
         this.handleMatriculaDateChange = this.handleMatriculaDateChange.bind(this);
         this.handlePlacaChange = this.handlePlacaChange.bind(this);
+        this.handleColorChange = this.handleColorChange.bind(this);
         this.handleCapacidadChange = this.handleCapacidadChange.bind(this);
         this.handleSoatDateChange = this.handleSoatDateChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -76,6 +78,13 @@ export default class FormVehiculo extends React.Component {
                             label="Placa del vehículo"
                             value={this.state.placa}
                             onChange={this.handlePlacaChange}
+                            margin="normal" />
+                        <br />
+                        <TextField
+                            id="color"
+                            label="Color del vehículo"
+                            value={this.state.color}
+                            onChange={this.handleColorChange}
                             margin="normal" />
                         <br />
                         <InputLabel id="capacidad">Capacidad</InputLabel>
@@ -140,6 +149,12 @@ export default class FormVehiculo extends React.Component {
             placa: e.target.value
         });
     }
+    handleColorChange(e) {
+        console.log(e)
+        this.setState({
+            color: e.target.value
+        });
+    }
 
     
 
@@ -160,14 +175,14 @@ export default class FormVehiculo extends React.Component {
         e.preventDefault();
         console.log(this.state);
 
-        if (!this.state.marca || !this.state.matricula || !this.state.placa || !this.state.capacidad || !this.state.soat )
+        if (!this.state.marca || !this.state.matricula || !this.state.placa || !this.state.capacidad || !this.state.soat || !this.state.color)
             return;
 
         const newVehic = {
             correoDueño: "daniel@mail.com",
             placa: this.state.placa,
             marca: this.state.marca,
-            color: "Negro",
+            color: this.state.color,
             matricula: this.state.matricula,
             capacidad: this.state.capacidad,
             fechaSoat: this.state.matricula,
@@ -183,8 +198,8 @@ export default class FormVehiculo extends React.Component {
             open: false
         }));
 
-        await axios.post('https://cadanback.herokuapp.com/AddVehiculo', {
-            correoDueño: "daniel@mail.com",
+        await axios.post(API_ROOT+"/AddVehiculo", {
+            correoDueño: sessionStorage.getItem("usuario"),
             placa: this.state.placa,
             marca: this.state.marca,
             color: "Negro",
@@ -203,10 +218,21 @@ export default class FormVehiculo extends React.Component {
 
     }
 
-    componentDidMount() {
-        this.setState(prevState => ({
-            vehiculos: prevState.vehiculos.concat(this.props.vehicList)
-        }))
+    async componentDidMount(){
+        const url = API_ROOT+"/getVehiculos?conductor="+sessionStorage.getItem("usuario");
+        var list=[];
+        await fetch(url).then(res => res.json())
+                    .then((result) => {
+                            result.forEach(element => { list.push(element)
+                                
+                            });
+                                
+                          
+                        
+                    });
+        this.setState({
+            vehiculos: list
+        });
     }
 
 }
