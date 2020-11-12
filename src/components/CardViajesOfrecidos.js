@@ -7,6 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import moment from "moment";
 
 
 // config
@@ -21,12 +22,15 @@ export class CardViajesOfrecidos extends React.Component {
         ruta:this.props.description,
         costo:this.props.cost,
         calificacion:this.props.calificacion,
-        fecha:this.props.fecha,
-        cupos:this.props.calificacion}
+        fecha:this.props.date,
+        cupos:this.props.calificacion,
+        mapa:this.props.mapa
+    }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   render(){
+      console.log(this.props.fecha);
       return (
           <div>
                 <Card style={{width: 345, height: 600 }}>
@@ -36,7 +40,7 @@ export class CardViajesOfrecidos extends React.Component {
                     </Avatar>
                     }
                     title= {this.props.name}
-                    subheader= {this.props.date}
+                    subheader= {moment(this.props.date).format('DD-MM-YYYY, h:mm:ss a')}
                 />
                 <CardMedia
                     style={{height: 200}}
@@ -83,7 +87,8 @@ export class CardViajesOfrecidos extends React.Component {
             calificacion:this.state.calificacion,
             tipoViaje:"AGENDADO",
             fecha:this.state.fecha,
-            cupos:0
+            cupos:0,
+            mapa: this.state.mapa
         })
     };
     fetch(API_ROOT + '/UpdateViaje/' + this.state.key, requestOptions
