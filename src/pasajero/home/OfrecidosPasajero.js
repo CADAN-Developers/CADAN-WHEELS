@@ -24,8 +24,9 @@ export class OfecidosPasajero extends React.Component {
             .then(data => {
                 let ofrecidosC = [];
                 data.forEach(function (viaje) {
+                    console.log(viaje.fecha)
                     ofrecidosC.push({
-                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": viaje.fecha, "cupos": viaje.cupos, "mapa": viaje.mapa
                     })
                 });
                 this.setState({ofrecidos:ofrecidosC});
@@ -37,7 +38,7 @@ export class OfecidosPasajero extends React.Component {
     render() {
         const ofrecidosList = this.state.ofrecidos.map((viaje) => {
             return (
-            <CardViajesOfrecidos key={viaje.idViaje} idViaje={viaje.idViaje} driver={this.state.foto} name={viaje.conductor} date={viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')} map={this.state.map} description={viaje.ruta} cost={viaje.costo} rating={viaje.calificacion} cupos={viaje.cupos}/>
+            <CardViajesOfrecidos key={viaje.idViaje} idViaje={viaje.idViaje} driver={this.state.foto} name={viaje.conductor} date={viaje.fecha} map={this.state.map} description={viaje.ruta} cost={viaje.costo} rating={viaje.calificacion} cupos={viaje.cupos} mapa={viaje.mapa}/>
             );
         });
 
