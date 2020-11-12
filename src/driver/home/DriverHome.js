@@ -3,6 +3,8 @@ import './DriverHome.css';
 
 
 import Navigation from '../../components/Navigation'
+import Footer from '../../components/footer/Footer'
+
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -31,7 +33,7 @@ class DriverHome extends Component {
                                 <Card.Header bg="dark" as="h5">PANEL</Card.Header>
                                 <Card.Body>
                                     <Card.Text>
-                                        <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg" roundedCircle width="175" height="175" />
+                                        <Image src="https://material-ui.com/static/images/avatar/1.jpg?size=70x70" roundedCircle width="175" height="175" />
                                     </Card.Text>
                                     <Card.Title>JULIAN SANCHEZ</Card.Title>
 
@@ -165,11 +167,7 @@ class DriverHome extends Component {
                     </Row>
                 </Container>
                 <br></br>
-                <footer id="sticky-footer" className="py-4 bg-dark text-white-50">
-                    <div className="container text-center">
-                        <small>Copyright &copy; CADAN WHEELS</small>
-                    </div>
-                </footer>
+                <Footer />
             </div>
         );
     }

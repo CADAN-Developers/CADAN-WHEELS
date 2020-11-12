@@ -12,6 +12,8 @@ import FaceIcon from '@material-ui/icons/Face';
 
 import { Route, Redirect } from 'react-router-dom';
 
+import Grid from '@material-ui/core/Grid';
+
 
 // Requerido para input de clave
 import { InputAdornment, IconButton } from "@material-ui/core";
@@ -53,12 +55,12 @@ export default function LoginTab() {
     const localUsuario = JSON.parse(localStorage.getItem('usuario'));
 
     const [isLoggedIn, setIsLoggedIn] = React.useState(localUsuario);
-    
-    const [usuarioExistente, setUsuarioExistente] =  React.useState(localUsuario);
 
-    
+    const [usuarioExistente, setUsuarioExistente] = React.useState(localUsuario);
 
-    
+
+
+
 
 
     const [value, setValue] = React.useState('1');
@@ -113,8 +115,11 @@ export default function LoginTab() {
                                 toast.success('Has iniciado sesión');
                                 values.tipoUsuario = usuario.tipoUsuario;
                                 setUsuarioExistente(usuario);
+                                sessionStorage.setItem("usuario", usuario.correo);
+                                sessionStorage.setItem("usuarioCompleto", usuario)
+                                localStorage.setItem('usuario', JSON.stringify(usuario));
                                 setIsLoggedIn(true);
-                                localStorage.setItem('usuario',JSON.stringify(usuario));
+
                             } else {
                                 toast.error("Correo o contraseña incorrectas")
                             }
@@ -188,66 +193,74 @@ export default function LoginTab() {
     return (
         <div className={classes.root}>
             <Navigation tipoUsuario="None" />
+            <Grid alignContent="center" container spacing={0}>
 
-            <Container id="container-full" maxWidth="xs">
-                <br></br>
-                <div id="tabContent" >
+                <Grid id="grid-largo" item xs>
 
-                    <TabContext value={value}>
-                        <AppBar position="static">
-                            <TabList centered onChange={handleChangeTab} aria-label="simple tabs example">
-                                <Tab label="PASAJERO" value="1" />
-                                <Tab label="CONDUCTOR" value="2" />
-                            </TabList>
-                        </AppBar>
-                        <TabPanel value="1">
-                            {/* INICIAR SESION PASAJERO */}
-                            <Chip
-                                icon={<FaceIcon />}
-                                label="Iniciar sesión como Pasajero"
-                                color="primary"
-                            />
-                            <hr></hr>
-                            {contenido}
+                    <Container maxWidth="xs">
+                        <br></br>
+                        <div id="tabContent" >
+
+                            <TabContext value={value}>
+                                <AppBar position="static">
+                                    <TabList centered onChange={handleChangeTab} aria-label="simple tabs example">
+                                        <Tab label="PASAJERO" value="1" />
+                                        <Tab label="CONDUCTOR" value="2" />
+                                    </TabList>
+                                </AppBar>
+                                <TabPanel value="1">
+                                    {/* INICIAR SESION PASAJERO */}
+                                    <Chip
+                                        icon={<FaceIcon />}
+                                        label="Iniciar sesión como Pasajero"
+                                        color="primary"
+                                    />
+                                    <hr></hr>
+                                    {contenido}
 
 
-                        </TabPanel>
-                        <TabPanel value="2">
-                            {/* INICIAR SESION CONDUCTOR */}
-                            <Chip
-                                icon={<FaceIcon />}
-                                label="Iniciar sesión como Conductor"
-                                color="secondary"
-                            />
-                            <hr></hr>
-                            {contenido}
+                                </TabPanel>
+                                <TabPanel value="2">
+                                    {/* INICIAR SESION CONDUCTOR */}
+                                    <Chip
+                                        icon={<FaceIcon />}
+                                        label="Iniciar sesión como Conductor"
+                                        color="secondary"
+                                    />
+                                    <hr></hr>
+                                    {contenido}
 
-                        </TabPanel>
-                    </TabContext>
+                                </TabPanel>
+                            </TabContext>
 
-                    <Button variant="contained" color="primary" onClick={handleIniciar}>Ingresar</Button>
+                            <Button variant="contained" color="primary" onClick={handleIniciar}>Ingresar</Button>
                     &nbsp;&nbsp;
                     <Button variant="contained" href="registrarv2">Registrarse</Button>
-                    <br></br>
-                    {isLoggedIn ?
-                        <Route>
-                            <Redirect
-                                to={{
-                                    pathname: "/" + usuarioExistente.tipoUsuario,
-                                    search: "?tipoUsuario=" + values.tipoUsuario,
-                                    state: { referrer: "currentLocation" }
-                                }}
-                            />
+                            <br></br>
+                            {isLoggedIn ?
+                                <Route>
+                                    <Redirect
+                                        to={{
+                                            pathname: "/" + usuarioExistente.tipoUsuario,
 
-                        </Route>
-                        :
-                        null
-                    }
+                                        }}
+                                    />
 
-                </div>
-            </Container>
+                                </Route>
+                                :
+                                null
+                            }
+
+                        </div>
+                    </Container>
+
+                </Grid>
+            </Grid>
+
             <ToastContainer />
-            <Footer />
+                <Footer />
+
+
         </div>
     );
 }

@@ -69,7 +69,20 @@ function handleLogout() {
 
 };
 
-export default function TemporaryDrawer({ tipoUsuario }) {
+export default function Navigation({ tipoUsuario }) {
+    // obtener usuario
+    // const localUsuario = JSON.parse(localStorage.getItem('usuario'));
+
+    // const [usuarioExistente, setUsuarioExistente] = React.useState('');
+
+    // if(localUsuario){
+    //     console.log(localUsuario);
+    //     // setUsuarioExistente(localUsuario);
+    // } else{
+    //     console.log('sin usuario');
+    // }
+
+
     const [values, setValues] = React.useState({
         cantidad: '',
         aprobado: false
@@ -111,6 +124,8 @@ export default function TemporaryDrawer({ tipoUsuario }) {
 
         setState({ ...state, [anchor]: open });
     };
+
+    const usuario= JSON.parse(localStorage.getItem('usuario'));
 
     // CUANDO EL USUARIO ES CONDUCTOR
     const navDriver = <div>

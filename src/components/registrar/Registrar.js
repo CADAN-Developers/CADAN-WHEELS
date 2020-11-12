@@ -10,6 +10,8 @@ import Container from '@material-ui/core/Container';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 
+import Grid from '@material-ui/core/Grid';
+
 
 import { Route, Redirect } from 'react-router-dom';
 
@@ -45,8 +47,8 @@ const useStyles = makeStyles((theme) => ({
     },
     form: {
         '& > *': {
-            margin: theme.spacing(4),
-            width: '35ch',
+            margin: theme.spacing(1),
+
         },
     },
 }));
@@ -162,7 +164,7 @@ export default function RegistrarTab() {
             </FormControl>
 
             {/* campo correo */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="correo">Correo</InputLabel>
                 <Input
                     id="correo"
@@ -174,7 +176,7 @@ export default function RegistrarTab() {
             </FormControl>
 
             {/* campo telefono */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="telefono">Teléfono</InputLabel>
                 <Input
                     id="telefono"
@@ -185,7 +187,7 @@ export default function RegistrarTab() {
             </FormControl>
 
             {/* campo tipo documento */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="tipoDocumento">Tipo Documento</InputLabel>
                 <Input
                     id="tipoDocumento"
@@ -197,7 +199,7 @@ export default function RegistrarTab() {
             </FormControl>
 
             {/* campo documento */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="documento">Documento</InputLabel>
                 <Input
                     id="documento"
@@ -208,7 +210,7 @@ export default function RegistrarTab() {
             </FormControl>
 
             {/* campo universidad */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="universidad">Universidad</InputLabel>
                 <Input
                     id="universidad"
@@ -219,7 +221,7 @@ export default function RegistrarTab() {
             </FormControl>
 
             {/* campo carne */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="carne">Carné</InputLabel>
                 <Input
                     id="carne"
@@ -230,7 +232,7 @@ export default function RegistrarTab() {
             </FormControl>
 
             {/* campo foto carne */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="fotoCarne">Adjuntar Carné</InputLabel>
                 <Input
                     id="fotoCarne"
@@ -241,7 +243,7 @@ export default function RegistrarTab() {
             </FormControl>
 
             {/* campo contraseña */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="clave">Contraseña</InputLabel>
                 <Input
                     id="clave"
@@ -268,65 +270,68 @@ export default function RegistrarTab() {
     return (
         <div className={classes.root}>
             <Navigation tipoUsuario="None" />
+            <Grid alignContent="center" container spacing={0}>
 
-            <div id="container-full">
-                <Container  >
-                    <div id="tabContent">
+                <Grid item xs>
+                    <Container maxWidth="md" >
+                        <br></br>
+                        <div id="tabContent">
 
-                        <TabContext value={value}>
-                            <AppBar position="static">
-                                <TabList centered onChange={handleChangeTab} aria-label="simple tabs example">
-                                    <Tab label="PASAJERO" value="1" />
-                                    <Tab label="CONDUCTOR" value="2" />
-                                </TabList>
-                            </AppBar>
-                            <TabPanel value="1">
-                                {/* REGISTRARSE COMO PASAJERO */}
-                                <Chip
-                                    icon={<FaceIcon />}
-                                    label="Te vas a registrar como Pasajero"
-                                    color="primary"
-                                />
-                                <hr></hr>
-                                {contenido}
-
-
-                            </TabPanel>
-                            <TabPanel value="2">
-                                {/* REGISTRARSE COMO CONDUCTOR */}
-                                <Chip
-                                    icon={<FaceIcon />}
-                                    label="Te vas a registrar como Conductor"
-                                    color="secondary"
-                                />
-                                <hr></hr>
-                                {contenido}
-
-                            </TabPanel>
-                        </TabContext>
-
-                        <Button fullWidth variant="contained" color="primary" onClick={handleIniciar}>Registrarse</Button>
-
-                        {isRegister ?
-                            <Route>
-                                <Redirect
-                                    to={{
-                                        pathname: "/" + url,
-                                        search: "?cooreo=" + values.correo
-                                    }}
-                                />
-
-                            </Route>
-                            :
-                            null
-                        }
-
-                    </div>
+                            <TabContext value={value}>
+                                <AppBar position="static">
+                                    <TabList centered onChange={handleChangeTab} aria-label="simple tabs example">
+                                        <Tab label="PASAJERO" value="1" />
+                                        <Tab label="CONDUCTOR" value="2" />
+                                    </TabList>
+                                </AppBar>
+                                <TabPanel value="1">
+                                    {/* REGISTRARSE COMO PASAJERO */}
+                                    <Chip
+                                        icon={<FaceIcon />}
+                                        label="Te vas a registrar como Pasajero"
+                                        color="primary"
+                                    />
+                                    <hr></hr>
+                                    {contenido}
 
 
+                                </TabPanel>
+                                <TabPanel value="2">
+                                    {/* REGISTRARSE COMO CONDUCTOR */}
+                                    <Chip
+                                        icon={<FaceIcon />}
+                                        label="Te vas a registrar como Conductor"
+                                        color="secondary"
+                                    />
+                                    <hr></hr>
+                                    {contenido}
 
-                </Container>
-            </div>
+                                </TabPanel>
+                            </TabContext>
+
+                            <Button fullWidth variant="contained" color="primary" onClick={handleIniciar}>Registrarse</Button>
+
+                            {isRegister ?
+                                <Route>
+                                    <Redirect
+                                        to={{
+                                            pathname: "/" + url,
+                                            search: "?cooreo=" + values.correo
+                                        }}
+                                    />
+
+                                </Route>
+                                :
+                                null
+                            }
+
+                        </div>
+
+
+
+                    </Container>
+                </Grid>
+            </Grid>
 
             <ToastContainer />
             <Footer />
