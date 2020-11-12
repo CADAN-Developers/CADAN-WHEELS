@@ -43,10 +43,9 @@ class DriverHome extends Component {
     }
 
 
-
-
     componentDidMount() {
         fetch(API_ROOT + '/Ofrecidos/' + sessionStorage.getItem("usuario"))
+
             .then(response => response.json())
             .then(data => {
                 let ofrecidosC = [];
@@ -57,6 +56,7 @@ class DriverHome extends Component {
                 });
                 this.setState({ ofrecidos: ofrecidosC });
             });
+            
         fetch(API_ROOT + '/Completados/' + sessionStorage.getItem("usuario"))
             .then(response => response.json())
             .then(data => {
@@ -69,6 +69,7 @@ class DriverHome extends Component {
                 this.setState({ completados: completadosP });
             });
 
+            
         fetch(API_ROOT + '/AgenadosCon/' + sessionStorage.getItem("usuario"))
             .then(response => response.json())
             .then(data => {
@@ -86,6 +87,7 @@ class DriverHome extends Component {
             .then(data => {
                 let enCursoP = [];
                 data.forEach(function (viaje) {
+
                     enCursoP.push({
                         "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
                     })

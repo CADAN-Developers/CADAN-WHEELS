@@ -52,11 +52,12 @@ export default function LoginTab() {
 
     const classes = useStyles();
 
-    const localUsuario = JSON.parse(sessionStorage.getItem('usuarioCompleto'));
+    const localUsuario = JSON.parse(localStorage.getItem('usuario'));
 
+    // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const [isLoggedIn, setIsLoggedIn] = React.useState(localUsuario);
-
-    const [usuarioExistente, setUsuarioExistente] = React.useState(localUsuario);
+    
+    const [usuarioExistente, setUsuarioExistente] =  React.useState(localUsuario);
 
 
 

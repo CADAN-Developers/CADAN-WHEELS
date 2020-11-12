@@ -36,6 +36,7 @@ class PasajeroHome extends React.Component {
         this.state = { ofrecidos: [], completados: [], agendados: [], enCurso: [], usuario: '' };
     }
 
+    
     componentDidMount() {
         fetch(API_ROOT + '/ViajesOfrecidos')
             .then(response => response.json())
@@ -48,6 +49,7 @@ class PasajeroHome extends React.Component {
                 });
                 this.setState({ ofrecidos: ofrecidosC });
             });
+            
         fetch(API_ROOT + '/Realizados/' + sessionStorage.getItem("usuario"))
             .then(response => response.json())
             .then(data => {
@@ -60,6 +62,7 @@ class PasajeroHome extends React.Component {
                 this.setState({ completados: completadosP });
             });
 
+            
         fetch(API_ROOT + '/AgenadosPas/' + sessionStorage.getItem("usuario"))
             .then(response => response.json())
             .then(data => {
