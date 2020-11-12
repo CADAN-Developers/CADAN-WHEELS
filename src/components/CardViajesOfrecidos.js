@@ -14,7 +14,13 @@ export class CardViajesOfrecidos extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {key:this.props.idViaje}
+    this.state = {key:this.props.idViaje,  
+        conductor:this.props.name,
+        ruta:this.props.description,
+        costo:this.props.cost,
+        calificacion:this.props.calificacion,
+        fecha:this.props.fecha,
+        cupos:this.props.calificacion}
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -64,8 +70,30 @@ export class CardViajesOfrecidos extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log(this.state.key);
-  }
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            pasajero: sessionStorage.getItem("usuario"),
+            conductor:this.state.conductor,
+            ruta:this.state.ruta,
+            costo:this.state.costo,
+            calificacion:this.state.calificacion,
+            tipoViaje:"AGENDADO",
+            fecha:this.state.fecha,
+            cupos:0
+        })
+    };
+    fetch('http://localhost:8080/UpdateViaje/' + this.state.key, requestOptions
+    )
+    .then(response => {
+        console.log(response);                                   
+    })
+    .catch(error => {
+        console.log(error);
+    });
+    }
+
 }
 
 export default CardViajesOfrecidos;
