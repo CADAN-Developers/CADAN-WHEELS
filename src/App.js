@@ -6,9 +6,8 @@ import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
 import RecordsPasajero from './pasajero/home/RecordsPasajero'
 import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
-import Login from './components/Login'
-import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
-import axios from 'axios';
+// import Login from './components/Login'
+// import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
 
 import OfrecidosPasajero from './pasajero/home/OfrecidosPasajero'
 import AgendadosPasajero from './pasajero/home/AgendadosPasajero'
@@ -47,11 +46,11 @@ class App extends Component {
             </div>
         );
 
-        const loginView = () => (
-            <div>
-                <Login handleClick={this.handleClick} />
-            </div>
-        );
+        // const loginView = () => (
+        //     <div>
+        //         <Login handleClick={this.handleClick} />
+        //     </div>
+        // );
 
         const pasView = () => (
             <div>
@@ -59,7 +58,7 @@ class App extends Component {
             </div>
         );
 
-        const vistaprevia = this.state.isLog ? pasView : loginView
+        // const vistaprevia = this.state.isLog ? pasView : loginView
         
     return (
       <div className="App">
@@ -74,13 +73,13 @@ class App extends Component {
               <Route path="/dialog" component={EjemploDialog} />
               
               {/* version 2 */}
-              <Route path="/loginv2" component={Login2} />
-              <Route path="/registrarv2" component={Registrar2} />
+              {/* <Route path="/loginv2" component={Login2} />
+              <Route path="/registrarv2" component={Registrar2} /> */}
 
               
-              <Route exact path="/" component={vistaprevia} />
-              <Route path="/iniciar" component={Login} />
-              <Route path="/registrar" component={RegistroUsuario} />
+              <Route exact path="/" component={Login2} />
+              <Route path="/iniciar" component={Login2} />
+              <Route path="/registrar" component={Registrar2} />
               <Route path="/map" component={MapView} />
               <Route path="/subirImagenes" component={UploadImagenes} />
 

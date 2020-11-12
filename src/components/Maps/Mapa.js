@@ -13,6 +13,9 @@ import moment from 'moment'
 import TextField from '@material-ui/core/TextField';
 //const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
 
+// config
+import { API_ROOT } from '../../config/api-config';
+
 
 Geocode.setApiKey("AIzaSyDCq7iV7bIAnjv0MHr3nCxP5JTcphcnPlA");
 Geocode.enableDebug();
@@ -285,7 +288,7 @@ class Mapa extends React.Component {
             vehiculo: vehiculo,
         }
 
-        await axios.post("http://localhost:8080/AddViaje", {
+        await axios.post(API_ROOT + '/AddViaje', {
             idViaje: 1234,
             pasajero: "nicolas@mail.com",
             conductor: user.correo,

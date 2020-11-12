@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 
+// config
+import { API_ROOT } from '../config/api-config';
 
 export class CardViajesOfrecidos extends React.Component {
 
@@ -84,7 +86,7 @@ export class CardViajesOfrecidos extends React.Component {
             cupos:0
         })
     };
-    fetch('http://localhost:8080/UpdateViaje/' + this.state.key, requestOptions
+    fetch(API_ROOT + '/UpdateViaje/' + this.state.key, requestOptions
     )
     .then(response => {
         console.log(response);                                   

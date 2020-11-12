@@ -5,6 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import moment from "moment";
 
+// config
+import { API_ROOT } from '../../config/api-config';
+
 export class OfecidosPasajero extends React.Component {
 
     constructor(props) {
@@ -16,7 +19,7 @@ export class OfecidosPasajero extends React.Component {
     }
 
     componentDidMount(){
-        fetch('https://cadanback.herokuapp.com/ViajesOfrecidos')
+        fetch(API_ROOT + '/ViajesOfrecidos')
             .then(response => response.json())
             .then(data => {
                 let ofrecidosC = [];
