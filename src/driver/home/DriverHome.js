@@ -164,7 +164,7 @@ class DriverHome extends Component {
                                     </Card.Text>
                                     <Card.Title>{ this.state.usuario.nombre + ' ' + this.state.usuario.apellidos }</Card.Title>
                                     <ListGroup variant="flush">
-                                        <ListGroup.Item>{this.state.usuario.universisdad}</ListGroup.Item>
+                                        <ListGroup.Item>{this.state.usuario.universidad}</ListGroup.Item>
                                         <ListGroup.Item>{this.state.usuario.tipoDocumento + ': ' + this.state.usuario.documento}</ListGroup.Item>
                                         <ListGroup.Item>{this.state.usuario.correo}</ListGroup.Item>
                                     </ListGroup>
