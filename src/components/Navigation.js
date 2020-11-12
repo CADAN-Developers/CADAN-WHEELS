@@ -86,7 +86,7 @@ export default function Navigation() {
         saldo: localUsuario ? localUsuario.saldo : 'none',
         tipoDocumento: localUsuario ? localUsuario.tipoDocumento : 'none',
         tipoUsuario: localUsuario ? localUsuario.tipoUsuario : 'none',
-        universisdad: localUsuario ? localUsuario.universisdad : 'none'
+        universidad: localUsuario ? localUsuario.universidad : 'none'
 
     });
 
