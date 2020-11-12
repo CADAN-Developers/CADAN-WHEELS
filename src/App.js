@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import moment from "moment";
 import './App.css';
-import DriverHome from './Driver/home/DriverHome';
+import DriverHome from './driver/home/DriverHome';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
 import RecordsPasajero from './pasajero/home/RecordsPasajero'
-import FormVehiculo from './Driver/registroVehiculo/FormVehiculo'
+import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
 import axios from 'axios';
@@ -29,14 +29,16 @@ import Registrar2 from "./components/registrar/Registrar";
 
 
 class App extends Component {
-    constructor(props) {
-    super(props)
-    this.state = {
-                isLog : false,
-                items : []
-    }
-      this.handleClick = this.handleClick.bind(this)
-    }
+
+  constructor(props){
+        super(props);
+        this.state = {
+            isLog : false,
+            items : []
+            }
+  this.handleClick = this.handleClick.bind(this)
+}
+
 
  render() {  
           const VehiculosView = () => (

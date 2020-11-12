@@ -1,21 +1,111 @@
 import React, { Component } from "react";
-import './DriverHome.css';
+
 
 
 import Navigation from '../../components/Navigation'
 
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import Button from '@material-ui/core/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-
+import { Link } from 'react-router-dom';
+import ListGroup from 'react-bootstrap/ListGroup'
+import TextField from '@material-ui/core/TextField';
+// import InputGroup from 'react-bootstrap/InputGroup'
+import moment from "moment";
 
 
 class DriverHome extends Component {
 
+    constructor(props) {
+        super(props);
+        //this.alertClicked = this.alertClicked.bind(this);
+        //this.realizadoClick = this.realizadoClick.bind(this);
+        this.state = {ofrecidos:[], completados:[], agendados:[], enCurso:[]};
+    }
+
+
+    componentDidMount(){
+        fetch('http://localhost:8080/Ofrecidos/' + sessionStorage.getItem("usuario"))
+            .then(response => response.json())
+            .then(data => {
+                let ofrecidosC = [];
+                data.forEach(function (viaje) {
+                    ofrecidosC.push({
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                    })
+                });
+                this.setState({ofrecidos:ofrecidosC});
+            });
+        fetch('http://localhost:8080/Completados/' + sessionStorage.getItem("usuario"))
+                .then(response => response.json())
+                .then(data => {
+                    let completadosP = [];
+                    data.forEach(function (viaje) {
+                        completadosP.push({
+                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        })
+                    });
+                    this.setState({completados:completadosP});
+                });
+
+        fetch('http://localhost:8080/AgenadosCon/' + sessionStorage.getItem("usuario"))
+                .then(response => response.json())
+                .then(data => {
+                    let AgendadosP = [];
+                    data.forEach(function (viaje) {
+                        AgendadosP.push({
+                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        })
+                    });
+                    this.setState({agendados:AgendadosP});
+                });
+        
+        fetch('http://localhost:8080/EnCursoCon/' + sessionStorage.getItem("usuario"))
+                .then(response => response.json())
+                .then(data => {
+                    let enCursoP = [];
+                    data.forEach(function (viaje) {
+                    enCursoP.push({
+                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        })
+                    });
+                    this.setState({enCurso:enCursoP});
+                })
+                .catch(function(error) {
+                });
+
+                
+            
+    }
+
     render() {
+
+        const completadosList = this.state.completados.map((viaje) => {
+            return (
+            <ListGroup.Item key={viaje.idViaje}> {viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+            );
+        });
+        const ofrecidosList = this.state.ofrecidos.map((viaje) => {
+            return (
+            <ListGroup.Item key={viaje.idViaje}>{viaje.ruta} ${viaje.costo}  cupos: {viaje.cupos}  fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+            );
+            
+        });
+        const agendadosList = this.state.agendados.map((viaje) => {
+            return (
+            <ListGroup.Item key={viaje.idViaje}> {viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+            );
+        });
+
+        const enCursoList = this.state.enCurso.map((viaje) => {
+            return (
+            <ListGroup.Item key={viaje.idViaje}>{viaje.ruta} ${viaje.costo} pasajero: {viaje.conductor}</ListGroup.Item>
+            );
+            
+        });
         return (
             <div>
                 {/* Navegation */}
@@ -26,151 +116,69 @@ class DriverHome extends Component {
 
                 <Container fluid>
                     <Row>
-                        <Col sm={2}>
+                        <Col sm={4}>
                             <Card className="text-center">
-                                <Card.Header bg="dark" as="h5">PANEL</Card.Header>
+                                <Card.Header bg="dark" as="h5">Usuario</Card.Header>
                                 <Card.Body>
                                     <Card.Text>
                                         <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg" roundedCircle width="175" height="175" />
                                     </Card.Text>
-                                    <Card.Title>JULIAN SANCHEZ</Card.Title>
-
-                                    <Button variant="primary">Add Car</Button>
-                                    &nbsp;
-                                    <Button variant="primary">Withdraw</Button>
+                                    <Card.Title>Carlos Paramo</Card.Title>
+                                    <ListGroup variant="flush">
+                                        <ListGroup.Item>Universidad Javeriana</ListGroup.Item>
+                                        <ListGroup.Item>929847382</ListGroup.Item>
+                                        <ListGroup.Item>{sessionStorage.getItem("usuario")}</ListGroup.Item>
+                                    </ListGroup>
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="" >Editar perfil</Button>
                                 </Card.Body>
                             </Card>
                         </Col>
-                        <Col sm={10}>
-                            <Card>
-                                <Card.Header as="h5">Last Trips</Card.Header>
+
+                        <Col sm={8}>
+
+                        <Card className="text-center">
+                                <Card.Header as="h5">Viajes En Curso</Card.Header>
                                 <Card.Body>
-
-                                    <Row>
-                                        <Col>
-                                            {/* <!-- Card content --> */}
-                                            <Card className="text-center">
-                                                <Card.Header as="h5">
-                                                    <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg" roundedCircle width="200" height="200" />
-                                                </Card.Header>
-                                                <Card.Body>
-                                                    <Card.Title>MARIA GONZALEZ</Card.Title>
-                                                    <Card.Text>
-                                                        UNIVERSITARIO - 16 AGO 2020 - $3.000
-                                            </Card.Text>
-                                                    <Button variant="primary">Consult</Button>
-                                                </Card.Body>
-                                            </Card>
-                                        </Col>
-
-                                        <Col>
-                                            {/* <!-- Card content --> */}
-                                            <Card className="text-center">
-                                                <Card.Header as="h5">
-                                                    <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" roundedCircle width="200" height="200" />
-                                                </Card.Header>
-                                                <Card.Body>
-                                                    <Card.Title> LAURA HERNANDEZ</Card.Title>
-                                                    <Card.Text>
-                                                        MAESTRO - 16 AGO 2020 - $4.000
-                                            </Card.Text>
-                                                    <Button variant="primary">Consult</Button>
-                                                </Card.Body>
-                                            </Card>
-                                        </Col>
-
-                                        <Col>
-                                            {/* <!-- Card content --> */}
-                                            <Card className="text-center">
-                                                <Card.Header as="h5">
-                                                    <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(32).jpg" roundedCircle width="200" height="200" />
-                                                </Card.Header>
-                                                <Card.Body>
-                                                    <Card.Title>ALEJANDRO ALBA</Card.Title>
-                                                    <Card.Text>
-                                                        ESTUDIANTE - 15 AGO 2020 - $2.500
-                                            </Card.Text>
-                                                    <Button variant="primary">Consult</Button>
-                                                </Card.Body>
-                                            </Card>
-                                        </Col>
-
-                                        <Col>
-                                            {/* <!-- Card content --> */}
-                                            <Card className="text-center">
-                                                <Card.Header as="h5">
-                                                    <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(13).jpg" roundedCircle width="200" height="200" />
-                                                </Card.Header>
-                                                <Card.Body>
-                                                    <Card.Title>JORGE PAEZ</Card.Title>
-                                                    <Card.Text>
-                                                        MAESTRO - 12 AGO 2020 - $4.500
-                                            </Card.Text>
-                                                    <Button variant="primary">Consult</Button>
-                                                </Card.Body>
-                                            </Card>
-                                        </Col>
-                                    </Row>
+                                    <ListGroup>
+                                        {enCursoList}
+                                    </ListGroup>
                                 </Card.Body>
-                            </Card  >
-                            <br></br>
-                            <Card className="text-left">
-                                <Card.Header as="h5">Latest Feedbacks</Card.Header>
+                            </Card>    
+
+                        <Card className="text-center">
+                                <Card.Header as="h5">Viajes que Ofreces</Card.Header>
                                 <Card.Body>
-                                    <Row>
-                                        <Col sm={1}>
-                                            <Image src=" https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg" roundedCircle width="100" />
-                                        </Col>
-                                        <Col sm={10}>
-                                            <Card.Title>MARIA GONZALEZ:</Card.Title>
-                                            <Card.Text>
-                                                With supporting text below as a natural lead-in to additional content.
-                                            </Card.Text>
-                                            <Button variant="outline-secondary">Comment</Button>
-                                        </Col>
-                                    </Row>
-                                    <br></br>
-                                    <Row>
-                                        <Col sm={1}>
-                                            <Image src=" https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" roundedCircle width="100" />
-                                        </Col>
-                                        <Col sm={10}>
-                                            <Card.Title>LAURA HERNANDEZ said:</Card.Title>
-                                            <Card.Text>
-                                                With supporting text below as a natural lead-in to additional content.
-                                            </Card.Text>
-                                            <Button variant="outline-secondary">Comment</Button>
-                                        </Col>
-                                    </Row>
-
-                                    <br></br>
-                                    <Row>
-                                        <Col sm={1}>
-                                            <Image src=" https://mdbootstrap.com/img/Photos/Avatars/img%20(13).jpg" roundedCircle width="100" />
-                                        </Col>
-                                        <Col sm={10}>
-                                            <Card.Title>JORGE PAEZ said:</Card.Title>
-                                            <Card.Text>
-                                                With supporting text below as a natural lead-in to additional content.
-                                            </Card.Text>
-                                            <Button variant="outline-secondary">Comment</Button>
-                                        </Col>
-                                    </Row>
-
+                                    <ListGroup>
+                                        <TextField id="outlined-basic" label="¿A donde quieres ir?" variant="outlined"/>
+                                        {ofrecidosList}
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="" >Ver Todos</Button>
+                                    </ListGroup>
                                 </Card.Body>
                             </Card>
-
-
+                            <Card className="text-center">
+                                <Card.Header as="h5">Viajes Agendados</Card.Header>
+                                <Card.Body>
+                                    <ListGroup>
+                                        {agendadosList}
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="" >Ver Todos</Button>
+                                    </ListGroup>
+                                </Card.Body>
+                            </Card>
+                            
+                            <Card className="text-center">
+                                <Card.Header as="h5">Historial</Card.Header>
+                                <Card.Body>
+                                    <ListGroup>
+                                        {completadosList}
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="" >Ver Todos</Button>
+                                    </ListGroup>
+                                </Card.Body>
+                            </Card>
                         </Col>
                     </Row>
                 </Container>
-                <br></br>
-                <footer id="sticky-footer" className="py-4 bg-dark text-white-50">
-                    <div className="container text-center">
-                        <small>Copyright &copy; CADAN WHEELS</small>
-                    </div>
-                </footer>
             </div>
+
         );
     }
 }
