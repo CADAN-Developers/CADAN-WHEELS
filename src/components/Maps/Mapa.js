@@ -8,7 +8,9 @@ import Autocomplete from 'react-google-autocomplete';
 import Navigation from '../../components/Navigation'
 import decodePolyline from "decode-google-map-polyline"
 import Button from '@material-ui/core/Button';
-
+import axios from "axios";
+import moment from 'moment'
+import TextField from '@material-ui/core/TextField';
 //const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
 
 
@@ -247,19 +249,64 @@ class Mapa extends React.Component {
         this.componentDidMount()
     };
 
-    handlePublish() {
+    async handlePublish() {
         console.log("Preparacion de boton para el back")
-        const user = sessionStorage.getItem("usuarioCompleto") 
+        const vehiculo = {
+            placa: "MCX 123"
+        }
+        var user = sessionStorage.getItem("usuarioCompleto")
+
+        //console.log(user.nombre)
+        user = JSON.parse(user)
         console.log(user)
+        const listItem = []
+        this.state.directions.map((point, i) => {
+            //console.log("latiutde: " + point.lat() + "longitud " + point.lng())
+            listItem.push({ "lat": point.lat(), "lng": point.lng() })
+        })
         const valor = this.state.directions.length < 300 ? 3000 : this.state.directions.length * 100
-        const viaje = {
+        const newMapa = {
             origen: this.state.origen,
             destino: this.state.destino,
-            ruta: this.state.directions,
-            costo: valor,
-            conductor : user
+            ruta: listItem,
+            costo: valor
         }
-        console.log(viaje)
+        const newViaje = {
+            idViaje: 1234,
+            pasajero: "nicolas@mail.com",
+            conductor: user.correo,
+            ruta: "CC HAYUELOS  A Escuela Colombiana de Ingenieria",
+            costo: valor,
+            calificacion: 0,
+            tipoViaje: "OFRECIDO",
+            fecha: moment(),
+            cupos: 3,
+            mapa: newMapa,
+            vehiculo: vehiculo,
+        }
+
+        await axios.post("http://localhost:8080/AddViaje", {
+            idViaje: 1234,
+            pasajero: "nicolas@mail.com",
+            conductor: user.correo,
+            ruta: "CC HAYUELOS  A Escuela Colombiana de Ingenieria",
+            costo: valor,
+            calificacion: 0,
+            tipoViaje: "OFRECIDO",
+            fecha: moment(),
+            cupos: 3,
+            mapa: newMapa,
+
+        })
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        console.log(newViaje);
+
+        console.log(newMapa)
         
     }
     
@@ -370,8 +417,24 @@ class Mapa extends React.Component {
             )
         );
 
+        var user = sessionStorage.getItem("usuarioCompleto")
+
+        //console.log(user.nombre)
+        user = JSON.parse(user)
         return (
             <div>
+                <label>
+                    informacion Vehiculo
+                <TextField id="placa" label="placa" value="mcx 123" />
+                </label>
+
+                <label>
+                    informacion conductor
+                    <TextField id="nombre" label="nombre del conductor" value={user.nombre} />
+                    <TextField id="apellido" label="Apellido" value={user.nombre} />
+                </label>
+
+  
                 <div>
                     < Navigation tipoUsuario="Passenger" />
                     <div style={{ padding: '1rem', margin: '0 auto', maxWidth: 1000 }} >
