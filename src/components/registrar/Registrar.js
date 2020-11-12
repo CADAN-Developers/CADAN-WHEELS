@@ -75,7 +75,7 @@ export default function RegistrarTab() {
         showPassword: false,
         tipoUsuario: '',
         nombre: '',
-        apellido: '',
+        apellidos: '',
         tipoDocumento: '',
         documento: '',
         universidad: '',
@@ -152,14 +152,14 @@ export default function RegistrarTab() {
                 />
             </FormControl>
 
-            {/* campo apellido */}
+            {/* campo apellidos */}
             <FormControl margin="normal" >
-                <InputLabel htmlFor="apellido">Apellido</InputLabel>
+                <InputLabel htmlFor="apellidos">apellidos</InputLabel>
                 <Input
-                    id="apellido"
-                    value={values.apellido}
+                    id="apellidos"
+                    value={values.apellidos}
                     type='text'
-                    onChange={handleChange('apellido')}
+                    onChange={handleChange('apellidos')}
                 />
             </FormControl>
 

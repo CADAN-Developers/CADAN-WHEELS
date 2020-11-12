@@ -223,7 +223,7 @@ export default function Navigation() {
                 <ListItemAvatar className="avatar_menu">
                     <Avatar
                         alt="AVATAR"
-                        src={usuario.foto ? usuario.foto : "https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg?size=70x70" } 
+                        src={usuario.foto } 
                         size="70"
                         style={{
                             width: "70px",
