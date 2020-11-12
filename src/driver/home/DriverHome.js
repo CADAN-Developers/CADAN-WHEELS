@@ -28,7 +28,9 @@ class DriverHome extends Component {
 
 
     componentDidMount(){
-        fetch('http://localhost:8080/Ofrecidos/' + sessionStorage.getItem("usuario"))
+        const user = JSON.parse(localStorage.getItem("usuario"))
+
+        fetch('http://localhost:8080/Ofrecidos/' + user.correo)
             .then(response => response.json())
             .then(data => {
                 let ofrecidosC = [];
@@ -39,7 +41,7 @@ class DriverHome extends Component {
                 });
                 this.setState({ofrecidos:ofrecidosC});
             });
-        fetch('http://localhost:8080/Completados/' + sessionStorage.getItem("usuario"))
+        fetch('http://localhost:8080/Completados/' + user.correo)
                 .then(response => response.json())
                 .then(data => {
                     let completadosP = [];
@@ -51,7 +53,7 @@ class DriverHome extends Component {
                     this.setState({completados:completadosP});
                 });
 
-        fetch('http://localhost:8080/AgenadosCon/' + sessionStorage.getItem("usuario"))
+        fetch('http://localhost:8080/AgenadosCon/' + user.correo)
                 .then(response => response.json())
                 .then(data => {
                     let AgendadosP = [];
@@ -63,7 +65,7 @@ class DriverHome extends Component {
                     this.setState({agendados:AgendadosP});
                 });
         
-        fetch('http://localhost:8080/EnCursoCon/' + sessionStorage.getItem("usuario"))
+        fetch('http://localhost:8080/EnCursoCon/' + user.correo)
                 .then(response => response.json())
                 .then(data => {
                     let enCursoP = [];

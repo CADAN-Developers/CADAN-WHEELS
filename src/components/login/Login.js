@@ -52,7 +52,7 @@ export default function LoginTab() {
 
     const localUsuario = JSON.parse(localStorage.getItem('usuario'));
 
-    const [isLoggedIn, setIsLoggedIn] = React.useState(localUsuario);
+    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     
     const [usuarioExistente, setUsuarioExistente] =  React.useState(localUsuario);
 
@@ -114,9 +114,12 @@ export default function LoginTab() {
                                 values.tipoUsuario = usuario.tipoUsuario;
                                 setUsuarioExistente(usuario);
                                 console.log(usuario)
-                                setIsLoggedIn(true);
                                 sessionStorage.setItem("usuarioCompleto", JSON.stringify(usuario));
                                 localStorage.setItem('usuario',JSON.stringify(usuario));
+                                setIsLoggedIn(true);
+                                console.log("ya paso");
+                                
+                                
                             } else {
                                 toast.error("Correo o contraseña incorrectas")
                             }
@@ -135,6 +138,7 @@ export default function LoginTab() {
         } else {
             toast.error("Debe llenar todos los campos.")
         }
+        console.log(localStorage.getItem("usuario"));
 
     }
 
