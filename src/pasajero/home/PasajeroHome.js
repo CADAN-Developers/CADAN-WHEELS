@@ -27,7 +27,7 @@ class PasajeroHome extends React.Component {
     }
 
     componentDidMount(){
-        fetch('https://cadanback.herokuapp.com/ViajesOfrecidos')
+        fetch('http://localhost:8080/ViajesOfrecidos')
             .then(response => response.json())
             .then(data => {
                 let ofrecidosC = [];
