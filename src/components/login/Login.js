@@ -117,9 +117,11 @@ export default function LoginTab() {
                                 values.tipoUsuario = usuario.tipoUsuario;
                                 setUsuarioExistente(usuario);
                                 console.log(usuario)
-                                setIsLoggedIn(true);
+                                
                                 sessionStorage.setItem("usuarioCompleto", JSON.stringify(usuario));
                                 sessionStorage.setItem("usuario", usuario.correo);
+
+                                setIsLoggedIn(true);
                             } else {
                                 toast.error("Correo o contraseña incorrectas")
                             }
