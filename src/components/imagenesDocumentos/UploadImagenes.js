@@ -10,7 +10,9 @@ class UploadImagenes extends React.Component {
         super(props);
         this.state = {
             image: null,
-            url: '',
+            urlCarnet: '',
+            urlLicencia: '',
+            urlSoat: '',
             progressCarnet: 0,
             progressLicConduccion: 0,
             progressSoat: 0
@@ -21,6 +23,7 @@ class UploadImagenes extends React.Component {
         this.handleUploadCarnet = this.handleUploadCarnet.bind(this);
         this.handleUploadLicConduccion = this.handleUploadLicConduccion.bind(this);
         this.handleUploadSoat = this.handleUploadSoat.bind(this);
+        this.handleFinalizar = this.handleFinalizar.bind(this);
     }
 
     handleChange(e) {
@@ -29,6 +32,20 @@ class UploadImagenes extends React.Component {
 
         }
     };
+
+    handleFinalizar(e) {
+
+        e.preventDefault();
+        console.log(this.state);
+
+        if (this.state.urlCarnet != '' && this.state.urlLicencia != '' && this.state.urlSoat != '') {
+            alert("Los documentos se han subido satisfactoriamente");
+            window.location.href = "/conductor";
+        } else {
+            alert("Adjunte los documentos que hacen falta ");
+        }
+
+    }
 
     handleUploadCarnet = () => {
         if (this.state.image === null) {
@@ -52,6 +69,7 @@ class UploadImagenes extends React.Component {
                         .child(this.state.image.name)
                         .getDownloadURL()
                         .then(url => {
+                            this.setState({ urlCarnet: url })
                             console.log(url)
 
                         });
@@ -84,6 +102,7 @@ class UploadImagenes extends React.Component {
                         .child(this.state.image.name)
                         .getDownloadURL()
                         .then(url => {
+                            this.setState({ urlLicencia: url })
                             console.log(url)
 
                         });
@@ -104,7 +123,7 @@ class UploadImagenes extends React.Component {
                     const progress = Math.round(
                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                     );
-                    this.setState({ progressLicSoat: progress });
+                    this.setState({ progressSoat: progress });
                 },
                 error => {
                     console.log(error);
@@ -115,6 +134,7 @@ class UploadImagenes extends React.Component {
                         .child(this.state.image.name)
                         .getDownloadURL()
                         .then(url => {
+                            this.setState({ urlSoat: url })
                             console.log(url)
 
                         });
@@ -131,103 +151,125 @@ class UploadImagenes extends React.Component {
         return (
             <div>
                 <Navigation tipoUsuario="None" />
-                
-                    <div className="UploadImagenes" >
 
-                        <Box textAlign="center" fontWeight="fontWeightRegular">
-                            Por favor suba una imágen de su carné, de la institución educativa a la que pertenece
+                <div className="UploadImagenes" >
+
+                    <Box textAlign="center" fontWeight="fontWeightRegular">
+                        Por favor suba una imágen de su carné, de la institución educativa a la que pertenece
                         </Box>
 
-                        <input
+                    <input
 
-                            id="upload-carné"
-                            name="upload-carné"
-                            type="file"
-                            onChange={this.handleChange}
-                        />
+                        id="upload-carné"
+                        name="upload-carné"
+                        type="file"
+                        onChange={this.handleChange}
+                    />
 
-                        <br />
-                        <br />
-                        <Button color="secondary" variant="contained" component="span" onClick={this.handleUploadCarnet}>
-                            Subir Carné
+                    <br />
+                    <br />
+                    <Button color="secondary" variant="contained" component="span" onClick={this.handleUploadCarnet}>
+                        Subir Carné
                         </Button>
 
-                        <br />
-                        <br />
-                        {/*<CircularProgress variant="static" value={this.state.progressCarnet} />*/}
-                        <Container maxWidth="sm">
-                            <LinearProgress value={this.state.progressCarnet} variant="determinate" />
-                        </Container>
-                        <Box minWidth={35}>
-                            <Typography variant="body2" color="textSecondary">
-                                {`${Math.round(this.state.progressCarnet,)}%`}
-                            </Typography>
+                    <br />
+                    <br />
+
+                    <img src={this.state.urlCarnet || "http://via.placeholder.com/500x300"} width={500} height={300} />
+
+                    <br />
+                    <br />
+                    {/*<CircularProgress variant="static" value={this.state.progressCarnet} />*/}
+                    <Container maxWidth="sm">
+                        <LinearProgress value={this.state.progressCarnet} variant="determinate" />
+                    </Container>
+                    <Box minWidth={35}>
+                        <Typography variant="body2" color="textSecondary">
+                            {`${Math.round(this.state.progressCarnet,)}%`}
+                        </Typography>
+                    </Box>
+
+                    <br />
+                    <br />
+
+                    <Box textAlign="center" fontWeight="fontWeightRegular">
+                        Por favor suba una imágen de su licencia de conducción
                         </Box>
+                    <input
 
-                        <br />
-                        <br />
+                        id="upload-lic-conduccion"
+                        name="upload-lic-conduccion"
+                        type="file"
+                        onChange={this.handleChange}
+                    />
 
-                        <Box textAlign="center" fontWeight="fontWeightRegular">
-                            Por favor suba una imágen de su licencia de conducción
-                        </Box>
-                        <input
-
-                            id="upload-lic-conduccion"
-                            name="upload-lic-conduccion"
-                            type="file"
-                            onChange={this.handleChange}
-                        />
-
-                        <br />
-                        <br />
+                    <br />
+                    <br />
 
 
-                        <Button color="secondary" variant="contained" component="span" onClick={this.handleUploadLicConduccion}>
-                            Subir Licencia de Conducción
+                    <Button color="secondary" variant="contained" component="span" onClick={this.handleUploadLicConduccion}>
+                        Subir Licencia de Conducción
                         </Button>
 
-                        <br />
-                        <br />
-                        <Container maxWidth="sm">
-                            <LinearProgress value={this.state.progressLicConduccion} variant="determinate" />
-                        </Container>
-                        <Box minWidth={35}>
-                            <Typography variant="body2" color="textSecondary">
-                                {`${Math.round(this.state.progressLicConduccion,)}%`}
-                            </Typography>
+                    <br />
+                    <br />
+
+                    <img src={this.state.urlLicencia || "http://via.placeholder.com/500x300"} width={500} height={300} />
+
+                    <br />
+                    <br />
+
+                    <Container maxWidth="sm">
+                        <LinearProgress value={this.state.progressLicConduccion} variant="determinate" />
+                    </Container>
+                    <Box minWidth={35}>
+                        <Typography variant="body2" color="textSecondary">
+                            {`${Math.round(this.state.progressLicConduccion,)}%`}
+                        </Typography>
+                    </Box>
+                    <br />
+
+                    <Box textAlign="center" fontWeight="fontWeightRegular">
+                        Por favor suba una imágen del soat de su vehiculo
                         </Box>
-                        <br />
+                    <input
+                        id="upload-soat"
+                        name="upload-soat"
+                        type="file"
+                        onChange={this.handleChange}
+                    />
 
-                        <Box textAlign="center" fontWeight="fontWeightRegular">
-                            Por favor suba una imágen del soat de su vehiculo
-                        </Box>
-                        <input
-                            id="upload-soat"
-                            name="upload-soat"
-                            type="file"
-                            onChange={this.handleChange}
-                        />
+                    <br />
+                    <br />
 
-                        <br />
-                        <br />
-
-                        <Button color="secondary" variant="contained" component="span" onClick={this.handleUploadSoat}>
-                            Subir Soat del vehículo
+                    <Button color="secondary" variant="contained" component="span" onClick={this.handleUploadSoat}>
+                        Subir Soat del vehículo
                         </Button>
 
-                        <br />
-                        <br />
+                    <br />
+                    <br />
 
-                        <Container maxWidth="sm">
-                            <LinearProgress value={this.state.progressSoat} variant="determinate" />
-                        </Container>
-                        <Box minWidth={35}>
-                            <Typography variant="body2" color="textSecondary">
-                                {`${Math.round(this.state.progressSoat)}%`}
-                            </Typography>
-                        </Box>
-                    </div>
-               
+                    <img src={this.state.urlSoat || "http://via.placeholder.com/500x300"} width={500} height={300} />
+
+                    <br />
+                    <br />
+
+                    <Container maxWidth="sm">
+                        <LinearProgress value={this.state.progressSoat} variant="determinate" />
+                    </Container>
+                    <Box minWidth={35}>
+                        <Typography variant="body2" color="textSecondary">
+                            {`${Math.round(this.state.progressSoat,)}%`}
+                        </Typography>
+                    </Box>
+
+                    <br />
+                    <br />
+                    <Button color="secondary" variant="contained" component="span" onClick={this.handleFinalizar} >
+                        Finalizar
+                    </Button>
+                </div>
+
             </div>
         )
     };
