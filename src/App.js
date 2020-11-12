@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import moment from "moment";
 import './App.css';
-import DriverHome from './Driver/home/DriverHome';
+import DriverHome from './driver/home/DriverHome';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
 import RecordsPasajero from './pasajero/home/RecordsPasajero'
-import FormVehiculo from './Driver/registroVehiculo/FormVehiculo'
+import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
 import axios from 'axios';
 
 import OfrecidosPasajero from './pasajero/home/OfrecidosPasajero'
 import AgendadosPasajero from './pasajero/home/AgendadosPasajero'
-import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
-import Login from './components/Login'
-import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
 
 import EjemploDialog from './components/EjemploDialog';
 
@@ -33,7 +30,8 @@ import Registrar2 from "./components/registrar/Registrar";
 
 class App extends Component {
 
-super(props);
+  constructor(props){
+        super(props);
         this.state = {
             isLog : false,
             items : []
