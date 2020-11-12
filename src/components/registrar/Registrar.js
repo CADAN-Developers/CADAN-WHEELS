@@ -11,8 +11,8 @@ import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 
 import Grid from '@material-ui/core/Grid';
-
-
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import { Route, Redirect } from 'react-router-dom';
 
 
@@ -80,7 +80,7 @@ export default function RegistrarTab() {
         documento: '',
         universidad: '',
         carne: '',
-        fotoCarne: ''
+        foto: "https://firebasestorage.googleapis.com/v0/b/cadanwheels-7fd31.appspot.com/o/carn%C3%A9s%2Fme.png?alt=media&token=f2473d4a-2db2-47ba-8e07-c8a077724e81"
     });
 
     const handleChange = (prop) => (event) => {
@@ -121,7 +121,7 @@ export default function RegistrarTab() {
                 .then(res => {
                     console.log(res.data);
                     if (res.data) {
-                        toast.success('Te has registrado exitosament!');
+                        toast.success('Te has registrado exitosamente!');
                     } else {
                         toast.error("Correo ya registrado")
                     }
@@ -187,16 +187,21 @@ export default function RegistrarTab() {
             </FormControl>
 
             {/* campo tipo documento */}
-            <FormControl margin="normal" >
-                <InputLabel htmlFor="tipoDocumento">Tipo Documento</InputLabel>
-                <Input
+            <FormControl className={classes.formControl}>
+                <InputLabel id="tipoDocumento">tipo Documento</InputLabel>
+                <Select
+                    labelId="tipoDocumento"
                     id="tipoDocumento"
                     value={values.tipoDocumento}
-                    type='text'
-                    onChange={handleChange('tipoDocumento')}
-                />
-                <FormHelperText id="subtext-tipoDocumento">Cedula / tarjeta de Identidad / Pasaporte...</FormHelperText>
+                    onChange={handleChange("tipoDocumento")}
+                    type="text"
+             >
+                    <MenuItem value={"CC"}>CC</MenuItem>
+                    <MenuItem value={"TI"}>TI</MenuItem>
+                    <MenuItem value={"otro"}>Otros...</MenuItem>
+                </Select>
             </FormControl>
+          
 
             {/* campo documento */}
             <FormControl margin="normal" >
@@ -231,8 +236,9 @@ export default function RegistrarTab() {
                 />
             </FormControl>
 
-            {/* campo foto carne */}
-            <FormControl margin="normal" >
+
+            {/*  
+            <FormControl fullWidth margin="normal" >
                 <InputLabel htmlFor="fotoCarne">Adjuntar Carné</InputLabel>
                 <Input
                     id="fotoCarne"
@@ -240,7 +246,7 @@ export default function RegistrarTab() {
                     type='text'
                     onChange={handleChange('fotoCarne')}
                 />
-            </FormControl>
+            </FormControl>  */}
 
             {/* campo contraseña */}
             <FormControl margin="normal" >

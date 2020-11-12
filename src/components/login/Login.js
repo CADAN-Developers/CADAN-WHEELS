@@ -52,7 +52,7 @@ export default function LoginTab() {
 
     const classes = useStyles();
 
-    const localUsuario = JSON.parse(localStorage.getItem('usuario'));
+    const localUsuario = JSON.parse(sessionStorage.getItem('usuarioCompleto'));
 
     const [isLoggedIn, setIsLoggedIn] = React.useState(localUsuario);
 
@@ -115,11 +115,10 @@ export default function LoginTab() {
                                 toast.success('Has iniciado sesión');
                                 values.tipoUsuario = usuario.tipoUsuario;
                                 setUsuarioExistente(usuario);
-                                sessionStorage.setItem("usuario", usuario.correo);
-                                sessionStorage.setItem("usuarioCompleto", usuario)
-                                localStorage.setItem('usuario', JSON.stringify(usuario));
+                                console.log(usuario)
                                 setIsLoggedIn(true);
-
+                                sessionStorage.setItem("usuarioCompleto", JSON.stringify(usuario));
+                                sessionStorage.setItem("usuario", usuario.correo);
                             } else {
                                 toast.error("Correo o contraseña incorrectas")
                             }
@@ -242,7 +241,7 @@ export default function LoginTab() {
                                     <Redirect
                                         to={{
                                             pathname: "/" + usuarioExistente.tipoUsuario,
-
+                                            state: { usuario: usuarioExistente }
                                         }}
                                     />
 
@@ -258,7 +257,7 @@ export default function LoginTab() {
             </Grid>
 
             <ToastContainer />
-                <Footer />
+            <Footer />
 
 
         </div>

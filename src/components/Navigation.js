@@ -63,24 +63,49 @@ const useStyles = makeStyles((theme) => ({
 function handleLogout() {
     console.log("Entro a cerrar sesion");
 
-    localStorage.clear();
+    sessionStorage.clear();
     window.location.replace("/")
 
 
 };
 
-export default function Navigation({ tipoUsuario }) {
+export default function Navigation() {
     // obtener usuario
-    // const localUsuario = JSON.parse(localStorage.getItem('usuario'));
+    const localUsuario = JSON.parse(sessionStorage.getItem("usuarioCompleto"));
+    // console.log(localUsuario);
 
-    // const [usuarioExistente, setUsuarioExistente] = React.useState('');
+  
 
-    // if(localUsuario){
-    //     console.log(localUsuario);
-    //     // setUsuarioExistente(localUsuario);
-    // } else{
-    //     console.log('sin usuario');
-    // }
+    const [usuario, setUsuario] = React.useState({
+        apellidos: localUsuario ? localUsuario.apellidos : 'none',
+        carne: localUsuario ? localUsuario.carne : 'none',
+        correo: localUsuario ? localUsuario.correo : 'none',
+        documento: localUsuario ? localUsuario.documento : 'none',
+        foto: localUsuario ? localUsuario.foto : 'none',
+        nombre: localUsuario ? localUsuario.nombre : 'none',
+        saldo: localUsuario ? localUsuario.saldo : 'none',
+        tipoDocumento: localUsuario ? localUsuario.tipoDocumento : 'none',
+        tipoUsuario: localUsuario ? localUsuario.tipoUsuario : 'none',
+        universisdad: localUsuario ? localUsuario.universisdad : 'none'
+
+    });
+
+    if (localUsuario ) {
+        
+        // console.log(usuario);
+    } else {
+        if(window.location.pathname === '/iniciar' || window.location.pathname === '/registrar' || window.location.pathname === '/'){
+            console.log('sin usuario y sin acceder');
+            sessionStorage.clear();
+        } else {
+            console.log("Entrando sin acceder");
+            sessionStorage.clear();
+            window.location.replace("/");
+        }
+       
+    }
+
+    
 
 
     const [values, setValues] = React.useState({
@@ -125,7 +150,6 @@ export default function Navigation({ tipoUsuario }) {
         setState({ ...state, [anchor]: open });
     };
 
-    const usuario= JSON.parse(localStorage.getItem('usuario'));
 
     // CUANDO EL USUARIO ES CONDUCTOR
     const navDriver = <div>
@@ -134,7 +158,7 @@ export default function Navigation({ tipoUsuario }) {
                 <ListItemAvatar className="avatar_menu">
                     <Avatar
                         alt="AVATAR"
-                        src="https://material-ui.com/static/images/avatar/1.jpg?size=70x70"
+                        src={usuario.foto }
                         size="70"
                         style={{
                             width: "70px",
@@ -142,7 +166,7 @@ export default function Navigation({ tipoUsuario }) {
                         }}
                     />
                 </ListItemAvatar>
-                <ListItemText primary="JULIAN SANCHEZ" secondary={
+                <ListItemText primary={usuario.nombre +' '+ usuario.apellidos} secondary={
 
                     <React.Fragment>
                         <Typography
@@ -151,7 +175,8 @@ export default function Navigation({ tipoUsuario }) {
                             className={classes.inline}
                             color="textPrimary"
                         >
-                            <b>julian@escuela.co</b> - {tipoUsuario}
+                            <b>{usuario.correo}</b> - {usuario.tipoUsuario}<br></br>
+                            <b>${usuario.saldo} COP</b> 
                         </Typography>
                         <br></br>
 
@@ -198,7 +223,7 @@ export default function Navigation({ tipoUsuario }) {
                 <ListItemAvatar className="avatar_menu">
                     <Avatar
                         alt="AVATAR"
-                        src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg?size=70x70"
+                        src={usuario.foto ? usuario.foto : "https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg?size=70x70" } 
                         size="70"
                         style={{
                             width: "70px",
@@ -206,7 +231,7 @@ export default function Navigation({ tipoUsuario }) {
                         }}
                     />
                 </ListItemAvatar>
-                <ListItemText primary="CARLOS PARAMO" secondary={
+                <ListItemText primary={usuario.nombre +' '+ usuario.apellidos} secondary={
 
                     <React.Fragment>
                         <Typography
@@ -215,7 +240,8 @@ export default function Navigation({ tipoUsuario }) {
                             className={classes.inline}
                             color="textPrimary"
                         >
-                            <b>c.paramo@gmail.com</b> - {tipoUsuario}
+                            <b>{usuario.correo}</b> - {usuario.tipoUsuario}<br></br>
+                            <b>${usuario.saldo} COP</b> 
                         </Typography>
                         <br></br>
 
@@ -315,9 +341,9 @@ export default function Navigation({ tipoUsuario }) {
 
     // Verificar que usuario es y guardando su menu 
     let selectMenu;
-    if (tipoUsuario === "Driver") {
+    if (usuario.tipoUsuario === "conductor") {
         selectMenu = navDriver;
-    } else if (tipoUsuario === "Passenger") {
+    } else if (usuario.tipoUsuario === "pasajero") {
         selectMenu = navPassenger;
     } else {
         selectMenu = navNone;
@@ -347,16 +373,6 @@ export default function Navigation({ tipoUsuario }) {
             {list("right")}
         </Drawer>
     </div>;
-    // if (localStorage.isLoggedIn) {
-    //     buttons = <div>
-    //         <Button color="inherit" onClick={toggleDrawer("right", true)}><MenuIcon color="inherit" /></Button>
-    //         <Drawer anchor="right" open={state["right"]} onClose={toggleDrawer("right", false)}>
-    //             {list("right")}
-    //         </Drawer>
-    //     </div>;
-    // } else {
-    //     buttons = <Button component={Link} to="/login" color="inherit">Login</Button>
-    // }
 
     return (
 

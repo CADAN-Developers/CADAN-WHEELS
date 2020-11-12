@@ -16,6 +16,16 @@ import TextField from '@material-ui/core/TextField';
 // import InputGroup from 'react-bootstrap/InputGroup'
 import moment from "moment";
 
+// config
+import { API_ROOT } from '../../config/api-config';
+
+// peticiones con AXIOS
+import axios from 'axios';
+
+// alertas
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 class PasajeroHome extends React.Component {
 
@@ -23,11 +33,11 @@ class PasajeroHome extends React.Component {
         super(props);
         this.alertClicked = this.alertClicked.bind(this);
         this.realizadoClick = this.realizadoClick.bind(this);
-        this.state = {ofrecidos:[], completados:[], agendados:[], enCurso:[]};
+        this.state = { ofrecidos: [], completados: [], agendados: [], enCurso: [], usuario: '' };
     }
 
-    componentDidMount(){
-        fetch('https://cadanback.herokuapp.com/ViajesOfrecidos')
+    componentDidMount() {
+        fetch(API_ROOT + '/ViajesOfrecidos')
             .then(response => response.json())
             .then(data => {
                 let ofrecidosC = [];
@@ -36,68 +46,91 @@ class PasajeroHome extends React.Component {
                         "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
                     })
                 });
-                this.setState({ofrecidos:ofrecidosC});
+                this.setState({ ofrecidos: ofrecidosC });
             });
-        fetch('https://cadanback.herokuapp.com/Realizados/' + sessionStorage.getItem("usuario"))
-                .then(response => response.json())
-                .then(data => {
-                    let completadosP = [];
-                    data.forEach(function (viaje) {
-                        completadosP.push({
-                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
-                        })
-                    });
-                    this.setState({completados:completadosP});
+        fetch(API_ROOT + '/Realizados/' + sessionStorage.getItem("usuario"))
+            .then(response => response.json())
+            .then(data => {
+                let completadosP = [];
+                data.forEach(function (viaje) {
+                    completadosP.push({
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                    })
                 });
+                this.setState({ completados: completadosP });
+            });
 
-        fetch('https://cadanback.herokuapp.com/AgenadosPas/' + sessionStorage.getItem("usuario"))
-                .then(response => response.json())
-                .then(data => {
-                    let AgendadosP = [];
-                    data.forEach(function (viaje) {
-                        AgendadosP.push({
-                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
-                        })
-                    });
-                    this.setState({agendados:AgendadosP});
+        fetch(API_ROOT + '/AgenadosPas/' + sessionStorage.getItem("usuario"))
+            .then(response => response.json())
+            .then(data => {
+                let AgendadosP = [];
+                data.forEach(function (viaje) {
+                    AgendadosP.push({
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                    })
                 });
-        
-        fetch('https://cadanback.herokuapp.com/EnCursoPas/' + sessionStorage.getItem("usuario"))
-                .then(response => response.json())
-                .then(data => {
-                    let enCursoP = [];
-                    enCursoP.push({
-                            "idViaje": data.idViaje, "pasajero": data.pasajero, "conductor": data.conductor, "ruta": data.ruta, "costo": data.costo, "calificacion": data.calificacion, "tipoViaje": data.tipoViaje, "fecha": moment(data.fecha), "cupos": data.cupos
-                        })
-                    this.setState({enCurso:enCursoP});
-                });
-            
+                this.setState({ agendados: AgendadosP });
+            });
+
+        fetch(API_ROOT + '/EnCursoPas/' + sessionStorage.getItem("usuario"))
+            .then(response => response.json())
+            .then(data => {
+                let enCursoP = [];
+                enCursoP.push({
+                    "idViaje": data.idViaje, "pasajero": data.pasajero, "conductor": data.conductor, "ruta": data.ruta, "costo": data.costo, "calificacion": data.calificacion, "tipoViaje": data.tipoViaje, "fecha": moment(data.fecha), "cupos": data.cupos
+                })
+                this.setState({ enCurso: enCursoP });
+            })
+            .catch(function (error) {
+            });
+
+        // obtener datos usuario
+        axios.get(API_ROOT + `/usuarios/` + sessionStorage.getItem("usuario"))
+            .then(res => {
+                let us = res.data;
+                console.log("data");
+                console.log(us);
+
+                if (us) {
+
+                    this.setState({ usuario: us });
+                    toast.success("Bienvenido " + us.nombre);
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+                toast.error("Error en el servidor.")
+            })
+
+
+
     }
 
     render() {
         const completadosList = this.state.completados.map((viaje) => {
             return (
-            <ListGroup.Item key={viaje.idViaje}> {viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+                <ListGroup.Item key={viaje.idViaje}> {viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
             );
         });
         const ofrecidosList = this.state.ofrecidos.map((viaje) => {
             return (
-            <ListGroup.Item key={viaje.idViaje}>{viaje.ruta} ${viaje.costo}  cupos: {viaje.cupos}  fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+                <ListGroup.Item key={viaje.idViaje}>{viaje.ruta} ${viaje.costo}  cupos: {viaje.cupos}  fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
             );
-            
+
         });
         const agendadosList = this.state.agendados.map((viaje) => {
             return (
-            <ListGroup.Item key={viaje.idViaje}> {viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+                <ListGroup.Item key={viaje.idViaje}> {viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
             );
         });
         const enCursoList = this.state.enCurso.map((viaje) => {
             return (
-            <ListGroup.Item key={viaje.idViaje}>{viaje.ruta} ${viaje.costo} conductor: {viaje.conductor}</ListGroup.Item>
+                <ListGroup.Item key={viaje.idViaje}>{viaje.ruta} ${viaje.costo} conductor: {viaje.conductor}</ListGroup.Item>
             );
-            
+
         });
 
+        // const user = JSON.parse(sessionStorage.getItem("usuarioCompleto"))
 
         return (
 
@@ -128,35 +161,35 @@ class PasajeroHome extends React.Component {
                                 <Card.Header bg="dark" as="h5">Usuario</Card.Header>
                                 <Card.Body>
                                     <Card.Text>
-                                        <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg" roundedCircle width="175" height="175" />
+                                        <Image src={this.state.usuario.foto} roundedCircle width="175" height="175" />
                                     </Card.Text>
-                                    <Card.Title>Carlos Paramo</Card.Title>
+                                    <Card.Title>{this.state.usuario.nombre}  {this.state.usuario.apellidos}  </Card.Title>
                                     <ListGroup variant="flush">
-                                        <ListGroup.Item>Universidad Javeriana</ListGroup.Item>
-                                        <ListGroup.Item>929847382</ListGroup.Item>
-                                        <ListGroup.Item>{sessionStorage.getItem("usuario")}</ListGroup.Item>
+                                        <ListGroup.Item>{this.state.usuario.universidad} </ListGroup.Item>
+                                        <ListGroup.Item>{this.state.usuario.telefono}</ListGroup.Item>
+                                        <ListGroup.Item>{this.state.usuario.correo}</ListGroup.Item>
                                     </ListGroup>
-                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/p/actualizar" >Editar perfil</Button>
+                                    <Button variant="contained" size="medium" color="primary" component={Link} to="/p/actualizar" >Editar perfil</Button>
                                 </Card.Body>
                             </Card>
                         </Col>
 
                         <Col sm={8}>
 
-                        <Card className="text-center">
+                            <Card className="text-center">
                                 <Card.Header as="h5">Viaje En Curso</Card.Header>
                                 <Card.Body>
                                     <ListGroup>
                                         {enCursoList}
                                     </ListGroup>
                                 </Card.Body>
-                            </Card>    
+                            </Card>
 
-                        <Card className="text-center">
+                            <Card className="text-center">
                                 <Card.Header as="h5">Viajes Disponibles</Card.Header>
                                 <Card.Body>
                                     <ListGroup>
-                                        <TextField id="outlined-basic" label="¿A donde quieres ir?" variant="outlined"/>
+                                        <TextField id="outlined-basic" label="¿A donde quieres ir?" variant="outlined" />
                                         {ofrecidosList}
                                         <Button variant="contained" size="medium" color="primary" component={Link} to="/p/ofrecidos" >Ver Todos</Button>
                                     </ListGroup>
@@ -171,7 +204,7 @@ class PasajeroHome extends React.Component {
                                     </ListGroup>
                                 </Card.Body>
                             </Card>
-                            
+
                             <Card className="text-center">
                                 <Card.Header as="h5">Historial</Card.Header>
                                 <Card.Body>
@@ -193,7 +226,7 @@ class PasajeroHome extends React.Component {
         alert('Operation in maintenance');
     }
 
-    realizadoClick(e){
+    realizadoClick(e) {
         console.log("click" + Object.getOwnPropertyNames(e));
     }
 }

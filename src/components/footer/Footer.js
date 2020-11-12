@@ -1,7 +1,6 @@
-import StickyFooter from 'react-sticky-footer';
+
 
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
 import "./Footer.css"
 
