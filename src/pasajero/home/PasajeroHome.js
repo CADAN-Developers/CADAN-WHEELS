@@ -102,9 +102,10 @@ class PasajeroHome extends React.Component {
             
         });
 
+        const user = JSON.parse(sessionStorage.getItem("usuarioCompleto"))
 
         return (
-
+             
             <div>
                 {/* llamando navegacion de usuario (conductor) */}
                 <Navigation tipoUsuario="Passenger" />
@@ -132,13 +133,13 @@ class PasajeroHome extends React.Component {
                                 <Card.Header bg="dark" as="h5">Usuario</Card.Header>
                                 <Card.Body>
                                     <Card.Text>
-                                        <Image src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg" roundedCircle width="175" height="175" />
+                                        <Image src={user.foto} roundedCircle width="175" height="175" />
                                     </Card.Text>
-                                    <Card.Title>Carlos Paramo</Card.Title>
+                                    <Card.Title>{user.nombre}  {user.apellidos}  </Card.Title>
                                     <ListGroup variant="flush">
-                                        <ListGroup.Item>Universidad Javeriana</ListGroup.Item>
-                                        <ListGroup.Item>929847382</ListGroup.Item>
-                                        <ListGroup.Item>{sessionStorage.getItem("usuario")}</ListGroup.Item>
+                                        <ListGroup.Item>{user.universidad} </ListGroup.Item>
+                                        <ListGroup.Item>{user.telefono}</ListGroup.Item>
+                                        <ListGroup.Item>{user.correo}</ListGroup.Item>
                                     </ListGroup>
                                         <Button variant="contained" size="medium" color="primary" component={Link} to="/p/actualizar" >Editar perfil</Button>
                                 </Card.Body>
