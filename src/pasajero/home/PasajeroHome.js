@@ -27,6 +27,7 @@ class PasajeroHome extends React.Component {
     }
 
     componentDidMount(){
+        const user = JSON.parse(localStorage.getItem("usuario"))
         fetch('http://localhost:8080/ViajesOfrecidos')
             .then(response => response.json())
             .then(data => {
@@ -38,7 +39,7 @@ class PasajeroHome extends React.Component {
                 });
                 this.setState({ofrecidos:ofrecidosC});
             });
-        fetch('https://cadanback.herokuapp.com/Realizados/' + sessionStorage.getItem("usuario"))
+        fetch('https://cadanback.herokuapp.com/Realizados/' + user.correo)
                 .then(response => response.json())
                 .then(data => {
                     let completadosP = [];
@@ -50,7 +51,7 @@ class PasajeroHome extends React.Component {
                     this.setState({completados:completadosP});
                 });
 
-        fetch('https://cadanback.herokuapp.com/AgenadosPas/' + sessionStorage.getItem("usuario"))
+        fetch('https://cadanback.herokuapp.com/AgenadosPas/' + user.correo)
                 .then(response => response.json())
                 .then(data => {
                     let AgendadosP = [];
@@ -62,7 +63,7 @@ class PasajeroHome extends React.Component {
                     this.setState({agendados:AgendadosP});
                 });
         
-        fetch('https://cadanback.herokuapp.com/EnCursoPas/' + sessionStorage.getItem("usuario"))
+        fetch('https://cadanback.herokuapp.com/EnCursoPas/' + user.correo)
                 .then(response => response.json())
                 .then(data => {
                     let enCursoP = [];
@@ -102,7 +103,8 @@ class PasajeroHome extends React.Component {
             
         });
 
-        const user = JSON.parse(sessionStorage.getItem("usuarioCompleto"))
+        const user = JSON.parse(localStorage.getItem("usuario"))
+        
 
         return (
              
