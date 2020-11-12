@@ -1,46 +1,50 @@
 import React, { Component } from 'react';
 import moment from "moment";
 import './App.css';
-
-import DriverHome from './driver/home/DriverHome';
+import DriverHome from './Driver/home/DriverHome';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
 import RecordsPasajero from './pasajero/home/RecordsPasajero'
+import FormVehiculo from './Driver/registroVehiculo/FormVehiculo'
+import Login from './components/Login'
+import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
+import axios from 'axios';
+
 import OfrecidosPasajero from './pasajero/home/OfrecidosPasajero'
 import AgendadosPasajero from './pasajero/home/AgendadosPasajero'
 import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
 import Login from './components/Login'
 import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
+
 import EjemploDialog from './components/EjemploDialog';
+
 
 import Toastr from './components/Toastr'
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+
 import MapView  from './components/Maps/MapView';
+import UploadImagenes from './components/imagenesDocumentos/UploadImagenes';
+
+// version 2 
+import Login2 from './components/login/Login';
+import Registrar2 from "./components/registrar/Registrar";
 
 
 class App extends Component {
 
-constructor(props) {
-  super(props);
-  this.state = {
-    isLog : false
-  }
+super(props);
+        this.state = {
+            isLog : false,
+            items : []
+            }
   this.handleClick = this.handleClick.bind(this)
 }
 
- render() {
-        const items = [{
-            marca: "Renault ",
-            matricula: moment(new Date(156464645646)),
-            placa: "HIX578",
-            capacidad: "5",
-            soat: moment(new Date(156464645646))
-          }]
-          
+ render() {  
           const VehiculosView = () => (
             <div>
-              <FormVehiculo vehicList={items} /> 
+              <FormVehiculo vehicList={this.state.items} /> 
             </div>
         );
 
@@ -57,7 +61,7 @@ constructor(props) {
         );
 
         const vistaprevia = this.state.isLog ? pasView : loginView
-    
+        
     return (
       <div className="App">
 
@@ -69,12 +73,17 @@ constructor(props) {
 
               <Route exact path="/noti" component={Toastr} />
               <Route path="/dialog" component={EjemploDialog} />
+              
+              {/* version 2 */}
+              <Route path="/loginv2" component={Login2} />
+              <Route path="/registrarv2" component={Registrar2} />
 
-
+              
               <Route exact path="/" component={vistaprevia} />
               <Route path="/iniciar" component={Login} />
               <Route path="/registrar" component={RegistroUsuario} />
               <Route path="/map" component={MapView} />
+              <Route path="/subirImagenes" component={UploadImagenes} />
 
               {/* conductor (si es conductor poner antes /c/ y la pagina que se desee)*/}
               <Route path="/conductor" component={DriverHome} />
@@ -93,7 +102,27 @@ constructor(props) {
       </div>
     );
     }
-    s
+
+    async componentDidMount(){
+        const url = "https://cadanback.herokuapp.com/getVehiculos?conductor=daniel@mail.com"
+        //axios.get(url).then(res => res.json()).then(res => console.log(res));
+        //fetch(url).then(res => console.log(res)).catch(error => console.log("JOHANN ES RE GURRERO "+ error));
+        var list=[];
+        await fetch(url).then(res => res.json())
+                    .then((result) => {
+                            result.forEach(element => { list.push(element)
+                                
+                            });
+                                
+                          
+                        
+                    });
+        this.setState({
+            items: list
+        });
+
+    }
+
     handleClick(e) {
       console.log("regresa a APP ")
       this.setState({ isLog : true})

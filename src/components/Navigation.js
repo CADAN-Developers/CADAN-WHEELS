@@ -62,13 +62,10 @@ const useStyles = makeStyles((theme) => ({
 
 function handleLogout() {
     console.log("Entro a cerrar sesion");
-    if (localStorage.isLoggedIn) {
-        localStorage.clear();
-        window.location.replace("/")
 
-    } else {
-        console.log("Sin iniciar");
-    }
+    localStorage.clear();
+    window.location.replace("/")
+
 
 };
 
@@ -283,13 +280,13 @@ export default function TemporaryDrawer({ tipoUsuario }) {
                 <ListItemIcon><HomeIcon /></ListItemIcon>
                 <ListItemText primary="Inicio" />
             </ListItem>
-            <ListItem button component={Link} to="/registrar">
-                <ListItemIcon><PermIdentityIcon /></ListItemIcon>
-                <ListItemText primary="Pasajero" />
-            </ListItem>
             <ListItem button component={Link} to="/iniciar">
+                <ListItemIcon><PermIdentityIcon /></ListItemIcon>
+                <ListItemText primary="Iniciar Sesión" />
+            </ListItem>
+            <ListItem button component={Link} to="/registrar">
                 <ListItemIcon><PersonIcon /></ListItemIcon>
-                <ListItemText primary="Conductor" />
+                <ListItemText primary="Registarse" />
             </ListItem>
         </List>
         <Divider />
