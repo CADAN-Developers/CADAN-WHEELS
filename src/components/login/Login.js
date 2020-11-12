@@ -234,7 +234,7 @@ export default function LoginTab() {
 
                             <Button variant="contained" color="primary" onClick={handleIniciar}>Ingresar</Button>
                     &nbsp;&nbsp;
-                    <Button variant="contained" href="registrarv2">Registrarse</Button>
+                    <Button variant="contained" href="registrar">Registrarse</Button>
                             <br></br>
                             {isLoggedIn ?
                                 <Route>

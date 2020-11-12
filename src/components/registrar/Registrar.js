@@ -80,7 +80,7 @@ export default function RegistrarTab() {
         documento: '',
         universidad: '',
         carne: '',
-        foto: "https://firebasestorage.googleapis.com/v0/b/cadanwheels-7fd31.appspot.com/o/carn%C3%A9s%2Fme.png?alt=media&token=f2473d4a-2db2-47ba-8e07-c8a077724e81"
+        foto: "https://www.webespacio.com/wp-content/uploads/2010/12/perfil-facebook.jpg"
     });
 
     const handleChange = (prop) => (event) => {
