@@ -3,6 +3,8 @@ import Navigation from '../../components/Navigation';
 import Button from '@material-ui/core/Button';
 import { storage } from './Firebase';
 import { Box, LinearProgress, CircularProgress, Container, Typography } from '@material-ui/core';
+import axios from 'axios';
+import { API_ROOT } from '../../config/api-config';
 
 class UploadImagenes extends React.Component {
 
@@ -33,7 +35,7 @@ class UploadImagenes extends React.Component {
         }
     };
 
-    handleFinalizar(e) {
+    async handleFinalizar(e) {
 
         e.preventDefault();
         console.log(this.state);
@@ -44,6 +46,24 @@ class UploadImagenes extends React.Component {
         } else {
             alert("Adjunte los documentos que hacen falta ");
         }
+
+        var user = sessionStorage.getItem("usuarioCompleto")
+        user = JSON.parse(user)
+
+        await axios.post(API_ROOT + '/imagenes/', {
+            usuario: user.correo,
+            urlCarnet: this.state.urlCarnet,
+            urlLicenciaConduccion: this.state.urlLicencia,
+            urlSoat: this.state.urlSoat,
+            tipoUsuario: user.tipoUsuario
+            
+        })
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
     }
 
