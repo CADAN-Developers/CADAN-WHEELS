@@ -108,7 +108,7 @@ class PasajeroHome extends React.Component {
              
             <div>
                 {/* llamando navegacion de usuario (conductor) */}
-                <Navigation tipoUsuario="Passenger" />
+                <Navigation tipoUsuario="Passenger" /> 
 
                 {/* <Navbar bg="dark" variant="dark">
                         <Navbar.Brand href="#home">CADANWheels</Navbar.Brand>

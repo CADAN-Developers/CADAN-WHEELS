@@ -113,10 +113,10 @@ export default function LoginTab() {
                                 toast.success('Has iniciado sesión');
                                 values.tipoUsuario = usuario.tipoUsuario;
                                 setUsuarioExistente(usuario);
-                                console.log(usuario)
-                                setIsLoggedIn(true);
+                                console.log(usuario)                        
                                 sessionStorage.setItem("usuarioCompleto", JSON.stringify(usuario));
-                                localStorage.setItem('usuario',JSON.stringify(usuario));
+                                localStorage.setItem('usuario', JSON.stringify(usuario));
+                                setIsLoggedIn(true);
                             } else {
                                 toast.error("Correo o contraseña incorrectas")
                             }

@@ -262,18 +262,18 @@ class Mapa extends React.Component {
         const listItem = []
         this.state.directions.map((point, i) => {
             //console.log("latiutde: " + point.lat() + "longitud " + point.lng())
-            listItem.push({ "lat": point.lat(), "lng": point.lng() })
+            listItem.push(JSON.stringify({ "lat": point.lat(), "lng": point.lng() }))
         })
         const valor = this.state.directions.length < 300 ? 3000 : this.state.directions.length * 100
         const newMapa = {
-            origen: this.state.origen,
-            destino: this.state.destino,
+            origen: JSON.stringify(this.state.origen),
+            destino: JSON.stringify(this.state.destino),
             ruta: listItem,
             costo: valor
         }
         const newViaje = {
             idViaje: 1234,
-            pasajero: "nicolas@mail.com",
+            pasajero:"",
             conductor: user.correo,
             ruta: "CC HAYUELOS  A Escuela Colombiana de Ingenieria",
             costo: valor,
@@ -287,8 +287,8 @@ class Mapa extends React.Component {
 
         await axios.post("http://localhost:8080/AddViaje", {
             idViaje: 1234,
-            pasajero: "nicolas@mail.com",
-            conductor: user.correo,
+            pasajero: "",
+            conductor: "nicolas@mail.com",
             ruta: "CC HAYUELOS  A Escuela Colombiana de Ingenieria",
             costo: valor,
             calificacion: 0,
