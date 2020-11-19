@@ -26,7 +26,7 @@ export class OfecidosPasajero extends React.Component {
                 data.forEach(function (viaje) {
                     console.log(viaje.fecha)
                     ofrecidosC.push({
-                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": viaje.fecha, "cupos": viaje.cupos, "mapa": viaje.mapa
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": viaje.fecha, "cupos": viaje.cupos, "mapa": viaje.mapa, "ofrecido": viaje.ofrecido
                     })
                 });
                 this.setState({ofrecidos:ofrecidosC});

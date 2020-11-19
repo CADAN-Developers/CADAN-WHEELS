@@ -25,7 +25,7 @@ export class RecordsPasajero extends React.Component {
                     let completadosP = [];
                     data.forEach(function (viaje) {
                         completadosP.push({
-                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos ,"mapa": viaje.mapa, "ofrecido": viaje.ofrecido
                         })
                     });
                     this.setState({completados:completadosP});

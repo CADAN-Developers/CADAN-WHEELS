@@ -30,7 +30,6 @@ export class CardViajesOfrecidos extends React.Component {
   }
 
   render(){
-      console.log(this.props.fecha);
       return (
           <div>
                 <Card style={{width: 345, height: 600 }}>
@@ -88,12 +87,14 @@ export class CardViajesOfrecidos extends React.Component {
             tipoViaje:"AGENDADO",
             fecha:this.state.fecha,
             cupos:0,
-            mapa: this.state.mapa
+            mapa: this.state.mapa,
+            ofrecido: this.state.key
         })
     };
     fetch(API_ROOT + '/UpdateViaje/' + this.state.key, requestOptions
     )
     .then(response => {
+        alert("Viaje agendado");
         console.log(response);                                   
     })
     .catch(error => {

@@ -25,7 +25,7 @@ export class AgendadosPasajero extends React.Component {
                     let AgendadosP = [];
                     data.forEach(function (viaje) {
                         AgendadosP.push({
-                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos, "mapa": viaje.mapa, "ofrecido": viaje.ofrecido
                         })
                     });
                     this.setState({agendados:AgendadosP});
@@ -37,7 +37,7 @@ export class AgendadosPasajero extends React.Component {
     render() {
         const agendadosList = this.state.agendados.map((viaje) => {
             return (
-            <CardViajesAgendados key={viaje.idViaje} driver={this.state.foto} name={viaje.conductor} date={viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')} map={this.state.map} description={viaje.ruta} cost={viaje.costo} rating={viaje.calificacion} />
+            <CardViajesAgendados key={viaje.idViaje} idViaje={viaje.idViaje} driver={this.state.foto} name={viaje.conductor} date={viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')} map={this.state.map} description={viaje.ruta} cost={viaje.costo} rating={viaje.calificacion} mapa= {viaje.mapa} idOfrecido= {viaje.idOfrecido}/>
             );
         });
 

@@ -44,7 +44,7 @@ class PasajeroHome extends React.Component {
                 let ofrecidosC = [];
                 data.forEach(function (viaje) {
                     ofrecidosC.push({
-                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos, "mapa": viaje.mapa, "ofrecido": viaje.ofrecido
                     })
                 });
                 this.setState({ ofrecidos: ofrecidosC });
@@ -56,7 +56,7 @@ class PasajeroHome extends React.Component {
                 let completadosP = [];
                 data.forEach(function (viaje) {
                     completadosP.push({
-                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos, "mapa": viaje.mapa, "ofrecido": viaje.ofrecido
                     })
                 });
                 this.setState({ completados: completadosP });
@@ -69,7 +69,7 @@ class PasajeroHome extends React.Component {
                 let AgendadosP = [];
                 data.forEach(function (viaje) {
                     AgendadosP.push({
-                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos, "mapa": viaje.mapa, "ofrecido": viaje.ofrecido
                     })
                 });
                 this.setState({ agendados: AgendadosP });
@@ -80,7 +80,7 @@ class PasajeroHome extends React.Component {
             .then(data => {
                 let enCursoP = [];
                 enCursoP.push({
-                    "idViaje": data.idViaje, "pasajero": data.pasajero, "conductor": data.conductor, "ruta": data.ruta, "costo": data.costo, "calificacion": data.calificacion, "tipoViaje": data.tipoViaje, "fecha": moment(data.fecha), "cupos": data.cupos
+                    "idViaje": data.idViaje, "pasajero": data.pasajero, "conductor": data.conductor, "ruta": data.ruta, "costo": data.costo, "calificacion": data.calificacion, "tipoViaje": data.tipoViaje, "fecha": moment(data.fecha), "cupos": data.cupos, "mapa": data.mapa, "ofrecido": data.ofrecido
                 })
                 this.setState({ enCurso: enCursoP });
             })
