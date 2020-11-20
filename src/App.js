@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import moment from "moment";
 import './App.css';
 import DriverHome from './driver/home/DriverHome';
+import RecordsDriver from './driver/home/RecordsDriver';
+import OfrecidosDriver from './driver/home/OfrecidosDriver';
+import AgendadosDriver from './driver/home/AgendadosDriver';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
 import RecordsPasajero from './pasajero/home/RecordsPasajero'
@@ -86,6 +89,9 @@ class App extends Component {
               {/* conductor (si es conductor poner antes /c/ y la pagina que se desee)*/}
               <Route path="/conductor" component={DriverHome} />
               <Route path="/c/vehiculos" component={VehiculosView} />
+              <Route path="/c/registros" component={RecordsDriver} />
+              <Route path="/c/ofrecidos" component={OfrecidosDriver} />
+              <Route path="/c/agendados" component={AgendadosDriver} />
 
               {/* pasajero (si es pasajero poner antes /p/ y la pagina que se desee)*/}
               <Route path="/pasajero" component={PasajeroHome} />

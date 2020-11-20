@@ -38,7 +38,7 @@ class PasajeroHome extends React.Component {
 
     
     componentDidMount() {
-        fetch(API_ROOT + '/ViajesOfrecidos')
+        fetch(API_ROOT + '/ViajesOfrecidos/'  + sessionStorage.getItem("usuario"))
             .then(response => response.json())
             .then(data => {
                 let ofrecidosC = [];
