@@ -3,6 +3,13 @@ import Navigation from '../../components/Navigation';
 import Button from '@material-ui/core/Button';
 import { storage } from './Firebase';
 import { Box, LinearProgress, CircularProgress, Container, Typography } from '@material-ui/core';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import ListGroup from 'react-bootstrap/ListGroup'
+import Image from 'react-bootstrap/Image';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import axios from 'axios';
 import { API_ROOT } from '../../config/api-config';
 
@@ -17,7 +24,8 @@ class UploadImagenes extends React.Component {
             urlSoat: '',
             progressCarnet: 0,
             progressLicConduccion: 0,
-            progressSoat: 0
+            progressSoat: 0,
+            usuario: ''
 
 
         };
@@ -56,7 +64,7 @@ class UploadImagenes extends React.Component {
             urlLicenciaConduccion: this.state.urlLicencia,
             urlSoat: this.state.urlSoat,
             tipoUsuario: user.tipoUsuario
-            
+
         })
             .then(function (response) {
                 console.log(response.data);
@@ -65,6 +73,26 @@ class UploadImagenes extends React.Component {
                 console.log(error);
             });
 
+    }
+
+    componentDidMount(e) {
+        // obtener datos usuario
+        axios.get(API_ROOT + `/usuarios/` + sessionStorage.getItem("usuario"))
+            .then(res => {
+                let us = res.data;
+                console.log("data");
+                console.log(us);
+
+                if (us) {
+
+                    this.setState({ usuario: us });
+
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+
+            })
     }
 
     handleUploadCarnet = () => {
@@ -132,6 +160,10 @@ class UploadImagenes extends React.Component {
 
     }
 
+    handleCancelar(e) {
+        window.location.href = "/conductor";
+    };
+
     handleUploadSoat = () => {
         if (this.state.image === null) {
             alert("Por favor seleccione la imágen del soat de su vehículo ")
@@ -170,127 +202,153 @@ class UploadImagenes extends React.Component {
 
         return (
             <div>
-                <Navigation tipoUsuario="None" />
+                {/* llamando navegacion de usuario (conductor) */}
+                <Navigation tipoUsuario="Passenger" />
+                <Container className="container-fluid">
+                    <Row className="justify-content-md-center">
+                        <AccountCircleIcon color="primary" style={{ fontSize: 80 }} />
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <Col>
+                            <Card className="text-center">
+                                <Card.Body>
+                                    <Card.Text>
+                                        <Image src={this.state.usuario.foto} roundedCircle width="175" height="175" />
+                                    </Card.Text>
+                                    <Card.Title>{this.state.usuario.nombre}  {this.state.usuario.apellidos}  </Card.Title>
+                                    <ListGroup variant="flush">
+                                        <ListGroup.Item>{this.state.usuario.universidad} </ListGroup.Item>
+                                        <ListGroup.Item>{this.state.usuario.telefono}</ListGroup.Item>
+                                        <ListGroup.Item>{this.state.usuario.correo}</ListGroup.Item>
+                                    </ListGroup>
 
-                <div className="UploadImagenes" >
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                        <Col>
+                            <Form>
 
-                    <Box textAlign="center" fontWeight="fontWeightRegular">
-                        Por favor suba una imágen de su carné, de la institución educativa a la que pertenece
-                        </Box>
+                                <Box textAlign="center" fontWeight="fontWeightRegular">
+                                    Por favor suba una imágen de su carné, de la institución educativa a la que pertenece
+                                </Box>
 
-                    <input
+                                <input
 
-                        id="upload-carné"
-                        name="upload-carné"
-                        type="file"
-                        onChange={this.handleChange}
-                    />
+                                    id="upload-carné"
+                                    name="upload-carné"
+                                    type="file"
+                                    onChange={this.handleChange}
+                                />
 
-                    <br />
-                    <br />
-                    <Button color="secondary" variant="contained" component="span" onClick={this.handleUploadCarnet}>
-                        Subir Carné
-                        </Button>
+                                <br />
+                                <br />
+                                <Button color="secondary" variant="contained" component="span" onClick={this.handleUploadCarnet}>
+                                    Subir Carné
+                                </Button>
 
-                    <br />
-                    <br />
+                                <br />
+                                <br />
 
-                    <img src={this.state.urlCarnet || "http://via.placeholder.com/500x300"} width={500} height={300} />
+                                <img src={this.state.urlCarnet || "http://via.placeholder.com/500x300"} width={500} height={300} />
 
-                    <br />
-                    <br />
-                    {/*<CircularProgress variant="static" value={this.state.progressCarnet} />*/}
-                    <Container maxWidth="sm">
-                        <LinearProgress value={this.state.progressCarnet} variant="determinate" />
-                    </Container>
-                    <Box minWidth={35}>
-                        <Typography variant="body2" color="textSecondary">
-                            {`${Math.round(this.state.progressCarnet,)}%`}
-                        </Typography>
-                    </Box>
+                                <br />
+                                <br />
+                                {/*<CircularProgress variant="static" value={this.state.progressCarnet} />*/}
+                                <Container maxWidth="sm">
+                                    <LinearProgress value={this.state.progressCarnet} variant="determinate" />
+                                </Container>
+                                <Box minWidth={35}>
+                                    <Typography variant="body2" color="textSecondary">
+                                        {`${Math.round(this.state.progressCarnet,)}%`}
+                                    </Typography>
+                                </Box>
 
-                    <br />
-                    <br />
+                                <br />
+                                <br />
 
-                    <Box textAlign="center" fontWeight="fontWeightRegular">
-                        Por favor suba una imágen de su licencia de conducción
-                        </Box>
-                    <input
+                                <Box textAlign="center" fontWeight="fontWeightRegular">
+                                    Por favor suba una imágen de su licencia de conducción
+                                </Box>
+                                <input
 
-                        id="upload-lic-conduccion"
-                        name="upload-lic-conduccion"
-                        type="file"
-                        onChange={this.handleChange}
-                    />
+                                    id="upload-lic-conduccion"
+                                    name="upload-lic-conduccion"
+                                    type="file"
+                                    onChange={this.handleChange}
+                                />
 
-                    <br />
-                    <br />
+                                <br />
+                                <br />
 
 
-                    <Button color="secondary" variant="contained" component="span" onClick={this.handleUploadLicConduccion}>
-                        Subir Licencia de Conducción
-                        </Button>
+                                <Button color="secondary" variant="contained" component="span" onClick={this.handleUploadLicConduccion}>
+                                    Subir Licencia de Conducción
+                                </Button>
 
-                    <br />
-                    <br />
+                                <br />
+                                <br />
 
-                    <img src={this.state.urlLicencia || "http://via.placeholder.com/500x300"} width={500} height={300} />
+                                <img src={this.state.urlLicencia || "http://via.placeholder.com/500x300"} width={500} height={300} />
 
-                    <br />
-                    <br />
+                                <br />
+                                <br />
 
-                    <Container maxWidth="sm">
-                        <LinearProgress value={this.state.progressLicConduccion} variant="determinate" />
-                    </Container>
-                    <Box minWidth={35}>
-                        <Typography variant="body2" color="textSecondary">
-                            {`${Math.round(this.state.progressLicConduccion,)}%`}
-                        </Typography>
-                    </Box>
-                    <br />
+                                <Container maxWidth="sm">
+                                    <LinearProgress value={this.state.progressLicConduccion} variant="determinate" />
+                                </Container>
+                                <Box minWidth={35}>
+                                    <Typography variant="body2" color="textSecondary">
+                                        {`${Math.round(this.state.progressLicConduccion,)}%`}
+                                    </Typography>
+                                </Box>
+                                <br />
 
-                    <Box textAlign="center" fontWeight="fontWeightRegular">
-                        Por favor suba una imágen del soat de su vehiculo
-                        </Box>
-                    <input
-                        id="upload-soat"
-                        name="upload-soat"
-                        type="file"
-                        onChange={this.handleChange}
-                    />
+                                <Box textAlign="center" fontWeight="fontWeightRegular">
+                                    Por favor suba una imágen del soat de su vehiculo
+                                </Box>
+                                <input
+                                    id="upload-soat"
+                                    name="upload-soat"
+                                    type="file"
+                                    onChange={this.handleChange}
+                                />
 
-                    <br />
-                    <br />
+                                <br />
+                                <br />
 
-                    <Button color="secondary" variant="contained" component="span" onClick={this.handleUploadSoat}>
-                        Subir Soat del vehículo
-                        </Button>
+                                <Button color="secondary" variant="contained" component="span" onClick={this.handleUploadSoat}>
+                                    Subir Soat del vehículo
+                                </Button>
 
-                    <br />
-                    <br />
+                                <br />
+                                <br />
 
-                    <img src={this.state.urlSoat || "http://via.placeholder.com/500x300"} width={500} height={300} />
+                                <img src={this.state.urlSoat || "http://via.placeholder.com/500x300"} width={500} height={300} />
 
-                    <br />
-                    <br />
+                                <br />
+                                <br />
 
-                    <Container maxWidth="sm">
-                        <LinearProgress value={this.state.progressSoat} variant="determinate" />
-                    </Container>
-                    <Box minWidth={35}>
-                        <Typography variant="body2" color="textSecondary">
-                            {`${Math.round(this.state.progressSoat,)}%`}
-                        </Typography>
-                    </Box>
+                                <Container maxWidth="sm">
+                                    <LinearProgress value={this.state.progressSoat} variant="determinate" />
+                                </Container>
+                                <Box minWidth={35}>
+                                    <Typography variant="body2" color="textSecondary">
+                                        {`${Math.round(this.state.progressSoat,)}%`}
+                                    </Typography>
+                                </Box>
 
-                    <br />
-                    <br />
-                    <Button color="secondary" variant="contained" component="span" onClick={this.handleFinalizar} >
-                        Finalizar
-                    </Button>
-                </div>
+                                <Button style={{ marginRight: 10 }} variant="contained" size="medium" color="secondary" component="span" onClick={this.handleCancelar} >Cancelar</Button>
 
+                                <Button variant="contained" size="medium" color="primary" onClick={this.handleFinalizar} >Finalizar</Button>
+
+                            </Form>
+                        </Col>
+                    </Row>
+
+
+                </Container>
             </div>
+
         )
     };
 

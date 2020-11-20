@@ -169,6 +169,9 @@ class DriverHome extends Component {
                                         <ListGroup.Item>{this.state.usuario.correo}</ListGroup.Item>
                                     </ListGroup>
                                     <Button variant="contained" size="medium" color="primary" component={Link} to="" >Editar perfil</Button>
+                                    <br />
+                                    <br />
+                                    <Button variant="contained" size="medium" color="primary" component={Link} to="/c/subirDocumentos" >Subir Documentos</Button>
                                 </Card.Body>
                             </Card>
                         </Col>
