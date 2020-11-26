@@ -7,6 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { API_ROOT } from '../config/api-config';
 
 
 
@@ -19,8 +20,6 @@ export class CardViajesAgendados extends React.Component {
   }
 
   render(){
-    console.log("init key "+ this.props.key);
-    console.log("init state "+ this.state.key);
       return (
           <div>
                 <Card style={{width: 345, height: 600 }}>
@@ -60,7 +59,18 @@ export class CardViajesAgendados extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log(this.props.key);
+    const requestOptions = {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+    };
+    fetch(API_ROOT + '/DeleteViaje/' + this.state.key, requestOptions
+    )
+    .then(response => {
+        console.log(response);                                   
+    })
+    .catch(error => {
+        console.log(error);
+    });
   }
 }
 

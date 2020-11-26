@@ -51,7 +51,7 @@ class DriverHome extends Component {
                 let ofrecidosC = [];
                 data.forEach(function (viaje) {
                     ofrecidosC.push({
-                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos, "mapa": viaje.mapa, "ofrecido": viaje.ofrecido
                     })
                 });
                 this.setState({ ofrecidos: ofrecidosC });
@@ -63,7 +63,7 @@ class DriverHome extends Component {
                 let completadosP = [];
                 data.forEach(function (viaje) {
                     completadosP.push({
-                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos, "mapa": viaje.mapa, "ofrecido": viaje.ofrecido
                     })
                 });
                 this.setState({ completados: completadosP });
@@ -76,7 +76,7 @@ class DriverHome extends Component {
                 let AgendadosP = [];
                 data.forEach(function (viaje) {
                     AgendadosP.push({
-                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos, "mapa": viaje.mapa, "ofrecido": viaje.ofrecido
                     })
                 });
                 this.setState({ agendados: AgendadosP });
@@ -89,7 +89,7 @@ class DriverHome extends Component {
                 data.forEach(function (viaje) {
 
                     enCursoP.push({
-                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                        "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos, "mapa": viaje.mapa, "ofrecido": viaje.ofrecido
                     })
                 });
                 this.setState({ enCurso: enCursoP });
@@ -124,7 +124,7 @@ class DriverHome extends Component {
 
         const completadosList = this.state.completados.map((viaje) => {
             return (
-                <ListGroup.Item key={viaje.idViaje}> {viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+                <ListGroup.Item key={viaje.idViaje}> {viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')} calificacion: {viaje.calificacion}</ListGroup.Item>
             );
         });
         const ofrecidosList = this.state.ofrecidos.map((viaje) => {
@@ -135,7 +135,7 @@ class DriverHome extends Component {
         });
         const agendadosList = this.state.agendados.map((viaje) => {
             return (
-                <ListGroup.Item key={viaje.idViaje}> {viaje.ruta} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
+                <ListGroup.Item key={viaje.idViaje}> {viaje.ruta} pasajero: {viaje.pasajero} ${viaje.costo} fecha: {viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')}</ListGroup.Item>
             );
         });
 
@@ -183,6 +183,7 @@ class DriverHome extends Component {
                                 <Card.Body>
                                     <ListGroup>
                                         {enCursoList}
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="" >Ver Todos</Button>
                                     </ListGroup>
                                 </Card.Body>
                             </Card>
@@ -191,9 +192,8 @@ class DriverHome extends Component {
                                 <Card.Header as="h5">Viajes que Ofreces</Card.Header>
                                 <Card.Body>
                                     <ListGroup>
-                                        <TextField id="outlined-basic" label="¿A donde quieres ir?" variant="outlined" />
                                         {ofrecidosList}
-                                        <Button variant="contained" size="medium" color="primary" component={Link} to="" >Ver Todos</Button>
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/c/ofrecidos" >Ver Todos</Button>
                                     </ListGroup>
                                 </Card.Body>
                             </Card>
@@ -202,7 +202,7 @@ class DriverHome extends Component {
                                 <Card.Body>
                                     <ListGroup>
                                         {agendadosList}
-                                        <Button variant="contained" size="medium" color="primary" component={Link} to="" >Ver Todos</Button>
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/c/agendados" >Ver Todos</Button>
                                     </ListGroup>
                                 </Card.Body>
                             </Card>
@@ -212,7 +212,7 @@ class DriverHome extends Component {
                                 <Card.Body>
                                     <ListGroup>
                                         {completadosList}
-                                        <Button variant="contained" size="medium" color="primary" component={Link} to="" >Ver Todos</Button>
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/c/registros" >Ver Todos</Button>
                                     </ListGroup>
                                 </Card.Body>
                             </Card>

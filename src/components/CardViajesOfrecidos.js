@@ -27,10 +27,17 @@ export class CardViajesOfrecidos extends React.Component {
         mapa:this.props.mapa
     }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitIniciar = this.handleSubmitIniciar.bind(this);
+    this.handleSubmitCancelar = this.handleSubmitCancelar.bind(this);
   }
 
   render(){
-      console.log(this.props.fecha);
+    const conductor = () => (
+    <div>
+      <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmitIniciar}>Iniciar</Button>
+      <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmitCancelar}>Cancelar</Button>
+    </div>
+    );
       return (
           <div>
                 <Card style={{width: 345, height: 600 }}>
@@ -68,7 +75,9 @@ export class CardViajesOfrecidos extends React.Component {
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing style={{justifyContent: 'center'}}>
-                        <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmit}>Agendar</Button>
+                    {this.props.tipoUsuario === "pasajero" ?
+                        <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmit}>Agendar</Button>:
+                        conductor}
                 </CardActions>
                 </Card>
             </div>
@@ -88,17 +97,27 @@ export class CardViajesOfrecidos extends React.Component {
             tipoViaje:"AGENDADO",
             fecha:this.state.fecha,
             cupos:0,
-            mapa: this.state.mapa
+            mapa: this.state.mapa,
+            ofrecido: this.state.key
         })
     };
     fetch(API_ROOT + '/UpdateViaje/' + this.state.key, requestOptions
     )
     .then(response => {
+        alert("Viaje agendado");
         console.log(response);                                   
     })
     .catch(error => {
         console.log(error);
     });
+    }
+
+    handleSubmitIniciar(e){
+        alert("inicio viaje")
+    }
+
+    handleSubmitCancelar(e){
+        alert("si cancela")
     }
 
 }
