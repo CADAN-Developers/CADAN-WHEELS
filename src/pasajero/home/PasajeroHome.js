@@ -172,6 +172,9 @@ class PasajeroHome extends React.Component {
                                         <ListGroup.Item>{this.state.usuario.correo}</ListGroup.Item>
                                     </ListGroup>
                                     <Button variant="contained" size="medium" color="primary" component={Link} to="/p/actualizar" >Editar perfil</Button>
+                                    <br />
+                                    <br />
+                                    <Button variant="contained" size="medium" color="primary" component={Link} to="/p/subirCarnet" >Subir Documento</Button>
                                 </Card.Body>
                             </Card>
                         </Col>
