@@ -1,6 +1,11 @@
 
 import React, { useRef, useEffect } from "react";
 
+// config
+import { API_ROOT } from '../../config/api-config';
+
+// peticiones con AXIOS
+import axios from 'axios';
 
 
 // notificaciones
@@ -42,9 +47,47 @@ export default function Paypal(props) {
                     console.log(order.status);
                     console.log(order.status == "COMPLETED");
                     if (order.status == "COMPLETED") {
-                        toast.success('Has depositado $' + props.data.cantidad + ' USD en su cuenta');
+
                         props.data.aprobado = true
                         console.log(props);
+
+                        let usuario;
+
+                        // obtener datos usuario
+                        axios.get(API_ROOT + `/usuarios/` + sessionStorage.getItem("usuario"))
+                            .then(res => {
+                                let us = res.data;
+                                console.log("data");
+                                console.log(us);
+
+                                if (us) {
+                                    // actualizar saldo
+                                    console.log("saldo");
+                                    console.log(us.saldo);
+                                    console.log(props.data.cantidad);
+                                    us.saldo = parseInt(us.saldo) + parseInt(props.data.cantidad);
+                                    axios.put(API_ROOT + `/usuarios/`, { 1: us })
+                                        .then(res => {
+                                            console.log(res.data);
+                                            if (res.data) {
+                                                toast.success('Usuario Actualizado!');
+                                                toast.success('Has depositado $' + props.data.cantidad + ' USD en su cuenta');
+                                                
+                                            } else {
+                                                toast.error("Error, no se puedo añadir saldo")
+                                            }
+
+                                        })
+                                        .catch((err) => {
+                                            console.log(err)
+                                            toast.error("Error, no se puedo añadir saldo")
+                                        })
+                                }
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                                toast.error("Error en el servidor.")
+                            })
 
                     } else {
                         toast.error('Ha ocurrido un error al pagar')

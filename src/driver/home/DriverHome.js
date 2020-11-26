@@ -107,7 +107,6 @@ class DriverHome extends Component {
                 if (us) {
 
                     this.setState({ usuario: us });
-                    toast.success("Bienvenido "+us.nombre);
                 }
             })
             .catch((err) => {

@@ -97,7 +97,6 @@ class PasajeroHome extends React.Component {
                 if (us) {
 
                     this.setState({ usuario: us });
-                    toast.success("Bienvenido " + us.nombre);
                 }
             })
             .catch((err) => {
