@@ -8,6 +8,7 @@ import AgendadosDriver from './driver/home/AgendadosDriver';
 import EnCursoDriver from './driver/home/EnCursoDriver';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
+import UploadCarnetPasajero from './pasajero/home/UploadCarnetPasajero'
 import RecordsPasajero from './pasajero/home/RecordsPasajero'
 import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
 // import Login from './components/Login'
@@ -85,8 +86,7 @@ class App extends Component {
               <Route path="/iniciar" component={Login2} />
               <Route path="/registrar" component={Registrar2} />
               <Route path="/map" component={MapView} />
-              <Route path="/subirImagenes" component={UploadImagenes} />
-
+              
               {/* conductor (si es conductor poner antes /c/ y la pagina que se desee)*/}
               <Route path="/conductor" component={DriverHome} />
               <Route path="/c/vehiculos" component={VehiculosView} />
@@ -96,12 +96,15 @@ class App extends Component {
               <Route path="/c/enCurso" component={EnCursoDriver} />
               
 
+
+              <Route path="/c/subirDocumentos" component={UploadImagenes} />
               {/* pasajero (si es pasajero poner antes /p/ y la pagina que se desee)*/}
               <Route path="/pasajero" component={PasajeroHome} />
               <Route path="/p/actualizar" component={UpdatePasajero} />
               <Route path="/p/registros" component={RecordsPasajero} />
               <Route path="/p/ofrecidos" component={OfrecidosPasajero} />
               <Route path="/p/agendados" component={AgendadosPasajero} />
+              <Route path="/p/subirCarnet" component={UploadCarnetPasajero} />
               
             </Switch>
           </div>
