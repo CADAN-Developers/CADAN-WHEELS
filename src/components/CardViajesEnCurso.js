@@ -13,7 +13,7 @@ import moment from "moment";
 // config
 import { API_ROOT } from '../config/api-config';
 
-export class CardViajesOfrecidos extends React.Component {
+export class CardViajesEnCurso extends React.Component {
 
   constructor(props) {
     super(props);
@@ -27,7 +27,7 @@ export class CardViajesOfrecidos extends React.Component {
         mapa:this.props.mapa
     }
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSubmitCancelar = this.handleSubmitCancelar.bind(this);
+    this.handleSubmitFinalizar = this.handleSubmitFinalizar.bind(this);
   }
 
   render(){
@@ -69,8 +69,8 @@ export class CardViajesOfrecidos extends React.Component {
                 </CardContent>
                 <CardActions disableSpacing style={{justifyContent: 'center'}}>
                     {this.props.tipoUsuario === "pasajero" ?
-                        <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmit}>Agendar</Button>:
-                        <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmitCancelar}>Cancelar</Button>}
+                        <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmit}>Calificar</Button>:
+                        <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmitFinalizar}>Finalizar</Button>}
                 </CardActions>
                 </Card>
             </div>
@@ -78,47 +78,37 @@ export class CardViajesOfrecidos extends React.Component {
   }
 
   handleSubmit(e) {
-    const requestOptions = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            pasajero: sessionStorage.getItem("usuario"),
-            conductor:this.state.conductor,
-            ruta:this.state.ruta,
-            costo:this.state.costo,
-            calificacion:this.state.calificacion,
-            tipoViaje:"AGENDADO",
-            fecha:this.state.fecha,
-            cupos:0,
-            mapa: this.state.mapa,
-            ofrecido: this.state.key
-        })
-    };
-    fetch(API_ROOT + '/UpdateViaje/' + this.state.key, requestOptions
-    )
-    .then(response => {
-        alert("Viaje agendado");
-        console.log(response);                                   
-    })
-    .catch(error => {
-        console.log(error);
-    });
+    console.log("entro a calificar")
     }
-    handleSubmitCancelar(e){
+    handleSubmitFinalizar(e){
         const requestOptions = {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' }
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                pasajero: this.state.conductor,
+                conductor:sessionStorage.getItem("usuario"),
+                ruta:this.state.ruta,
+                costo:this.state.costo,
+                calificacion:this.state.calificacion,
+                tipoViaje:"COMPLETADO",
+                fecha:this.state.fecha,
+                cupos:0,
+                mapa: this.state.mapa,
+                ofrecido: this.state.key
+            })
         };
-        fetch(API_ROOT + '/DeleteViaje/' + this.state.key, requestOptions
+    
+        fetch(API_ROOT + '/UpdateViaje/' + this.state.key, requestOptions
         )
         .then(response => {
+            alert("Viaje Iniciado");
             console.log(response);                                   
         })
         .catch(error => {
             console.log(error);
         });
-      }
+        }
 
 }
 
-export default CardViajesOfrecidos;
+export default CardViajesEnCurso;

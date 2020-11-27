@@ -8,6 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { API_ROOT } from '../config/api-config';
+import moment from "moment";
 
 
 
@@ -15,8 +16,17 @@ export class CardViajesAgendados extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {key:this.props.idViaje}
+    this.state = {key:this.props.idViaje,  
+        conductor:this.props.name,
+        ruta:this.props.description,
+        costo:this.props.cost,
+        calificacion:this.props.calificacion,
+        fecha:this.props.date,
+        cupos:this.props.calificacion,
+        mapa:this.props.mapa
+    }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitIniciar = this.handleSubmitIniciar.bind(this);
   }
 
   render(){
@@ -28,8 +38,8 @@ export class CardViajesAgendados extends React.Component {
                     <Avatar aria-label="recipe" src={this.props.driver}>
                     </Avatar>
                     }
-                    title= {this.props.name}
-                    subheader= {this.props.date}
+                    title= {this.state.conductor}
+                    subheader= {moment(this.state.fecha).format('DD-MM-YYYY, h:mm:ss a')}
                 />
                 <CardMedia
                     style={{height: 200}}
@@ -41,17 +51,26 @@ export class CardViajesAgendados extends React.Component {
                         Descripcion
                     </Typography>
                     <Typography variant="subtitle1" gutterBottom>
-                        {this.props.description}
+                        {this.state.ruta}
                     </Typography>
                     <Typography variant="h6" gutterBottom>
                         Costo
                     </Typography>
                     <Typography variant="subtitle1" gutterBottom>
-                        {this.props.cost}
+                        {this.state.costo}
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing style={{justifyContent: 'center'}}>
+                {this.props.tipoUsuario === "pasajero" ?        
                         <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmit}>Cancelar</Button>
+                        :
+                        <div>
+                            <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmitIniciar}>Iniciar</Button>
+                            <br/>
+                            <br/>
+                            <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmit}>Cancelar</Button>
+                        </div>
+                }        
                 </CardActions>
                 </Card>
             </div>
@@ -72,6 +91,35 @@ export class CardViajesAgendados extends React.Component {
         console.log(error);
     });
   }
+
+  handleSubmitIniciar(e){
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            pasajero: this.state.conductor,
+            conductor:sessionStorage.getItem("usuario"),
+            ruta:this.state.ruta,
+            costo:this.state.costo,
+            calificacion:this.state.calificacion,
+            tipoViaje:"EN_CURSO",
+            fecha:this.state.fecha,
+            cupos:0,
+            mapa: this.state.mapa,
+            ofrecido: this.state.key
+        })
+    };
+
+    fetch(API_ROOT + '/UpdateViaje/' + this.state.key, requestOptions
+    )
+    .then(response => {
+        alert("Viaje Iniciado");
+        console.log(response);                                   
+    })
+    .catch(error => {
+        console.log(error);
+    });
+    }
 }
 
 export default CardViajesAgendados;
