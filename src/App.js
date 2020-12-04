@@ -29,7 +29,9 @@ import UploadImagenes from './components/imagenesDocumentos/UploadImagenes';
 // version 2 
 import Login2 from './components/login/Login';
 import Registrar2 from "./components/registrar/Registrar";
+// chat implementation
 
+import ChatTrip from "./components/chat/ChatTrip";
 
 class App extends Component {
 
@@ -102,6 +104,10 @@ class App extends Component {
               <Route path="/p/ofrecidos" component={OfrecidosPasajero} />
               <Route path="/p/agendados" component={AgendadosPasajero} />
               <Route path="/p/subirCarnet" component={UploadCarnetPasajero} />
+              {/* vista chat para pruebas)*/}
+              <Route path="/test/chat" component={ChatTrip} />
+
+              
               
             </Switch>
           </div>
