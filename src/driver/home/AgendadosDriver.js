@@ -8,7 +8,7 @@ import moment from "moment";
 // config
 import { API_ROOT } from '../../config/api-config';
 
-export class AgendadosPasajero extends React.Component {
+export class AgendadosDriver extends React.Component {
 
     constructor(props) {
         super(props);
@@ -19,7 +19,7 @@ export class AgendadosPasajero extends React.Component {
     }
 
     componentDidMount(){
-        fetch(API_ROOT + '/AgenadosPas/' + sessionStorage.getItem("usuario"))
+        fetch(API_ROOT + '/AgenadosCon/' + sessionStorage.getItem("usuario"))
                 .then(response => response.json())
                 .then(data => {
                     let AgendadosP = [];
@@ -37,14 +37,14 @@ export class AgendadosPasajero extends React.Component {
     render() {
         const agendadosList = this.state.agendados.map((viaje) => {
             return (
-            <CardViajesAgendados key={viaje.idViaje} idViaje={viaje.idViaje} driver={this.state.foto} name={viaje.conductor} date={viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')} map={this.state.map} description={viaje.ruta} cost={viaje.costo} rating={viaje.calificacion} mapa= {viaje.mapa} idOfrecido= {viaje.idOfrecido}/>
+            <CardViajesAgendados key={viaje.idViaje} idViaje={viaje.idViaje} driver={this.state.foto} name={viaje.pasajero} date={viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')} map={this.state.map} description={viaje.ruta} cost={viaje.costo} rating={viaje.calificacion} mapa= {viaje.mapa} idOfrecido= {viaje.idOfrecido}/>
             );
         });
 
         
         return (
             <div>
-                <Navigation tipoUsuario="Passenger" />
+                <Navigation tipoUsuario="Driver" />
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Grid container justify="center" spacing={3}>
@@ -64,4 +64,4 @@ export class AgendadosPasajero extends React.Component {
 
 }
 
-export default AgendadosPasajero;
+export default AgendadosDriver;

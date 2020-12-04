@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import moment from "moment";
 import './App.css';
 import DriverHome from './driver/home/DriverHome';
+import RecordsDriver from './driver/home/RecordsDriver';
+import OfrecidosDriver from './driver/home/OfrecidosDriver';
+import AgendadosDriver from './driver/home/AgendadosDriver';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
+import UploadCarnetPasajero from './pasajero/home/UploadCarnetPasajero'
 import RecordsPasajero from './pasajero/home/RecordsPasajero'
 import FormVehiculo from './driver/registroVehiculo/FormVehiculo'
-import Login from './components/Login'
-import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
-import axios from 'axios';
+// import Login from './components/Login'
+// import RegistroUsuario from "./pasajero/registroUsuario/RegistroUsuario";
 
 import OfrecidosPasajero from './pasajero/home/OfrecidosPasajero'
 import AgendadosPasajero from './pasajero/home/AgendadosPasajero'
@@ -47,11 +50,11 @@ class App extends Component {
             </div>
         );
 
-        const loginView = () => (
-            <div>
-                <Login handleClick={this.handleClick} />
-            </div>
-        );
+        // const loginView = () => (
+        //     <div>
+        //         <Login handleClick={this.handleClick} />
+        //     </div>
+        // );
 
         const pasView = () => (
             <div>
@@ -59,7 +62,7 @@ class App extends Component {
             </div>
         );
 
-        const vistaprevia = this.state.isLog ? pasView : loginView
+        // const vistaprevia = this.state.isLog ? pasView : loginView
         
     return (
       <div className="App">
@@ -74,26 +77,31 @@ class App extends Component {
               <Route path="/dialog" component={EjemploDialog} />
               
               {/* version 2 */}
-              <Route path="/loginv2" component={Login2} />
-              <Route path="/registrarv2" component={Registrar2} />
+              {/* <Route path="/loginv2" component={Login2} />
+              <Route path="/registrarv2" component={Registrar2} /> */}
 
               
-              <Route exact path="/" component={vistaprevia} />
-              <Route path="/iniciar" component={Login} />
-              <Route path="/registrar" component={RegistroUsuario} />
+              <Route exact path="/" component={Login2} />
+              <Route path="/iniciar" component={Login2} />
+              <Route path="/registrar" component={Registrar2} />
               <Route path="/map" component={MapView} />
-              <Route path="/subirImagenes" component={UploadImagenes} />
-
+              
               {/* conductor (si es conductor poner antes /c/ y la pagina que se desee)*/}
               <Route path="/conductor" component={DriverHome} />
               <Route path="/c/vehiculos" component={VehiculosView} />
+              <Route path="/c/registros" component={RecordsDriver} />
+              <Route path="/c/ofrecidos" component={OfrecidosDriver} />
+              <Route path="/c/agendados" component={AgendadosDriver} />
 
+
+              <Route path="/c/subirDocumentos" component={UploadImagenes} />
               {/* pasajero (si es pasajero poner antes /p/ y la pagina que se desee)*/}
               <Route path="/pasajero" component={PasajeroHome} />
               <Route path="/p/actualizar" component={UpdatePasajero} />
               <Route path="/p/registros" component={RecordsPasajero} />
               <Route path="/p/ofrecidos" component={OfrecidosPasajero} />
               <Route path="/p/agendados" component={AgendadosPasajero} />
+              <Route path="/p/subirCarnet" component={UploadCarnetPasajero} />
               
             </Switch>
           </div>

@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 
+import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { Route, Redirect } from 'react-router-dom';
@@ -46,8 +47,8 @@ const useStyles = makeStyles((theme) => ({
     },
     form: {
         '& > *': {
-            margin: theme.spacing(4),
-            width: '35ch',
+            margin: theme.spacing(1),
+
         },
     },
 }));
@@ -74,12 +75,12 @@ export default function RegistrarTab() {
         showPassword: false,
         tipoUsuario: '',
         nombre: '',
-        apellido: '',
+        apellidos: '',
         tipoDocumento: '',
         documento: '',
         universidad: '',
         carne: '',
-        foto: "https://firebasestorage.googleapis.com/v0/b/cadanwheels-7fd31.appspot.com/o/carn%C3%A9s%2Fme.png?alt=media&token=f2473d4a-2db2-47ba-8e07-c8a077724e81"
+        foto: "https://www.webespacio.com/wp-content/uploads/2010/12/perfil-facebook.jpg"
     });
 
     const handleChange = (prop) => (event) => {
@@ -151,19 +152,19 @@ export default function RegistrarTab() {
                 />
             </FormControl>
 
-            {/* campo apellido */}
+            {/* campo apellidos */}
             <FormControl margin="normal" >
-                <InputLabel htmlFor="apellido">Apellido</InputLabel>
+                <InputLabel htmlFor="apellidos">apellidos</InputLabel>
                 <Input
-                    id="apellido"
-                    value={values.apellido}
+                    id="apellidos"
+                    value={values.apellidos}
                     type='text'
-                    onChange={handleChange('apellido')}
+                    onChange={handleChange('apellidos')}
                 />
             </FormControl>
 
             {/* campo correo */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="correo">Correo</InputLabel>
                 <Input
                     id="correo"
@@ -175,7 +176,7 @@ export default function RegistrarTab() {
             </FormControl>
 
             {/* campo telefono */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="telefono">Teléfono</InputLabel>
                 <Input
                     id="telefono"
@@ -203,7 +204,7 @@ export default function RegistrarTab() {
           
 
             {/* campo documento */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="documento">Documento</InputLabel>
                 <Input
                     id="documento"
@@ -214,7 +215,7 @@ export default function RegistrarTab() {
             </FormControl>
 
             {/* campo universidad */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="universidad">Universidad</InputLabel>
                 <Input
                     id="universidad"
@@ -225,7 +226,7 @@ export default function RegistrarTab() {
             </FormControl>
 
             {/* campo carne */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="carne">Carné</InputLabel>
                 <Input
                     id="carne"
@@ -234,6 +235,7 @@ export default function RegistrarTab() {
                     onChange={handleChange('carne')}
                 />
             </FormControl>
+
 
             {/*  
             <FormControl fullWidth margin="normal" >
@@ -247,7 +249,7 @@ export default function RegistrarTab() {
             </FormControl>  */}
 
             {/* campo contraseña */}
-            <FormControl fullWidth margin="normal" >
+            <FormControl margin="normal" >
                 <InputLabel htmlFor="clave">Contraseña</InputLabel>
                 <Input
                     id="clave"
@@ -274,65 +276,68 @@ export default function RegistrarTab() {
     return (
         <div className={classes.root}>
             <Navigation tipoUsuario="None" />
+            <Grid alignContent="center" container spacing={0}>
 
-            <div id="container-full">
-                <Container  >
-                    <div id="tabContent">
+                <Grid item xs>
+                    <Container maxWidth="md" >
+                        <br></br>
+                        <div id="tabContent">
 
-                        <TabContext value={value}>
-                            <AppBar position="static">
-                                <TabList centered onChange={handleChangeTab} aria-label="simple tabs example">
-                                    <Tab label="PASAJERO" value="1" />
-                                    <Tab label="CONDUCTOR" value="2" />
-                                </TabList>
-                            </AppBar>
-                            <TabPanel value="1">
-                                {/* REGISTRARSE COMO PASAJERO */}
-                                <Chip
-                                    icon={<FaceIcon />}
-                                    label="Te vas a registrar como Pasajero"
-                                    color="primary"
-                                />
-                                <hr></hr>
-                                {contenido}
-
-
-                            </TabPanel>
-                            <TabPanel value="2">
-                                {/* REGISTRARSE COMO CONDUCTOR */}
-                                <Chip
-                                    icon={<FaceIcon />}
-                                    label="Te vas a registrar como Conductor"
-                                    color="secondary"
-                                />
-                                <hr></hr>
-                                {contenido}
-
-                            </TabPanel>
-                        </TabContext>
-
-                        <Button fullWidth variant="contained" color="primary" onClick={handleIniciar}>Registrarse</Button>
-
-                        {isRegister ?
-                            <Route>
-                                <Redirect
-                                    to={{
-                                        pathname: "/" + url,
-                                        search: "?cooreo=" + values.correo
-                                    }}
-                                />
-
-                            </Route>
-                            :
-                            null
-                        }
-
-                    </div>
+                            <TabContext value={value}>
+                                <AppBar position="static">
+                                    <TabList centered onChange={handleChangeTab} aria-label="simple tabs example">
+                                        <Tab label="PASAJERO" value="1" />
+                                        <Tab label="CONDUCTOR" value="2" />
+                                    </TabList>
+                                </AppBar>
+                                <TabPanel value="1">
+                                    {/* REGISTRARSE COMO PASAJERO */}
+                                    <Chip
+                                        icon={<FaceIcon />}
+                                        label="Te vas a registrar como Pasajero"
+                                        color="primary"
+                                    />
+                                    <hr></hr>
+                                    {contenido}
 
 
+                                </TabPanel>
+                                <TabPanel value="2">
+                                    {/* REGISTRARSE COMO CONDUCTOR */}
+                                    <Chip
+                                        icon={<FaceIcon />}
+                                        label="Te vas a registrar como Conductor"
+                                        color="secondary"
+                                    />
+                                    <hr></hr>
+                                    {contenido}
 
-                </Container>
-            </div>
+                                </TabPanel>
+                            </TabContext>
+
+                            <Button fullWidth variant="contained" color="primary" onClick={handleIniciar}>Registrarse</Button>
+
+                            {isRegister ?
+                                <Route>
+                                    <Redirect
+                                        to={{
+                                            pathname: "/" + url,
+                                            search: "?cooreo=" + values.correo
+                                        }}
+                                    />
+
+                                </Route>
+                                :
+                                null
+                            }
+
+                        </div>
+
+
+
+                    </Container>
+                </Grid>
+            </Grid>
 
             <ToastContainer />
             <Footer />

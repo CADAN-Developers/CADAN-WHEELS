@@ -10,11 +10,9 @@ export class Todo extends React.Component{
         <Card style={{marginTop: "10px"}}>
             <CardContent>
                 <p> Marca: {this.props.marca}</p>
-                
                 <p> Placa:{this.props.placa}</p>
                 <p>Color: {this.props.color}</p>
                 <p> Capacidad: {this.props.capacidad}</p>
-                <p>Fecha de expedicion soat: {this.props.fechaSoat}</p>
             </CardContent>
         </Card>
       </Container>

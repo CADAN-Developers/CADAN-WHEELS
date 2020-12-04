@@ -5,6 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import moment from "moment";
 
+// config
+import { API_ROOT } from '../../config/api-config';
+
 export class RecordsPasajero extends React.Component {
 
     constructor(props) {
@@ -16,13 +19,13 @@ export class RecordsPasajero extends React.Component {
     }
 
     componentDidMount(){
-        fetch('https://cadanback.herokuapp.com/Realizados/' + sessionStorage.getItem("usuario"))
+        fetch(API_ROOT + '/Realizados/' + sessionStorage.getItem("usuario"))
                 .then(response => response.json())
                 .then(data => {
                     let completadosP = [];
                     data.forEach(function (viaje) {
                         completadosP.push({
-                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos
+                            "idViaje": viaje.idViaje, "pasajero": viaje.pasajero, "conductor": viaje.conductor, "ruta": viaje.ruta, "costo": viaje.costo, "calificacion": viaje.calificacion, "tipoViaje": viaje.tipoViaje, "fecha": moment(viaje.fecha), "cupos": viaje.cupos ,"mapa": viaje.mapa, "ofrecido": viaje.ofrecido
                         })
                     });
                     this.setState({completados:completadosP});
