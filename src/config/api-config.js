@@ -4,6 +4,7 @@ const apiVersion = "v1";
 
 const hostname = window && window.location && window.location.hostname;
 
+
 if(hostname === 'cadanback.herokuapp.com') {
   backendHost = 'https://cadanback.herokuapp.com';
 } else if(hostname === 'staging.realsite.com') {
