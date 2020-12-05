@@ -23,8 +23,21 @@ export class CardViajes extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {value:3}
+    this.state = {key:this.props.idViaje,  
+        conductor:this.props.name,
+        ruta:this.props.description,
+        costo:this.props.cost,
+        calificacion:this.props.calificacion,
+        fecha:this.props.date,
+        cupos:this.props.calificacion,
+        mapa:this.props.mapa,
+        open: false,
+        value : this.props.calificacion
+    }
     this.handleRateChange = this.handleRateChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleCalificar = this.handleCalificar.bind(this);
   }
 
   render(){
@@ -69,18 +82,86 @@ export class CardViajes extends React.Component {
                         onChange={this.handleRateChange}
                         />
                     </Box>
+                    {this.props.tipoUsuario === "pasajero" ?
+                        <Button variant="contained" size="medium" color="primary" onClick = {this.handleSubmit}>Calificar</Button>:
+                        <div></div>}
                 </CardActions>
                 </Card>
+        <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Califica</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Califica tu experiencia en tu viaje.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+        <Box component="fieldset" mb={3} borderColor="transparent">
+                        <Typography component="legend">Calificacion tu viaje</Typography>
+                        <Rating
+                        name="read-only"
+                        defaultValue={this.state.calificacion}
+                        precision={0.5} 
+                        onChange={this.handleRateChange}
+                        />
+                    </Box>
+          <Button onClick={this.handleCalificar} color="primary">
+            Confirmar
+          </Button>
+          <Button onClick={this.handleClose} color="primary">
+            Cancelar
+          </Button>
+        </DialogActions>
+      </Dialog>
             </div>
       );
   }
 
   handleRateChange(e) {
-    console.log(e.target.value);
     this.setState({
         value: e.target.value
     });
   }
+
+  handleSubmit(e){
+    this.setState({open:true});
+  }
+
+  handleClose(e){
+    this.setState({open:false});
+  }
+
+  handleCalificar(e){
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            pasajero: sessionStorage.getItem("usuario"),
+            conductor:this.state.conductor,
+            ruta:this.state.ruta,
+            costo:this.state.costo,
+            calificacion:this.state.value,
+            tipoViaje:"COMPLETADO",
+            fecha:this.state.fecha,
+            cupos:0,
+            mapa: this.state.mapa,
+            ofrecido: this.state.key
+        })
+    };
+
+    fetch(API_ROOT + '/UpdateViaje/' + this.state.key, requestOptions
+    )
+    .then(response => {
+        alert("Califiacion Guardada");
+        console.log(response);                                   
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+    this.setState({open:false});
+
+  }
+
 }
 
 export default CardViajes;

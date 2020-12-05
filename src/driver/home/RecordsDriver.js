@@ -37,7 +37,7 @@ export class RecordsDriver extends React.Component {
     render() {
         const completadosList = this.state.completados.map((viaje) => {
             return (
-            <CardViajes key={viaje.idViaje} driver={this.state.foto} name={viaje.pasajero} date={viaje.fecha.format('DD-MM-YYYY, h:mm:ss a')} map={this.state.map} description={viaje.ruta} cost={viaje.costo} rating={viaje.calificacion} />
+            <CardViajes key={viaje.idViaje} tipoUsuario="Driver" idViaje={viaje.idViaje} driver={this.state.foto} name={viaje.conductor} date={viaje.fecha} map={this.state.map} description={viaje.ruta} cost={viaje.costo} rating={viaje.calificacion} cupos={viaje.cupos} mapa={viaje.mapa} />
             );
         });
 
