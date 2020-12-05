@@ -5,6 +5,7 @@ import DriverHome from './driver/home/DriverHome';
 import RecordsDriver from './driver/home/RecordsDriver';
 import OfrecidosDriver from './driver/home/OfrecidosDriver';
 import AgendadosDriver from './driver/home/AgendadosDriver';
+import EnCursoDriver from './driver/home/EnCursoDriver';
 import PasajeroHome from './pasajero/home/PasajeroHome'
 import UpdatePasajero from './pasajero/home/UpdatePasajero'
 import UploadCarnetPasajero from './pasajero/home/UploadCarnetPasajero'
@@ -94,6 +95,8 @@ class App extends Component {
               <Route path="/c/registros" component={RecordsDriver} />
               <Route path="/c/ofrecidos" component={OfrecidosDriver} />
               <Route path="/c/agendados" component={AgendadosDriver} />
+              <Route path="/c/enCurso" component={EnCursoDriver} />
+              
 
 
               <Route path="/c/subirDocumentos" component={UploadImagenes} />

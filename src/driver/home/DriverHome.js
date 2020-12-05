@@ -182,7 +182,7 @@ class DriverHome extends Component {
                                 <Card.Body>
                                     <ListGroup>
                                         {enCursoList}
-                                        <Button variant="contained" size="medium" color="primary" component={Link} to="" >Ver Todos</Button>
+                                        <Button variant="contained" size="medium" color="primary" component={Link} to="/c/enCurso" >Ver Todos</Button>
                                     </ListGroup>
                                 </Card.Body>
                             </Card>
